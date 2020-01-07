@@ -1,0 +1,2 @@
+include 'kineticstreamer'
+include 'kineticstreamer.tests'
