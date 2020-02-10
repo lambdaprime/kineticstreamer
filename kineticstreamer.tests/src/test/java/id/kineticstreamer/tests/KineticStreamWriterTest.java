@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import id.kineticstreamer.KineticStreamWriter;
 import id.kineticstreamer.tests.utils.OutputStreamCollector;
 
-public class MessageSerializeTest {
+public class KineticStreamWriterTest {
 
     @Test
     public void test() {
