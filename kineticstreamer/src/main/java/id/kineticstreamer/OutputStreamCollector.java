@@ -1,4 +1,4 @@
-package id.kineticstreamer.tests.utils;
+package id.kineticstreamer;
 
 import java.io.IOException;
 import java.io.OutputStream;

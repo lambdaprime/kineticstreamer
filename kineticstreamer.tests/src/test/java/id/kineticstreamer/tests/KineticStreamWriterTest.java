@@ -7,7 +7,7 @@ import java.io.DataOutputStream;
 import org.junit.jupiter.api.Test;
 
 import id.kineticstreamer.KineticStreamWriter;
-import id.kineticstreamer.tests.utils.OutputStreamCollector;
+import id.kineticstreamer.OutputStreamCollector;
 
 public class KineticStreamWriterTest {
 
