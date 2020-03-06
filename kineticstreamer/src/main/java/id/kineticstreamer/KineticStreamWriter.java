@@ -1,16 +1,14 @@
 package id.kineticstreamer;
 
-import java.io.DataOutput;
-
 import id.kineticstreamer.utils.KineticUtils;
 import id.xfunction.function.Unchecked;
 
 public class KineticStreamWriter {
 
-    private DataOutput out;
+    private KineticDataOutput out;
     private KineticUtils utils = new KineticUtils();
 
-    public KineticStreamWriter(DataOutput out) {
+    public KineticStreamWriter(KineticDataOutput out) {
         this.out = out;
     }
 
@@ -22,7 +20,7 @@ public class KineticStreamWriter {
 
     private void writeFieldValue(Object f) throws Exception {
         switch (f.getClass().getName()) {
-        case "java.lang.String": out.writeBytes((String)f); break;
+        case "java.lang.String": out.writeString((String)f); break;
         case "java.lang.Integer": out.writeInt((Integer)f); break;
         default: System.out.println(f.getClass().getName());
         }
