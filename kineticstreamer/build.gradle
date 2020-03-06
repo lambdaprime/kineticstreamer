@@ -7,7 +7,7 @@ plugins {
 repositories {
     mavenCentral()
 }
- 
+
 sourceCompatibility = '11'
 targetCompatibility = '11'
 
@@ -24,15 +24,32 @@ compileJava {
     }
 }
 
-task createRelease(type: Copy) {
-    def out = 'release'
+def releaseFileName = "${rootProject.name}-${version}.zip"
+def releaseDir = "$projectDir/release"
+def releaseOutDir = "${buildDir}/release/${rootProject.name}"
+
+task copyLibs(type: Copy) {
+    from "$projectDir/libs"
     from jar.archiveFile
-    into out
+    into "${releaseOutDir}/libs"
+}
+
+task createRelease(type: Copy, dependsOn: copyLibs) {
+    from "${project.rootDir}/README.md"
+    into "${releaseOutDir}"
+}
+
+task packageDistribution(type: Zip) {
+    archiveFileName = releaseFileName
+    destinationDirectory = file("$projectDir/release")
+    from file("$releaseOutDir")
 }
 
 task cleanRelease(type: Delete) {
-    delete "$projectDir/release"
+    delete "$releaseDir"
+    delete "$releaseOutDir"
 }
 
-assemble.dependsOn createRelease
+packageDistribution.dependsOn createRelease
+build.dependsOn packageDistribution
 clean.dependsOn cleanRelease
