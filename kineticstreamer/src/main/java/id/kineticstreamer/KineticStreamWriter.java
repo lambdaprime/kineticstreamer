@@ -1,31 +1,21 @@
 package id.kineticstreamer;
 
 import java.io.DataOutput;
-import java.util.Arrays;
 
-import id.kineticstreamer.annotations.Streamed;
+import id.kineticstreamer.utils.KineticUtils;
 import id.xfunction.function.Unchecked;
 
-/**
- * ddddddddddd
- */
 public class KineticStreamWriter {
 
     private DataOutput out;
+    private KineticUtils utils = new KineticUtils();
 
-    /**
-     * ddddddddddd
-     */
     public KineticStreamWriter(DataOutput out) {
         this.out = out;
     }
 
-    /**
-     * ddddddddddd
-     */
     public void write(Object b) {
-        Arrays.stream(b.getClass().getFields())
-            .filter(f -> f.getAnnotationsByType(Streamed.class) != null)
+        utils.findStreamedFields(b)
             .map(f -> Unchecked.runUnchecked(() -> f.get(b)))
             .forEach(Unchecked.wrapAccept(this::writeFieldValue));
     }
