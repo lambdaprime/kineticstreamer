@@ -12,6 +12,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import id.kineticstreamer.DefaultKineticDataOutput;
 import id.kineticstreamer.KineticStreamWriter;
 import id.kineticstreamer.OutputStreamCollector;
+import id.kineticstreamer.tests.streamed.Book;
+import id.kineticstreamer.tests.streamed.StringMessage;
 
 public class KineticStreamWriterTest {
 

@@ -1,4 +1,4 @@
-package id.kineticstreamer.tests;
+package id.kineticstreamer.tests.streamed;
 
 import id.kineticstreamer.annotations.Streamed;
 
