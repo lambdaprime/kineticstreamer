@@ -1,3 +1,7 @@
+/*
+ * Copyright 2020 lambdaprime
+ */
+
 package id.kineticstreamer.tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,7 +24,7 @@ public class KineticStreamWriterTest {
     static Stream<List> dataProvider() {
         return Stream.of(
             List.of(new StringMessage("hello"), "05, 00, 00, 00, 68, 65, 6c, 6c, 6f"),
-            List.of(new Book("Philip Dick", 15), "0b, 00, 00, 00, 50, 68, 69, 6c, 69, 70, 20, 44, 69, 63, 6b, 00, 00, 00, 0f")
+            List.of(new Book("Philip Dick", 15, 11), "0b, 00, 00, 00, 50, 68, 69, 6c, 69, 70, 20, 44, 69, 63, 6b, 00, 00, 00, 0f, 00, 00, 00, 0b")
         );
     }
 
