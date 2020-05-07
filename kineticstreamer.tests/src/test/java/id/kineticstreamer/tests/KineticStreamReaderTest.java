@@ -32,7 +32,6 @@ public class KineticStreamReaderTest {
     @ParameterizedTest
     @MethodSource("dataProvider")
     public void test(List testData) throws Exception {
-        var b = testData.get(0);
         var collector = new InputStreamByteList((String)testData.get(0));
         var dis = new DefaultKineticDataInput(new DataInputStream(collector));
         var ks = new KineticStreamReader(dis);

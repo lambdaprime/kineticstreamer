@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public interface KineticDataInput {
 
-    int readeLen() throws IOException;
+    int readLen() throws IOException;
     String readString() throws IOException;
     int readInt() throws IOException;
 
