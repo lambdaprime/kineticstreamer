@@ -14,7 +14,7 @@ public class KineticStreamWriter {
 
     public void write(Object b) {
         utils.findStreamedFields(b)
-            .map(f -> Unchecked.runUnchecked(() -> f.get(b)))
+            .map(f -> Unchecked.get(() -> f.get(b)))
             .forEach(Unchecked.wrapAccept(this::writeFieldValue));
     }
 
