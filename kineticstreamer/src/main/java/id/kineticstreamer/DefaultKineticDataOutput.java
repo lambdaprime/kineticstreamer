@@ -31,4 +31,14 @@ public class DefaultKineticDataOutput implements KineticDataOutput {
         out.writeInt(i);
     }
 
+    @Override
+    public void writeDouble(Double f) throws IOException {
+        out.writeDouble(f);
+    }
+
+    @Override
+    public void writeFloat(Float f) throws IOException {
+        out.writeFloat(f);
+    }
+
 }

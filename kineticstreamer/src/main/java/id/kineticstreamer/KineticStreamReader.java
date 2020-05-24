@@ -24,11 +24,16 @@ public class KineticStreamReader {
     }
 
     private void readValue(Object o, Field field) throws Exception {
-        switch (field.getType().getName()) {
+        var type = field.getType().getName();
+        switch (type) {
         case "java.lang.String": field.set(o, in.readString()); break;
-        case "java.lang.Integer":
-        case "int": field.set(o, in.readInt()); break;
-        default: System.out.println(field.getClass().getName());
+        case "int":
+        case "java.lang.Integer": field.set(o, in.readInt()); break;
+        case "float":
+        case "java.lang.Float": field.set(o, in.readFloat()); break;
+        case "double":
+        case "java.lang.Double": field.set(o, in.readDouble()); break;
+        default: throw new RuntimeException("Unknown type: " + type);
         }
     }
 }

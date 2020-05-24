@@ -24,8 +24,8 @@ public class KineticStreamReaderTest {
     static Stream<List> dataProvider() {
         return Stream.of(
             List.of("05, 00, 00, 00, 68, 65, 6c, 6c, 6f", new StringMessage("hello")),
-            List.of("0b, 00, 00, 00, 50, 68, 69, 6c, 69, 70, 20, 44, 69, 63, 6b, 00, 00, 00, 0f, 00, 00, 00, 0b",
-                new Book("Philip Dick", 15, 11))
+            List.of("0b, 00, 00, 00, 50, 68, 69, 6c, 69, 70, 20, 44, 69, 63, 6b, 41, 78, 00, 00, 00, 00, 00, 0b, 40, 3f, 66, 66, 66, 66, 66, 66",
+                new Book("Philip Dick", 15.5F, 31.4, 11))
         );
     }
 
@@ -38,6 +38,7 @@ public class KineticStreamReaderTest {
         Object expected = testData.get(1);
         Object actual = expected.getClass().getConstructor().newInstance();
         ks.read(actual);
+        System.out.println(actual);
         assertEquals(expected, actual);
     }
 }

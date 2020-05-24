@@ -33,4 +33,14 @@ public class DefaultKineticDataInput implements KineticDataInput {
         return in.readInt();
     }
 
+    @Override
+    public float readFloat() throws IOException {
+        return in.readFloat();
+    }
+
+    @Override
+    public double readDouble() throws IOException {
+        return in.readDouble();
+    }
+
 }
