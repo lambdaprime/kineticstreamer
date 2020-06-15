@@ -7,6 +7,7 @@ package id.kineticstreamer;
 import java.lang.reflect.Field;
 
 import id.kineticstreamer.utils.KineticUtils;
+import id.xfunction.XUtils;
 import id.xfunction.function.Unchecked;
 
 public class KineticStreamReader {
@@ -18,22 +19,29 @@ public class KineticStreamReader {
         this.in = in;
     }
 
-    public void read(Object b) {
-        utils.findStreamedFields(b)
-            .forEach(Unchecked.wrapAccept(f -> readValue(b, f)));
+    public void read(Object obj) {
+        utils.findStreamedFields(obj)
+            .forEach(Unchecked.wrapAccept(f -> readValue(obj, f)));
     }
 
-    private void readValue(Object o, Field field) throws Exception {
+    private void readValue(Object obj, Field field) throws Exception {
         var type = field.getType().getName();
         switch (type) {
-        case "java.lang.String": field.set(o, in.readString()); break;
+        case "java.lang.String": field.set(obj, in.readString()); break;
         case "int":
-        case "java.lang.Integer": field.set(o, in.readInt()); break;
+        case "java.lang.Integer": field.set(obj, in.readInt()); break;
         case "float":
-        case "java.lang.Float": field.set(o, in.readFloat()); break;
+        case "java.lang.Float": field.set(obj, in.readFloat()); break;
         case "double":
-        case "java.lang.Double": field.set(o, in.readDouble()); break;
-        default: throw new RuntimeException("Unknown type: " + type);
+        case "java.lang.Double": field.set(obj, in.readDouble()); break;
+        default: {
+            var ctor = field.getType().getConstructor();
+            if (ctor == null)
+                XUtils.throwRuntime("Type %s has no default ctor",  type);
+            var innerObj = ctor.newInstance();
+            read(innerObj);
+            field.set(obj, innerObj);
+        }
         }
     }
 }

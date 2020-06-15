@@ -20,18 +20,20 @@ import id.kineticstreamer.InputStreamByteList;
 import id.kineticstreamer.KineticStreamReader;
 import id.kineticstreamer.KineticStreamWriter;
 import id.kineticstreamer.OutputStreamByteList;
+import id.kineticstreamer.tests.streamed.Author;
 import id.kineticstreamer.tests.streamed.Book;
 import id.kineticstreamer.tests.streamed.StringMessage;
+import id.xfunction.XUtils;
 
 public class KineticStreamTest {
 
     static Stream<List> dataProvider() {
         return Stream.of(
             List.of("05, 00, 00, 00, 68, 65, 6c, 6c, 6f", new StringMessage("hello")),
-            List.of("0b, 00, 00, 00, 50, 68, 69, 6c, 69, 70, 20, 44, 69, 63, 6b, 41, 78, 00, 00, 00, 00, 00, 0b, 40, 3f, 66, 66, 66, 66, 66, 66",
-                new Book("Philip Dick", 15.5F, 31.4, 11))
+            List.of(XUtils.readResource("test1"),
+                new Book("aaaaaaaa", 15.5F, 31.4, 11, new Author("bbbbb", 123), true))
         );
-    }
+    }//
 
     @ParameterizedTest
     @MethodSource("dataProvider")

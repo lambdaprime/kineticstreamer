@@ -18,17 +18,21 @@ public class Book {
     @Streamed
     public Double rating;
     
+    @Streamed
+    public Author author;
+    
     public String ignore = "ignore";
 
     public Book() {
 
     }
 
-    public Book(String name, float price, double rating, int weight) {
+    public Book(String name, float price, double rating, int weight, Author author, boolean hardcover) {
         this.name = name;
         this.price = price;
         this.weight = weight;
         this.rating = rating;
+        this.author = author;
     }
 
     @Override
@@ -38,9 +42,11 @@ public class Book {
         System.out.format("%s == %s\n", price, other.price);
         System.out.format("%s == %s\n", weight, other.weight);
         System.out.format("%s == %s\n", rating, other.rating);
+        System.out.format("%s == %s\n", author, other.author);
         return Objects.equals(name, other.name) &&
                 Objects.equals(price, other.price) &&
                 Objects.equals(rating, other.rating) &&
-                Objects.equals(weight, other.weight);
+                Objects.equals(weight, other.weight) &&
+                Objects.equals(author, other.author);
     }
 }

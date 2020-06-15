@@ -18,16 +18,19 @@ public class KineticStreamWriter {
             .forEach(Unchecked.wrapAccept(this::writeFieldValue));
     }
 
-    private void writeFieldValue(Object f) throws Exception {
-        switch (f.getClass().getName()) {
-        case "java.lang.String": out.writeString((String)f); break;
+    private void writeFieldValue(Object fieldValue) throws Exception {
+        if (fieldValue == null) return;
+        switch (fieldValue.getClass().getName()) {
+        case "java.lang.String": out.writeString((String)fieldValue); break;
         case "int":
-        case "java.lang.Integer": out.writeInt((Integer)f); break;
+        case "java.lang.Integer": out.writeInt((Integer)fieldValue); break;
         case "float":
-        case "java.lang.Float": out.writeFloat((Float)f); break;
+        case "java.lang.Float": out.writeFloat((Float)fieldValue); break;
         case "double":
-        case "java.lang.Double": out.writeDouble((Double)f); break;
-        default: System.out.println(f.getClass().getName());
+        case "java.lang.Double": out.writeDouble((Double)fieldValue); break;
+        default: {
+            write(fieldValue);
+        }
         }
     }
 }
