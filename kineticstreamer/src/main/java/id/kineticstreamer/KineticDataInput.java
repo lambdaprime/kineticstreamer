@@ -13,5 +13,6 @@ public interface KineticDataInput {
     int readInt() throws IOException;
     float readFloat() throws IOException;
     double readDouble() throws IOException;
+    boolean readBool() throws IOException;
 
 }

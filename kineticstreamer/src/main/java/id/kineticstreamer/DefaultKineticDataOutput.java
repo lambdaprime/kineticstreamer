@@ -41,4 +41,9 @@ public class DefaultKineticDataOutput implements KineticDataOutput {
         out.writeFloat(f);
     }
 
+    @Override
+    public void writeBoolean(Boolean b) throws IOException {
+        out.writeBoolean(b);
+    }
+
 }

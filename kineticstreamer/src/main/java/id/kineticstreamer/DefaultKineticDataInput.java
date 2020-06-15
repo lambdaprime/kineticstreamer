@@ -43,4 +43,9 @@ public class DefaultKineticDataInput implements KineticDataInput {
         return in.readDouble();
     }
 
+    @Override
+    public boolean readBool() throws IOException {
+        return in.readBoolean();
+    }
+
 }

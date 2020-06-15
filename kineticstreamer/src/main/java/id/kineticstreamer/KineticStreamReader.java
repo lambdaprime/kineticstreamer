@@ -34,6 +34,8 @@ public class KineticStreamReader {
         case "java.lang.Float": field.set(obj, in.readFloat()); break;
         case "double":
         case "java.lang.Double": field.set(obj, in.readDouble()); break;
+        case "boolean":
+        case "java.lang.Boolean": field.set(obj, in.readBool()); break;
         default: {
             var ctor = field.getType().getConstructor();
             if (ctor == null)

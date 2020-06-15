@@ -28,6 +28,8 @@ public class KineticStreamWriter {
         case "java.lang.Float": out.writeFloat((Float)fieldValue); break;
         case "double":
         case "java.lang.Double": out.writeDouble((Double)fieldValue); break;
+        case "boolean":
+        case "java.lang.Boolean": out.writeBoolean((Boolean)fieldValue); break;
         default: {
             write(fieldValue);
         }
