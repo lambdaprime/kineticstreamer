@@ -1,35 +1,17 @@
 /*
  * Copyright 2020 lambdaprime
  */
-
 package id.kineticstreamer;
 
 import java.lang.reflect.Array;
-import java.lang.reflect.Field;
 
 import id.kineticstreamer.utils.KineticUtils;
+import id.kineticstreamer.utils.ValueSetter;
 import id.xfunction.XUtils;
 import id.xfunction.function.ThrowingConsumer;
 import id.xfunction.function.Unchecked;
 
 public class KineticStreamReader {
-
-    private static class Setter {
-
-        private Object obj;
-        private Field field;
-
-        public Setter(Object obj, Field field) {
-            this.obj = obj;
-            this.field = field;
-        }
-
-        public void set(Object value) throws Exception {
-            Class<?> type = field.getType();
-            field.set(obj, type.isArray()? type.cast(value): value);
-        }
-
-    }
 
     private KineticDataInput in;
     private KineticUtils utils = new KineticUtils();
@@ -41,7 +23,7 @@ public class KineticStreamReader {
     public void read(Object obj) {
         utils.findStreamedFields(obj)
             .forEach(Unchecked.wrapAccept(field -> readValue(field.getType(),
-                new Setter(obj, field)::set)));
+                new ValueSetter(obj, field)::set)));
     }
 
     private void readValue(Class<?> type, ThrowingConsumer<Object, Exception> setter) throws Exception {
