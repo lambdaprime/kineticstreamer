@@ -4,13 +4,32 @@
 
 package id.kineticstreamer;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 
 import id.kineticstreamer.utils.KineticUtils;
 import id.xfunction.XUtils;
+import id.xfunction.function.ThrowingConsumer;
 import id.xfunction.function.Unchecked;
 
 public class KineticStreamReader {
+
+    private static class Setter {
+
+        private Object obj;
+        private Field field;
+
+        public Setter(Object obj, Field field) {
+            this.obj = obj;
+            this.field = field;
+        }
+
+        public void set(Object value) throws Exception {
+            Class<?> type = field.getType();
+            field.set(obj, type.isArray()? type.cast(value): value);
+        }
+
+    }
 
     private KineticDataInput in;
     private KineticUtils utils = new KineticUtils();
@@ -21,29 +40,52 @@ public class KineticStreamReader {
 
     public void read(Object obj) {
         utils.findStreamedFields(obj)
-            .forEach(Unchecked.wrapAccept(f -> readValue(obj, f)));
+            .forEach(Unchecked.wrapAccept(field -> readValue(field.getType(),
+                new Setter(obj, field)::set)));
     }
 
-    private void readValue(Object obj, Field field) throws Exception {
-        var type = field.getType().getName();
-        switch (type) {
-        case "java.lang.String": field.set(obj, in.readString()); break;
+    private void readValue(Class<?> type, ThrowingConsumer<Object, Exception> setter) throws Exception {
+        var typeName = type.getName();
+        switch (typeName) {
+        case "java.lang.String": setter.accept(in.readString()); break;
         case "int":
-        case "java.lang.Integer": field.set(obj, in.readInt()); break;
+        case "java.lang.Integer": setter.accept(in.readInt()); break;
         case "float":
-        case "java.lang.Float": field.set(obj, in.readFloat()); break;
+        case "java.lang.Float": setter.accept(in.readFloat()); break;
         case "double":
-        case "java.lang.Double": field.set(obj, in.readDouble()); break;
+        case "java.lang.Double": setter.accept(in.readDouble()); break;
         case "boolean":
-        case "java.lang.Boolean": field.set(obj, in.readBool()); break;
+        case "java.lang.Boolean": setter.accept(in.readBool()); break;
         default: {
-            var ctor = field.getType().getConstructor();
-            if (ctor == null)
-                XUtils.throwRuntime("Type %s has no default ctor",  type);
-            var innerObj = ctor.newInstance();
-            read(innerObj);
-            field.set(obj, innerObj);
+            if (type.isArray()) {
+                var array = (Object[])Array.newInstance(type.getComponentType(), in.readLen());
+                type = type.getComponentType();
+                for (int i = 0; i < array.length; i++) {
+                    int j = i;
+                    readValue(type, obj -> array[j] = obj);
+                }
+                setter.accept(array);
+                break;
+            } else {
+                var innerObj = createObject(type);
+                read(innerObj);
+                setter.accept(innerObj);
+            }
         }
         }
+    }
+
+    private Object createObject(Class<?> type) throws Exception {
+        var ctor = type.getConstructor();
+        if (ctor == null)
+            XUtils.throwRuntime("Type %s has no default ctor",  type);
+        return ctor.newInstance();
+    }
+    
+    public static void main(String[] args) {
+        Object[] obj = new Integer[]{1, 2, 3};
+        Integer[] a = (Integer[]) obj;
+        System.out.println(a);
+        
     }
 }

@@ -1,5 +1,6 @@
 package id.kineticstreamer.tests.streamed;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 import id.kineticstreamer.annotations.Streamed;
@@ -26,17 +27,21 @@ public class Book {
     @Streamed
     public boolean hardcover;
     
+    @Streamed
+    public Integer[] illustratedPages;
+
     public Book() {
 
     }
 
-    public Book(String name, float price, double rating, int weight, Author author, boolean hardcover) {
+    public Book(String name, float price, double rating, int weight, Author author, boolean hardcover, Integer[] illustratedPages) {
         this.name = name;
         this.price = price;
         this.weight = weight;
         this.rating = rating;
         this.author = author;
         this.hardcover = hardcover;
+        this.illustratedPages = illustratedPages;
     }
 
     @Override
@@ -48,11 +53,13 @@ public class Book {
         System.out.format("%s == %s\n", rating, other.rating);
         System.out.format("%s == %s\n", author, other.author);
         System.out.format("%s == %s\n", hardcover, other.hardcover);
+        System.out.format("%s == %s\n", Arrays.toString(illustratedPages), Arrays.toString(other.illustratedPages));
         return Objects.equals(name, other.name) &&
                 Objects.equals(price, other.price) &&
                 Objects.equals(rating, other.rating) &&
                 Objects.equals(weight, other.weight) &&
                 Objects.equals(hardcover, other.hardcover) &&
+                Arrays.equals(illustratedPages, other.illustratedPages) &&
                 Objects.equals(author, other.author);
     }
 }

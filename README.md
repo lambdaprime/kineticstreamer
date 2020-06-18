@@ -5,3 +5,8 @@ lambdaprime <id.blackmesa@gmail.com>
 # Requirements
 
 Java 11
+
+# Arrays
+
+**kineticstreamer** does not support serialization of arrays of primitive types. If you still
+need to use primitive type arrays please use their wrapped version (Integer[], Long[], etc).
