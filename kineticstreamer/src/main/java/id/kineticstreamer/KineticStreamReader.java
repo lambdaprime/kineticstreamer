@@ -40,7 +40,7 @@ public class KineticStreamReader {
         case "java.lang.Boolean": setter.accept(in.readBool()); break;
         default: {
             if (type.isArray()) {
-                var array = (Object[])Array.newInstance(type.getComponentType(), in.readLen());
+                var array = (Object[])Array.newInstance(type.getComponentType(), in.readInt());
                 type = type.getComponentType();
                 for (int i = 0; i < array.length; i++) {
                     int j = i;

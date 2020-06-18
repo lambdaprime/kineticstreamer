@@ -16,13 +16,8 @@ public class DefaultKineticDataInput implements KineticDataInput {
     }
 
     @Override
-    public int readLen() throws IOException {
-        return Integer.reverseBytes(in.readInt());
-    }
-
-    @Override
     public String readString() throws IOException {
-        int len = readLen();
+        int len = readInt();
         byte[] b = new byte[len];
         in.readFully(b);
         return new String(b);

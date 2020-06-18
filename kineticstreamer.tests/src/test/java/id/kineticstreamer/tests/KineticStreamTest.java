@@ -29,7 +29,7 @@ public class KineticStreamTest {
 
     static Stream<List> dataProvider() {
         return Stream.of(
-            List.of("05, 00, 00, 00, 68, 65, 6c, 6c, 6f", new StringMessage("hello")),
+            List.of("00, 00, 00, 05, 68, 65, 6c, 6c, 6f", new StringMessage("hello")),
             List.of(XUtils.readResource("test1"),
                 new Book("aaaaaaaa", 15.5F, 31.4, 11, new Author("bbbbb", 123), true, new Integer[] {9, 9, 9}))
         );

@@ -16,13 +16,8 @@ public class DefaultKineticDataOutput implements KineticDataOutput {
     }
 
     @Override
-    public void writeLen(int len) throws IOException {
-        out.writeInt(Integer.reverseBytes(len));
-    }
-
-    @Override
     public void writeString(String str) throws IOException {
-        writeLen(str.length());
+        writeInt(str.length());
         out.write(str.getBytes());
     }
 

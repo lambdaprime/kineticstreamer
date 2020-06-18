@@ -1,12 +1,7 @@
-kineticstreamer - Java module to do serialization of Java objects to stream of bytes and back.
+kineticstreamer - Java module to do (de)serialization of Java objects. By default it supports object convertion to stream of bytes and back. But it is extendable to any other format as well.
 
 lambdaprime <id.blackmesa@gmail.com>
 
 # Requirements
 
 Java 11
-
-# Arrays
-
-**kineticstreamer** does not support serialization of arrays of primitive types. If you still
-need to use primitive type arrays please use their wrapped version (Integer[], Long[], etc).

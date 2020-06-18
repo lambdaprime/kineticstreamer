@@ -34,7 +34,7 @@ public class KineticStreamWriter {
         default: {
             if (typeName.startsWith("[")) {
                 var array = (Object[])fieldValue;
-                out.writeLen(array.length);
+                out.writeInt(array.length);
                 for (var item: array) {
                     writeFieldValue(item);
                 }
