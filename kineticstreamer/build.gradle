@@ -20,8 +20,15 @@ compileJava {
         options.compilerArgs = [
             '--module-path', classpath.asPath,
         ]
-        classpath = files()  
+        classpath = files()
     }
+}
+
+import java.util.stream.*;
+javadoc {
+    options.noTimestamp = true;
+    options.noQualifiers = ["all"];
+    options.modulePath = classpath.getFiles().stream().collect(Collectors.toList());
 }
 
 def releaseFileName = "${rootProject.name}-${version}.zip"
@@ -32,6 +39,11 @@ task copyLibs(type: Copy) {
     from "$projectDir/libs"
     from jar.archiveFile
     into "${releaseOutDir}/libs"
+}
+
+task packageJavadoc(type: Copy) {
+    from file("$projectDir/build/docs")
+    into file("${project.rootDir}/docs")
 }
 
 task createRelease(type: Copy, dependsOn: copyLibs) {
@@ -53,3 +65,4 @@ task cleanRelease(type: Delete) {
 packageDistribution.dependsOn createRelease
 build.dependsOn packageDistribution
 clean.dependsOn cleanRelease
+createRelease.dependsOn javadoc,packageJavadoc
