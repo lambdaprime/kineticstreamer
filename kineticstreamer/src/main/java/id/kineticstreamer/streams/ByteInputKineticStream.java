@@ -2,16 +2,18 @@
  * Copyright 2020 lambdaprime
  */
 
-package id.kineticstreamer;
+package id.kineticstreamer.streams;
 
 import java.io.DataInput;
 import java.io.IOException;
 
-public class DefaultKineticDataInput implements KineticDataInput {
+import id.kineticstreamer.InputKineticStream;
+
+public class ByteInputKineticStream implements InputKineticStream {
 
     private DataInput in;
 
-    public DefaultKineticDataInput(DataInput in) {
+    public ByteInputKineticStream(DataInput in) {
         this.in = in;
     }
 

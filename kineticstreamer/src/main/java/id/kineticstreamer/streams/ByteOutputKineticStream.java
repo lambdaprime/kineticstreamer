@@ -2,16 +2,18 @@
  * Copyright 2020 lambdaprime
  */
 
-package id.kineticstreamer;
+package id.kineticstreamer.streams;
 
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class DefaultKineticDataOutput implements KineticDataOutput {
+import id.kineticstreamer.OutputKineticStream;
+
+public class ByteOutputKineticStream implements OutputKineticStream {
 
     private DataOutput out;
 
-    public DefaultKineticDataOutput(DataOutput out) {
+    public ByteOutputKineticStream(DataOutput out) {
         this.out = out;
     }
 

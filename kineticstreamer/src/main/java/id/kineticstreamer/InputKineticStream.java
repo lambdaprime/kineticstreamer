@@ -5,7 +5,7 @@ package id.kineticstreamer;
 
 import java.io.IOException;
 
-public interface KineticDataInput {
+public interface InputKineticStream {
 
     String readString() throws IOException;
     int readInt() throws IOException;

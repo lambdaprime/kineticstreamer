@@ -6,7 +6,7 @@ package id.kineticstreamer;
 
 import java.io.IOException;
 
-public interface KineticDataOutput {
+public interface OutputKineticStream {
 
     void writeString(String str) throws IOException;
     void writeInt(Integer i) throws IOException;

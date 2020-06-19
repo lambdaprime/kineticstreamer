@@ -5,10 +5,10 @@ import id.xfunction.function.Unchecked;
 
 public class KineticStreamWriter {
 
-    private KineticDataOutput out;
+    private OutputKineticStream out;
     private KineticUtils utils = new KineticUtils();
 
-    public KineticStreamWriter(KineticDataOutput out) {
+    public KineticStreamWriter(OutputKineticStream out) {
         this.out = out;
     }
 

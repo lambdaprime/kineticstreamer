@@ -13,10 +13,10 @@ import id.xfunction.function.Unchecked;
 
 public class KineticStreamReader {
 
-    private KineticDataInput in;
+    private InputKineticStream in;
     private KineticUtils utils = new KineticUtils();
 
-    public KineticStreamReader(KineticDataInput in) {
+    public KineticStreamReader(InputKineticStream in) {
         this.in = in;
     }
 
