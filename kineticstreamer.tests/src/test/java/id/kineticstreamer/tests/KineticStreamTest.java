@@ -14,16 +14,16 @@ import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import id.kineticstreamer.InputStreamByteList;
 import id.kineticstreamer.KineticStreamReader;
 import id.kineticstreamer.KineticStreamWriter;
-import id.kineticstreamer.OutputStreamByteList;
 import id.kineticstreamer.streams.ByteInputKineticStream;
 import id.kineticstreamer.streams.ByteOutputKineticStream;
 import id.kineticstreamer.tests.streamed.Author;
 import id.kineticstreamer.tests.streamed.Book;
 import id.kineticstreamer.tests.streamed.StringMessage;
 import id.xfunction.XUtils;
+import id.xfunction.io.XInputStream;
+import id.xfunction.io.XOutputStream;
 
 public class KineticStreamTest {
 
@@ -39,7 +39,7 @@ public class KineticStreamTest {
     @MethodSource("dataProvider")
     public void testWrite(List testData) {
         var b = testData.get(1);
-        OutputStreamByteList collector = new OutputStreamByteList();
+        XOutputStream collector = new XOutputStream();
         var dos = new ByteOutputKineticStream(new DataOutputStream(collector));
         var ks = new KineticStreamWriter(dos);
         ks.write(b);
@@ -49,7 +49,7 @@ public class KineticStreamTest {
     @ParameterizedTest
     @MethodSource("dataProvider")
     public void testRead(List testData) throws Exception {
-        var collector = new InputStreamByteList((String)testData.get(0));
+        var collector = new XInputStream((String)testData.get(0));
         var dis = new ByteInputKineticStream(new DataInputStream(collector));
         var ks = new KineticStreamReader(dis);
         Object expected = testData.get(1);
