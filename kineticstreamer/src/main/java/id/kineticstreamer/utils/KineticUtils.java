@@ -8,8 +8,8 @@ import id.kineticstreamer.annotations.Streamed;
 
 public class KineticUtils {
 
-    public Stream<Field> findStreamedFields(Object b) {
-        return Arrays.stream(b.getClass().getFields())
+    public Stream<Field> findStreamedFields(Class<?> clazz) {
+        return Arrays.stream(clazz.getFields())
                 .filter(f -> f.getAnnotationsByType(Streamed.class).length != 0);
     }
 }

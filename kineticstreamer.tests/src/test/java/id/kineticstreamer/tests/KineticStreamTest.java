@@ -4,6 +4,7 @@
 
 package id.kineticstreamer.tests;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.DataInputStream;
@@ -31,13 +32,16 @@ public class KineticStreamTest {
         return Stream.of(
             List.of("00, 00, 00, 05, 68, 65, 6c, 6c, 6f", new StringMessage("hello")),
             List.of(XUtils.readResource("test1"),
-                new Book("aaaaaaaa", 15.5F, 31.4, 11, new Author("bbbbb", 123), true, new Integer[] {9, 9, 9}))
+                new Book("aaaaaaaa", 15.5F, 31.4, 11, new Author("bbbbb", 123), true, new Integer[] {9, 9, 9})),
+            List.of("00, 00, 00, 03, 61, 61, 61", "aaa"),
+            List.of("00, 00, 00, 0a", 10),
+            List.of("00, 00, 00, 03, 00, 00, 00, 01, 00, 00, 00, 01, 00, 00, 00, 01", new Integer[] {1, 1, 1})
         );
     }//
 
     @ParameterizedTest
     @MethodSource("dataProvider")
-    public void testWrite(List testData) {
+    public void testWrite(List testData) throws Exception {
         var b = testData.get(1);
         XOutputStream collector = new XOutputStream();
         var dos = new ByteOutputKineticStream(new DataOutputStream(collector));
@@ -53,9 +57,11 @@ public class KineticStreamTest {
         var dis = new ByteInputKineticStream(new DataInputStream(collector));
         var ks = new KineticStreamReader(dis);
         Object expected = testData.get(1);
-        Object actual = expected.getClass().getConstructor().newInstance();
-        ks.read(actual);
+        Object actual = ks.read(expected.getClass());
         System.out.println(actual);
-        assertEquals(expected, actual);
+        if (expected.getClass().isArray())
+            assertArrayEquals((Object[])expected, (Object[])actual);
+        else
+            assertEquals(expected, actual);
     }
 }

@@ -20,15 +20,14 @@ public class KineticStreamReader {
         this.in = in;
     }
 
-    public void read(Object obj) {
-        utils.findStreamedFields(obj)
-            .forEach(Unchecked.wrapAccept(field -> readValue(field.getType(),
-                new ValueSetter(obj, field)::set)));
+    public Object read(Class<?> type) throws Exception {
+        Object[] holder = new Object[1];
+        read(type, obj -> holder[0] = obj);
+        return holder[0];
     }
 
-    private void readValue(Class<?> type, ThrowingConsumer<Object, Exception> setter) throws Exception {
-        var typeName = type.getName();
-        switch (typeName) {
+    private void read(Class<?> type, ThrowingConsumer<Object, Exception> setter) throws Exception {
+        switch (type.getName()) {
         case "java.lang.String": setter.accept(in.readString()); break;
         case "int":
         case "java.lang.Integer": setter.accept(in.readInt()); break;
@@ -44,17 +43,19 @@ public class KineticStreamReader {
                 type = type.getComponentType();
                 for (int i = 0; i < array.length; i++) {
                     int j = i;
-                    readValue(type, obj -> array[j] = obj);
+                    read(type, obj -> array[j] = obj);
                 }
                 setter.accept(array);
                 break;
             } else {
-                var innerObj = createObject(type);
-                read(innerObj);
-                setter.accept(innerObj);
+                var obj = createObject(type);
+                utils.findStreamedFields(type)
+                    .forEach(Unchecked.wrapAccept(field -> read(field.getType(),
+                        new ValueSetter(obj, field)::set)));
+                setter.accept(obj);
             }
         }
-        }
+    }
     }
 
     private Object createObject(Class<?> type) throws Exception {
@@ -63,11 +64,5 @@ public class KineticStreamReader {
             XUtils.throwRuntime("Type %s has no default ctor",  type);
         return ctor.newInstance();
     }
-    
-    public static void main(String[] args) {
-        Object[] obj = new Integer[]{1, 2, 3};
-        Integer[] a = (Integer[]) obj;
-        System.out.println(a);
-        
-    }
+
 }
