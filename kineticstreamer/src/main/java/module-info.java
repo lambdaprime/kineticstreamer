@@ -1,3 +1,5 @@
+import id.kineticstreamer.annotations.Streamed;
+
 /**
  * Copyright 2020 lambdaprime
  * 
@@ -17,33 +19,63 @@
  * limitations under the License.
  */
 /**
- * <p>kineticstreamer - Java module to do (de)serialization of Java objects into streams.
+ * <p><b>kineticstreamer</b> - Java module to do (de)serialization of Java objects into streams.
  * By default it supports object conversion to stream of bytes and back. But it is extendible
  * to any other format as well.</p>
- * 
- * <h1>Stream</h1>
- * <p>In terms on kineticstreamer Stream represents sequence of any sort (sequence of bytes,
- * words, etc). The type of elements in such sequence don't need to be the same. Streams have flat
- * schemas opposite to JSON, XML, etc.</p>
- * <p>Example of streams are CSV files.</p>
- * 
  * <p>It parses object tree and allows you to get control over how types are going to be
  * (de)serialized.</p>
- * 
  * <p>Only fields annotated with @Streamed annotation will be (de)serialized.</p> 
+ * 
+ * <h1>Stream</h1>
+ * <p>In terms on <b>kineticstreamer</b> 'stream' represents sequence of any sort (sequence of bytes,
+ * words, numbers, etc). The type of elements in such sequence don't need to be the same. Streams have flat
+ * schemas opposite to JSON, XML, etc.</p>
+ * <p>Example of streams are flat byte formats, CSV files.</p>
  * 
  * <h1>Arrays</h1>
  *
  * <p><b>kineticstreamer</b> does not support serialization of arrays of primitive types. If you still
- * need to use primitive type arrays please use their wrapped version (Integer[], Long[], etc).
+ * need to use primitive type arrays please use their wrapped version (Integer[], Long[], etc).</p>
  *
- * <p>Any array A serialized in following format:</p>
- *
- * kineticDataOutput.writeInt(A.length) | write(a[0]) | ... | write(a[N])
- *
- * <p>Where write call will be dispatched based on item types: if they primitive it will go to
- * KineticDataOutput if they complex then it will go to KineticStreamWriter.</p>
+ * <h1>Examples</h1>
  * 
+ * Streamed class:
+ * 
+ * <pre>
+ * public class StringMessage {
+ *
+ *   &#64;Streamed
+ *   public String data;
+ *
+ *   public StringMessage() {
+ *   }
+ *
+ *   public StringMessage(String data) {
+ *       this.data = data;
+ *   }
+ *   
+ * }
+ * </pre>
+ *
+ * Streaming:
+ *
+ * <pre>{@code
+ * // write
+ * var tmpFile = Files.createTempFile("", "kineticstream");
+ * var fos = new FileOutputStream(tmpFile.toFile());
+ * var dos = new ByteOutputKineticStream(new DataOutputStream(fos));
+ * var ksw = new KineticStreamWriter(dos);
+ * ksw.write(new StringMessage("hello kineticstreamer"));
+ * 
+ * // read back
+ * var fis = new FileInputStream(tmpFile.toFile());
+ * var dis = new ByteInputKineticStream(new DataInputStream(fis));
+ * var ksr = new KineticStreamReader(dis);
+ * StringMessage actual = (StringMessage) ksr.read(StringMessage.class);
+ * System.out.println(actual.data);
+ * }</pre>
+ *
+ *
  */
 module id.kineticstreamer {
     exports id.kineticstreamer;

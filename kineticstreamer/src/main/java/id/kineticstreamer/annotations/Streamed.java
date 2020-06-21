@@ -24,7 +24,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * ddddddddddd
+ * <b>kineticstreamer</b> processing only fields which are annotated
+ * as Streamed.
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

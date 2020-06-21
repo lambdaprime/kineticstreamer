@@ -24,10 +24,18 @@ import java.io.IOException;
 import id.kineticstreamer.KineticStreamWriter;
 import id.kineticstreamer.OutputKineticStream;
 
+/**
+ * Kinetic stream implementation for (de)serialization of Java objects
+ * into sequence of bytes and back.
+ *
+ */
 public class ByteOutputKineticStream implements OutputKineticStream {
 
     private DataOutput out;
 
+    /**
+     * Creates byte kinetic stream and attaches it to 'out'
+     */
     public ByteOutputKineticStream(DataOutput out) {
         this.out = out;
     }
@@ -58,6 +66,14 @@ public class ByteOutputKineticStream implements OutputKineticStream {
         out.writeBoolean(b);
     }
 
+    /**
+     * <p>Any array A serialized in following format:</p>
+     *
+     * writeInt(A.length) | KineticStreamWriter::write(a[0]) | ... | KineticStreamWriter::write(a[N])
+     *
+     * <p>Where write call for each item will use KineticStreamWriter on same object of
+     * kinetic stream (on 'this').</p>
+     */
     @Override
     public void writeArray(Object[] array) throws Exception {
         out.writeInt(array.length);

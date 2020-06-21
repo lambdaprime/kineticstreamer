@@ -29,6 +29,10 @@ public class KineticStreamWriter {
         this.out = out;
     }
 
+    /**
+     * Writes an object into kinetic stream
+     * @throws Exception
+     */
     public void write(Object b) throws Exception {
         if (b == null) return;
         var type = b.getClass();

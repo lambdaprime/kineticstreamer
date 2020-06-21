@@ -25,10 +25,18 @@ import java.lang.reflect.Array;
 import id.kineticstreamer.InputKineticStream;
 import id.kineticstreamer.KineticStreamReader;
 
+/**
+ * Kinetic stream implementation for (de)serialization of Java objects
+ * into sequence of bytes and back.
+ *
+ */
 public class ByteInputKineticStream implements InputKineticStream {
 
     private DataInput in;
 
+    /**
+     * Creates byte kinetic stream and attaches it to 'in'
+     */
     public ByteInputKineticStream(DataInput in) {
         this.in = in;
     }

@@ -18,6 +18,12 @@
  */
 package id.kineticstreamer;
 
+/**
+ * Interface which needs to be implemented to support deserialization of
+ * new types of kinetic stream.
+ * 
+ * @see id.kineticstreamer.streams.ByteInputKineticStream
+ */
 public interface InputKineticStream {
 
     String readString() throws Exception;

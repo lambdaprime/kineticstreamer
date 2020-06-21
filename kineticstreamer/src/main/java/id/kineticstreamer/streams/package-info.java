@@ -16,21 +16,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package id.kineticstreamer;
-
 /**
- * Interface which needs to be implemented to support serialization of
- * new types of kinetic stream.
- * 
- * @see id.kineticstreamer.streams.ByteOutputKineticStream
+ * <p> Collection of default kinetic stream implementations.</p>
+ *
  */
-public interface OutputKineticStream {
-
-    void writeString(String str) throws Exception;
-    void writeInt(Integer i) throws Exception;
-    void writeDouble(Double f) throws Exception;
-    void writeFloat(Float f) throws Exception;
-    void writeBoolean(Boolean fieldValue) throws Exception;
-    void writeArray(Object[] array) throws Exception;
-
-}
+package id.kineticstreamer.streams;

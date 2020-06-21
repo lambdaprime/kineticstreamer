@@ -139,6 +139,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>public class <span class="typeNameLabel">ByteOutputKineticStream</span>
 extends Object
 implements <a href="../OutputKineticStream.html" title="interface in id.kineticstreamer">OutputKineticStream</a></pre>
+<div class="block">Kinetic stream implementation for (de)serialization of Java objects
+ into sequence of bytes and back.</div>
 </li>
 </ul>
 </div>
@@ -160,7 +162,9 @@ implements <a href="../OutputKineticStream.html" title="interface in id.kinetics
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.io.DataOutput)">ByteOutputKineticStream</a></span>&#8203;(DataOutput&nbsp;out)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Creates byte kinetic stream and attaches it to 'out'</div>
+</td>
 </tr>
 </table>
 </li>
@@ -183,7 +187,9 @@ implements <a href="../OutputKineticStream.html" title="interface in id.kinetics
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#writeArray(java.lang.Object%5B%5D)">writeArray</a></span>&#8203;(Object[]&nbsp;array)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Any array A serialized in following format:</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
@@ -241,6 +247,7 @@ implements <a href="../OutputKineticStream.html" title="interface in id.kinetics
 <li class="blockList">
 <h4>ByteOutputKineticStream</h4>
 <pre>public&nbsp;ByteOutputKineticStream&#8203;(DataOutput&nbsp;out)</pre>
+<div class="block">Creates byte kinetic stream and attaches it to 'out'</div>
 </li>
 </ul>
 </li>
@@ -341,6 +348,12 @@ implements <a href="../OutputKineticStream.html" title="interface in id.kinetics
 <h4>writeArray</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;writeArray&#8203;(Object[]&nbsp;array)
                 throws Exception</pre>
+<div class="block"><p>Any array A serialized in following format:</p>
+
+ writeInt(A.length) | KineticStreamWriter::write(a[0]) | ... | KineticStreamWriter::write(a[N])
+
+ <p>Where write call for each item will use KineticStreamWriter on same object of
+ kinetic stream (on 'this').</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../OutputKineticStream.html#writeArray(java.lang.Object%5B%5D)">writeArray</a></code>&nbsp;in interface&nbsp;<code><a href="../OutputKineticStream.html" title="interface in id.kineticstreamer">OutputKineticStream</a></code></dd>

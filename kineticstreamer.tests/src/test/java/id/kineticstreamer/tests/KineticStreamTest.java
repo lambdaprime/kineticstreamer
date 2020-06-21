@@ -23,9 +23,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -77,5 +81,20 @@ public class KineticStreamTest {
             assertArrayEquals((Object[])expected, (Object[])actual);
         else
             assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testTutorial() throws Exception {
+        var tmpFile = Files.createTempFile("", "kineticstream");
+        var fos = new FileOutputStream(tmpFile.toFile());
+        var dos = new ByteOutputKineticStream(new DataOutputStream(fos));
+        var ksw = new KineticStreamWriter(dos);
+        ksw.write(new StringMessage("hello kineticstreamer"));
+        var fis = new FileInputStream(tmpFile.toFile());
+        var dis = new ByteInputKineticStream(new DataInputStream(fis));
+        var ksr = new KineticStreamReader(dis);
+        StringMessage actual = (StringMessage) ksr.read(StringMessage.class);
+        System.out.println(actual.data);
+        assertEquals("hello kineticstreamer", actual.data);
     }
 }

@@ -31,6 +31,10 @@ public class KineticStreamReader {
         this.in = in;
     }
 
+    /**
+     * Reads an object from kinetic stream
+     * @throws Exception
+     */
     public Object read(Class<?> type) throws Exception {
         Object[] holder = new Object[1];
         read(type, obj -> holder[0] = obj);
