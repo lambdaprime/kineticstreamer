@@ -3,11 +3,7 @@
  */
 package id.kineticstreamer;
 
-import java.lang.reflect.Array;
-
-import id.kineticstreamer.utils.KineticUtils;
 import id.kineticstreamer.utils.ValueSetter;
-import id.xfunction.XUtils;
 import id.xfunction.function.ThrowingConsumer;
 import id.xfunction.function.Unchecked;
 
@@ -39,30 +35,18 @@ public class KineticStreamReader {
         case "java.lang.Boolean": setter.accept(in.readBool()); break;
         default: {
             if (type.isArray()) {
-                var array = (Object[])Array.newInstance(type.getComponentType(), in.readInt());
                 type = type.getComponentType();
-                for (int i = 0; i < array.length; i++) {
-                    int j = i;
-                    read(type, obj -> array[j] = obj);
-                }
-                setter.accept(array);
+                setter.accept(in.readArray(type));
                 break;
             } else {
-                var obj = createObject(type);
+                var obj = utils.createObject(type);
                 utils.findStreamedFields(type)
                     .forEach(Unchecked.wrapAccept(field -> read(field.getType(),
                         new ValueSetter(obj, field)::set)));
                 setter.accept(obj);
             }
         }
-    }
-    }
-
-    private Object createObject(Class<?> type) throws Exception {
-        var ctor = type.getConstructor();
-        if (ctor == null)
-            XUtils.throwRuntime("Type %s has no default ctor",  type);
-        return ctor.newInstance();
+        }
     }
 
 }

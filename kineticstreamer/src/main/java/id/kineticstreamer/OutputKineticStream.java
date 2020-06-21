@@ -4,14 +4,13 @@
 
 package id.kineticstreamer;
 
-import java.io.IOException;
-
 public interface OutputKineticStream {
 
-    void writeString(String str) throws IOException;
-    void writeInt(Integer i) throws IOException;
-    void writeDouble(Double f) throws IOException;
-    void writeFloat(Float f) throws IOException;
-    void writeBoolean(Boolean fieldValue) throws IOException;
+    void writeString(String str) throws Exception;
+    void writeInt(Integer i) throws Exception;
+    void writeDouble(Double f) throws Exception;
+    void writeFloat(Float f) throws Exception;
+    void writeBoolean(Boolean fieldValue) throws Exception;
+    void writeArray(Object[] array) throws Exception;
 
 }

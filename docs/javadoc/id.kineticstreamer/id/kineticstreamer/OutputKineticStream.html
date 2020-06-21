@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -151,25 +151,30 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#writeBoolean(java.lang.Boolean)">writeBoolean</a></span>&#8203;(Boolean&nbsp;fieldValue)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#writeArray(java.lang.Object%5B%5D)">writeArray</a></span>&#8203;(Object[]&nbsp;array)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#writeDouble(java.lang.Double)">writeDouble</a></span>&#8203;(Double&nbsp;f)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#writeBoolean(java.lang.Boolean)">writeBoolean</a></span>&#8203;(Boolean&nbsp;fieldValue)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#writeFloat(java.lang.Float)">writeFloat</a></span>&#8203;(Float&nbsp;f)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#writeDouble(java.lang.Double)">writeDouble</a></span>&#8203;(Double&nbsp;f)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#writeInt(java.lang.Integer)">writeInt</a></span>&#8203;(Integer&nbsp;i)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#writeFloat(java.lang.Float)">writeFloat</a></span>&#8203;(Float&nbsp;f)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#writeInt(java.lang.Integer)">writeInt</a></span>&#8203;(Integer&nbsp;i)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#writeString(java.lang.String)">writeString</a></span>&#8203;(String&nbsp;str)</code></th>
 <td class="colLast">&nbsp;</td>
@@ -198,10 +203,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>writeString</h4>
 <pre class="methodSignature">void&nbsp;writeString&#8203;(String&nbsp;str)
-          throws IOException</pre>
+          throws Exception</pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>IOException</code></dd>
+<dd><code>Exception</code></dd>
 </dl>
 </li>
 </ul>
@@ -212,10 +217,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>writeInt</h4>
 <pre class="methodSignature">void&nbsp;writeInt&#8203;(Integer&nbsp;i)
-       throws IOException</pre>
+       throws Exception</pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>IOException</code></dd>
+<dd><code>Exception</code></dd>
 </dl>
 </li>
 </ul>
@@ -226,10 +231,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>writeDouble</h4>
 <pre class="methodSignature">void&nbsp;writeDouble&#8203;(Double&nbsp;f)
-          throws IOException</pre>
+          throws Exception</pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>IOException</code></dd>
+<dd><code>Exception</code></dd>
 </dl>
 </li>
 </ul>
@@ -240,24 +245,38 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>writeFloat</h4>
 <pre class="methodSignature">void&nbsp;writeFloat&#8203;(Float&nbsp;f)
-         throws IOException</pre>
+         throws Exception</pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>IOException</code></dd>
+<dd><code>Exception</code></dd>
 </dl>
 </li>
 </ul>
 <a id="writeBoolean(java.lang.Boolean)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>writeBoolean</h4>
 <pre class="methodSignature">void&nbsp;writeBoolean&#8203;(Boolean&nbsp;fieldValue)
-           throws IOException</pre>
+           throws Exception</pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>IOException</code></dd>
+<dd><code>Exception</code></dd>
+</dl>
+</li>
+</ul>
+<a id="writeArray(java.lang.Object[])">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>writeArray</h4>
+<pre class="methodSignature">void&nbsp;writeArray&#8203;(Object[]&nbsp;array)
+         throws Exception</pre>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>Exception</code></dd>
 </dl>
 </li>
 </ul>

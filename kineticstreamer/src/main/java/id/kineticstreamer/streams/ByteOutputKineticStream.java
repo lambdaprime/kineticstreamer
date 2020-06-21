@@ -7,6 +7,7 @@ package id.kineticstreamer.streams;
 import java.io.DataOutput;
 import java.io.IOException;
 
+import id.kineticstreamer.KineticStreamWriter;
 import id.kineticstreamer.OutputKineticStream;
 
 public class ByteOutputKineticStream implements OutputKineticStream {
@@ -41,6 +42,14 @@ public class ByteOutputKineticStream implements OutputKineticStream {
     @Override
     public void writeBoolean(Boolean b) throws IOException {
         out.writeBoolean(b);
+    }
+
+    @Override
+    public void writeArray(Object[] array) throws Exception {
+        out.writeInt(array.length);
+        for (var item: array) {
+            new KineticStreamWriter(this).write(item);
+        }
     }
 
 }

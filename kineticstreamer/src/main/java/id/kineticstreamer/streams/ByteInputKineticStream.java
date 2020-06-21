@@ -6,8 +6,10 @@ package id.kineticstreamer.streams;
 
 import java.io.DataInput;
 import java.io.IOException;
+import java.lang.reflect.Array;
 
 import id.kineticstreamer.InputKineticStream;
+import id.kineticstreamer.KineticStreamReader;
 
 public class ByteInputKineticStream implements InputKineticStream {
 
@@ -43,6 +45,16 @@ public class ByteInputKineticStream implements InputKineticStream {
     @Override
     public boolean readBool() throws IOException {
         return in.readBoolean();
+    }
+
+    @Override
+    public Object[] readArray(Class<?> type) throws Exception {
+        var array = (Object[])Array.newInstance(type, in.readInt());
+        for (int i = 0; i < array.length; i++) {
+            int j = i;
+            array[j] = new KineticStreamReader(this).read(type);
+        }
+        return array;
     }
 
 }

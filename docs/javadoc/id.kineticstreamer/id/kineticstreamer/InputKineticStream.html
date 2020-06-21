@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -150,26 +150,31 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>Object[]</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#readArray(java.lang.Class)">readArray</a></span>&#8203;(Class&lt;?&gt;&nbsp;type)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#readBool()">readBool</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#readDouble()">readDouble</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>float</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#readFloat()">readFloat</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#readInt()">readInt</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#readString()">readString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
@@ -198,10 +203,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>readString</h4>
 <pre class="methodSignature">String&nbsp;readString()
-           throws IOException</pre>
+           throws Exception</pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>IOException</code></dd>
+<dd><code>Exception</code></dd>
 </dl>
 </li>
 </ul>
@@ -212,10 +217,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>readInt</h4>
 <pre class="methodSignature">int&nbsp;readInt()
-     throws IOException</pre>
+     throws Exception</pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>IOException</code></dd>
+<dd><code>Exception</code></dd>
 </dl>
 </li>
 </ul>
@@ -226,10 +231,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>readFloat</h4>
 <pre class="methodSignature">float&nbsp;readFloat()
-         throws IOException</pre>
+         throws Exception</pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>IOException</code></dd>
+<dd><code>Exception</code></dd>
 </dl>
 </li>
 </ul>
@@ -240,24 +245,38 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>readDouble</h4>
 <pre class="methodSignature">double&nbsp;readDouble()
-           throws IOException</pre>
+           throws Exception</pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>IOException</code></dd>
+<dd><code>Exception</code></dd>
 </dl>
 </li>
 </ul>
 <a id="readBool()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>readBool</h4>
 <pre class="methodSignature">boolean&nbsp;readBool()
-          throws IOException</pre>
+          throws Exception</pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>IOException</code></dd>
+<dd><code>Exception</code></dd>
+</dl>
+</li>
+</ul>
+<a id="readArray(java.lang.Class)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>readArray</h4>
+<pre class="methodSignature">Object[]&nbsp;readArray&#8203;(Class&lt;?&gt;&nbsp;type)
+            throws Exception</pre>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>Exception</code></dd>
 </dl>
 </li>
 </ul>

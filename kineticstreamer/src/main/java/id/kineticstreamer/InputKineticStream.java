@@ -3,14 +3,13 @@
  */
 package id.kineticstreamer;
 
-import java.io.IOException;
-
 public interface InputKineticStream {
 
-    String readString() throws IOException;
-    int readInt() throws IOException;
-    float readFloat() throws IOException;
-    double readDouble() throws IOException;
-    boolean readBool() throws IOException;
+    String readString() throws Exception;
+    int readInt() throws Exception;
+    float readFloat() throws Exception;
+    double readDouble() throws Exception;
+    boolean readBool() throws Exception;
+    Object[] readArray(Class<?> type) throws Exception;
 
 }
