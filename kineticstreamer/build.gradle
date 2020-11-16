@@ -8,6 +8,10 @@ repositories {
     mavenCentral()
 }
 
+java {
+    modularity.inferModulePath = true
+}
+
 sourceCompatibility = '11'
 targetCompatibility = '11'
 
@@ -15,20 +19,12 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 }
 
-compileJava {
-    doFirst {
-        options.compilerArgs = [
-            '--module-path', classpath.asPath,
-        ]
-        classpath = files()
-    }
-}
-
-import java.util.stream.*;
 javadoc {
     options.noTimestamp = true;
     options.noQualifiers = ["all"];
-    options.modulePath = classpath.getFiles().stream().collect(Collectors.toList());
+    options.noTree = true;
+    options.noIndex = true;
+    options.noNavBar = true;
 }
 
 def releaseFileName = "${rootProject.name}-${version}.zip"

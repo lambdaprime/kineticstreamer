@@ -28,52 +28,51 @@
  * <p>Only fields annotated with @Streamed annotation will be (de)serialized.</p> 
  * 
  * <h1>Stream</h1>
- * <p>In terms on <b>kineticstreamer</b> 'stream' represents sequence of any sort (sequence of bytes,
+ * <p>In terms of <b>kineticstreamer</b> 'stream' represents sequence of any sort (sequence of bytes,
  * words, numbers, etc). The type of elements in such sequence don't need to be the same. Streams have flat
  * schemas opposite to JSON, XML, etc.</p>
- * <p>Example of streams are flat byte formats, CSV files.</p>
+ * <p>Example of streams are flat byte formats, CSV files, etc.</p>
  * 
  * <h1>Arrays</h1>
- *
  * <p><b>kineticstreamer</b> does not support serialization of arrays of primitive types. If you still
  * need to use primitive type arrays please use their wrapped version (Integer[], Long[], etc).</p>
  *
  * <h1>Examples</h1>
  * 
- * Streamed class:
+ * <p>Streamed class:</p>
  * 
- * <pre>
- * public class StringMessage {
- *
- *   &#64;Streamed
- *   public String data;
- *
- *   public StringMessage() {
- *   }
- *
- *   public StringMessage(String data) {
- *       this.data = data;
- *   }
- *   
- * }
- * </pre>
+ * <pre><code>
+public class StringMessage {
+
+    &#64;Streamed
+    public String data;
+
+    public StringMessage() {
+    }
+
+    public StringMessage(String data) {
+        this.data = data;
+    }
+
+}
+ * </code></pre>
  *
  * Streaming:
  *
  * <pre>{@code
- * // write
- * var tmpFile = Files.createTempFile("", "kineticstream");
- * var fos = new FileOutputStream(tmpFile.toFile());
- * var dos = new ByteOutputKineticStream(new DataOutputStream(fos));
- * var ksw = new KineticStreamWriter(dos);
- * ksw.write(new StringMessage("hello kineticstreamer"));
- * 
- * // read back
- * var fis = new FileInputStream(tmpFile.toFile());
- * var dis = new ByteInputKineticStream(new DataInputStream(fis));
- * var ksr = new KineticStreamReader(dis);
- * StringMessage actual = (StringMessage) ksr.read(StringMessage.class);
- * System.out.println(actual.data);
+// write
+var tmpFile = Files.createTempFile("", "kineticstream");
+var fos = new FileOutputStream(tmpFile.toFile());
+var dos = new ByteOutputKineticStream(new DataOutputStream(fos));
+var ksw = new KineticStreamWriter(dos);
+ksw.write(new StringMessage("hello kineticstreamer"));
+
+// read back
+var fis = new FileInputStream(tmpFile.toFile());
+var dis = new ByteInputKineticStream(new DataInputStream(fis));
+var ksr = new KineticStreamReader(dis);
+StringMessage actual = (StringMessage) ksr.read(StringMessage.class);
+System.out.println(actual.data);
  * }</pre>
  *
  *
