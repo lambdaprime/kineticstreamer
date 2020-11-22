@@ -20,22 +20,45 @@
  * - lambdaprime <id.blackmesa@gmail.com>
  */
 /**
- * <p><b>kineticstreamer</b> - Java module to do (de)serialization of Java objects into streams.
- * By default it supports object conversion to stream of bytes and back. But it is extendible
+ * <p><b>kineticstreamer</b> - Java module to do (de)serialization of Java
+ * objects into streams. It provides default implementations for object
+ * conversion to stream of bytes and CSV files. But you can add support
  * to any other format as well.</p>
- * <p>It parses object tree and allows you to get control over how types are going to be
- * (de)serialized.</p>
+ * 
+ * <p>It parses object tree and allows you to get control over how types
+ * are going to be (de)serialized.</p>
+ * 
  * <p>Only fields annotated with @Streamed annotation will be (de)serialized.</p> 
  * 
  * <h1>Stream</h1>
- * <p>In terms of <b>kineticstreamer</b> 'stream' represents sequence of any sort (sequence of bytes,
- * words, numbers, etc). The type of elements in such sequence don't need to be the same. Streams have flat
- * schemas opposite to JSON, XML, etc.</p>
+ * <p>In terms of <b>kineticstreamer</b> 'stream' represents sequence of any
+ * sort (sequence of bytes, words, numbers, etc). The type of elements in such
+ * sequence don't need to be the same. Streams have flat schemas opposite to
+ * JSON, XML, etc.</p>
+ * 
  * <p>Example of streams are flat byte formats, CSV files, etc.</p>
  * 
+ * <h1>Kinetic stream</h1>
+ * <p>Kinetic stream is an abstraction which is defined by two interfaces:</p>
+ * <ul>
+ * <li>{@link id.kineticstreamer.InputKineticStream}</li>
+ * <li>{@link id.kineticstreamer.OutputKineticStream}</li>
+ * </ul>
+ * <p><b>kineticstreamer</b> relies on them for Java objects (de)serialization.</p>
+ * 
+ * <p>Kinetic streams allow <b>kineticstreamer</b> to operate with any type of
+ * streams without even knowing anything about their format.</p>
+ * 
+ * <p>Every type of stream has its own implementation of kinetic stream ifaces.</p>
+ * 
+ * <p><b>kineticstreamer</b> comes with some predefined kinetic streams
+ * (see {@link id.kineticstreamer.streams}). To add support for custom types of
+ * streams you need to implement kinetic stream ifaces for them.</p> 
+ * 
  * <h1>Arrays</h1>
- * <p><b>kineticstreamer</b> does not support serialization of arrays of primitive types. If you still
- * need to use primitive type arrays please use their wrapped version (Integer[], Long[], etc).</p>
+ * <p><b>kineticstreamer</b> supports (de)serialization of arrays with non-primitive types.
+ * If you still need to use arrays with primitive type please use their wrapped version
+ * (Integer[], Long[], etc).</p>
  *
  * <h1>Examples</h1>
  * 
@@ -47,6 +70,7 @@ public class StringMessage {
     &#64;Streamed
     public String data;
 
+    // streamed objects require default ctor
     public StringMessage() {
     }
 
