@@ -22,10 +22,11 @@
 package id.kineticstreamer;
 
 /**
- * Interface which needs to be implemented to support serialization of
- * new types of kinetic stream.
+ * <p>Interface which needs to be implemented to support serialization of
+ * new types of kinetic streams.</p>
  * 
- * @see id.kineticstreamer.streams.ByteOutputKineticStream
+ * <p>All of its methods write values of certain data types into stream
+ * which later can be read back by {@link InputKineticStream}.</p>
  */
 public interface OutputKineticStream extends AutoCloseable {
 

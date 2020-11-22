@@ -21,10 +21,14 @@
  */
 package id.kineticstreamer;
 
+import id.kineticstreamer.utils.KineticUtils;
 import id.kineticstreamer.utils.ValueSetter;
 import id.xfunction.function.ThrowingConsumer;
 import id.xfunction.function.Unchecked;
 
+/**
+ * Reads Java objects from kinetic streams
+ */
 public class KineticStreamReader {
 
     private InputKineticStream in;

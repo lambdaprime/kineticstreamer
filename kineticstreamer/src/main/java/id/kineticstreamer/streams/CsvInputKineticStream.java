@@ -36,8 +36,8 @@ import id.kineticstreamer.InputKineticStream;
 import id.kineticstreamer.KineticStreamReader;
 
 /**
- * Kinetic stream implementation for (de)serialization of Java objects
- * into stream of CSV lines and back.
+ * Kinetic stream implementation for deserialization of Java objects
+ * from stream of CSV lines.
  */
 public class CsvInputKineticStream implements InputKineticStream {
 

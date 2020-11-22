@@ -21,8 +21,12 @@
  */
 package id.kineticstreamer;
 
+import id.kineticstreamer.utils.KineticUtils;
 import id.xfunction.function.Unchecked;
 
+/**
+ * Writes Java objects into kinetic streams
+ */
 public class KineticStreamWriter {
 
     private OutputKineticStream out;

@@ -29,8 +29,8 @@ import id.kineticstreamer.InputKineticStream;
 import id.kineticstreamer.KineticStreamReader;
 
 /**
- * Kinetic stream implementation for (de)serialization of Java objects
- * into sequence of bytes and back.
+ * Kinetic stream implementation for deserialization of Java objects
+ * into sequence of bytes.
  *
  */
 public class ByteInputKineticStream implements InputKineticStream {

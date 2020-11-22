@@ -19,7 +19,7 @@
  * Authors:
  * - lambdaprime <id.blackmesa@gmail.com>
  */
-package id.kineticstreamer;
+package id.kineticstreamer.utils;
 
 import static java.util.stream.Collectors.toList;
 

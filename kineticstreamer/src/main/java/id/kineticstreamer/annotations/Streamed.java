@@ -27,8 +27,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <b>kineticstreamer</b> processing only fields which are annotated
- * as Streamed.
+ * <b>kineticstreamer</b> performs (de)serialization only for fields
+ * which are annotated as Streamed.
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

@@ -28,8 +28,8 @@ import id.kineticstreamer.KineticStreamWriter;
 import id.kineticstreamer.OutputKineticStream;
 
 /**
- * Kinetic stream implementation for (de)serialization of Java objects
- * into CSV files and back.
+ * Kinetic stream implementation for serialization of Java objects
+ * into CSV files.
  *
  */
 public class CsvOutputKineticStream implements OutputKineticStream {

@@ -28,8 +28,8 @@ import id.kineticstreamer.KineticStreamWriter;
 import id.kineticstreamer.OutputKineticStream;
 
 /**
- * Kinetic stream implementation for (de)serialization of Java objects
- * into sequence of bytes and back.
+ * Kinetic stream implementation for serialization of Java objects
+ * into sequence of bytes.
  *
  */
 public class ByteOutputKineticStream implements OutputKineticStream {
@@ -70,12 +70,12 @@ public class ByteOutputKineticStream implements OutputKineticStream {
     }
 
     /**
-     * <p>Any array A serialized in following format:</p>
+     * <p>Any array 'A' serialized as follows:</p>
      *
      * writeInt(A.length) | KineticStreamWriter::write(a[0]) | ... | KineticStreamWriter::write(a[N])
      *
-     * <p>Where write call for each item will use KineticStreamWriter on same object of
-     * kinetic stream (on 'this').</p>
+     * <p>Where write call for each item will use KineticStreamWriter on same
+     * kinetic stream object (ie. 'this').</p>
      */
     @Override
     public void writeArray(Object[] array) throws Exception {
