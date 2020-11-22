@@ -85,4 +85,8 @@ public class ByteOutputKineticStream implements OutputKineticStream {
         }
     }
 
+    @Override
+    public void close() throws Exception {
+    }
+
 }

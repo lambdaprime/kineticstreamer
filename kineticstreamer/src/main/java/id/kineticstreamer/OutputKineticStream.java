@@ -27,7 +27,7 @@ package id.kineticstreamer;
  * 
  * @see id.kineticstreamer.streams.ByteOutputKineticStream
  */
-public interface OutputKineticStream {
+public interface OutputKineticStream extends AutoCloseable {
 
     void writeString(String str) throws Exception;
     void writeInt(Integer i) throws Exception;
