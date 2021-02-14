@@ -28,7 +28,7 @@
  * <p>It parses object tree and allows you to get control over how types
  * are going to be (de)serialized.</p>
  * 
- * <p>Only fields annotated with @Streamed annotation will be (de)serialized.</p> 
+ * <p>Only fields annotated with {@link id.kineticstreamer.annotations.Streamed} annotation will be (de)serialized.</p>
  * 
  * <h1>Stream</h1>
  * <p>In terms of <b>kineticstreamer</b> 'stream' represents sequence of any
@@ -59,6 +59,20 @@
  * <p><b>kineticstreamer</b> supports (de)serialization of arrays with non-primitive types.
  * If you still need to use arrays with primitive type please use their wrapped version
  * (Integer[], Long[], etc).</p>
+ * 
+ * <h1>Defining streamed classes</h1>
+ * 
+ * <p>These are the classes which are going to be (de)serialized with their fields being
+ * streamed. There are certain requirements to such classes:</p>
+ * 
+ * <ul>
+ * <li>Need to define default ctor</li>
+ * <li>Fields which will be (de)serialized (streamed fields) should be annotated
+ * with {@link id.kineticstreamer.annotations.Streamed} annotation</li>
+ * <li>If the type of streamed field is yet another streamed class then such field
+ * should be initialized with non null value (i.e. with its default ctor) otherwise the
+ * <b>kineticstreamer</b> will ignore such fields during streaming with all its subfields</li>
+ * </ul>
  *
  * <h1>Examples</h1>
  * 
@@ -99,6 +113,8 @@ StringMessage actual = (StringMessage) ksr.read(StringMessage.class);
 System.out.println(actual.data);
  * }</pre>
  *
+ * @see <a href="https://github.com/lambdaprime/kineticstreamer/releases">Download kineticstreamer</a>
+ * @see <a href="https://github.com/lambdaprime/kineticstreamer">Github</a>
  *
  */
 module id.kineticstreamer {
