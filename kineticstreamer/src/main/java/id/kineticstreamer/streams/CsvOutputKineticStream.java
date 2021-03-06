@@ -89,4 +89,9 @@ public class CsvOutputKineticStream implements OutputKineticStream {
         out.write(';');
     }
 
+    @Override
+    public void writeIntArray(int[] array) throws Exception {
+        throw new RuntimeException("Not supported");
+    }
+
 }

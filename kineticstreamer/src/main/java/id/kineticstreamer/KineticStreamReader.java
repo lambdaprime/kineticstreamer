@@ -64,7 +64,12 @@ public class KineticStreamReader {
         default: {
             if (type.isArray()) {
                 type = type.getComponentType();
-                setter.accept(in.readArray(type));
+                Object a = null;
+                if (type == int.class)
+                    a = in.readIntArray();
+                else
+                    a = in.readArray(type);
+                setter.accept(a);
                 break;
             } else {
                 var obj = utils.createObject(type);

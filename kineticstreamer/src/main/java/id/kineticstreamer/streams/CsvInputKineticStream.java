@@ -113,4 +113,9 @@ public class CsvInputKineticStream implements InputKineticStream {
         return Byte.parseByte(tokens.remove(0));
     }
 
+    @Override
+    public int[] readIntArray() throws Exception {
+        throw new RuntimeException("Not supported");
+    }
+
 }

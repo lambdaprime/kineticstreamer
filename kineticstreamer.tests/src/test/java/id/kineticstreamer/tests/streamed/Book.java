@@ -50,12 +50,16 @@ public class Book {
     
     @Streamed
     public Integer[] illustratedPages;
+    
+    @Streamed
+    public int[] emptyPages;
 
     public Book() {
 
     }
 
-    public Book(String name, float price, double rating, int weight, Author author, boolean hardcover, Integer[] illustratedPages) {
+    public Book(String name, float price, double rating, int weight, Author author, boolean hardcover,
+            Integer[] illustratedPages, int[] emptyPages) {
         this.name = name;
         this.price = price;
         this.weight = weight;
@@ -63,6 +67,7 @@ public class Book {
         this.author = author;
         this.hardcover = hardcover;
         this.illustratedPages = illustratedPages;
+        this.emptyPages = emptyPages;
     }
 
     @Override
@@ -75,12 +80,14 @@ public class Book {
         System.out.format("%s == %s\n", author, other.author);
         System.out.format("%s == %s\n", hardcover, other.hardcover);
         System.out.format("%s == %s\n", Arrays.toString(illustratedPages), Arrays.toString(other.illustratedPages));
+        System.out.format("%s == %s\n", Arrays.toString(emptyPages), Arrays.toString(other.emptyPages));
         return Objects.equals(name, other.name) &&
                 Objects.equals(price, other.price) &&
                 Objects.equals(rating, other.rating) &&
                 Objects.equals(weight, other.weight) &&
                 Objects.equals(hardcover, other.hardcover) &&
                 Arrays.equals(illustratedPages, other.illustratedPages) &&
+                Arrays.equals(emptyPages, other.emptyPages) &&
                 Objects.equals(author, other.author);
     }
 }

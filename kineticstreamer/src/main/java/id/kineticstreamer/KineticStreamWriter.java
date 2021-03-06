@@ -57,7 +57,10 @@ public class KineticStreamWriter {
         case "java.lang.Boolean": out.writeBoolean((Boolean)b); break;
         default: {
             if (type.isArray()) {
-                out.writeArray((Object[]) b);
+                if (type.getComponentType() == int.class)
+                    out.writeIntArray((int[]) b);
+                else 
+                    out.writeArray((Object[]) b);
                 break;
             } else {
                 utils.findStreamedFields(type).stream()

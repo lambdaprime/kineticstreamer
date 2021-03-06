@@ -37,5 +37,6 @@ public interface OutputKineticStream extends AutoCloseable {
     void writeBoolean(Boolean fieldValue) throws Exception;
     void writeByte(Byte fieldValue) throws Exception;
     void writeArray(Object[] array) throws Exception;
+    void writeIntArray(int[] array) throws Exception;
 
 }
