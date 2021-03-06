@@ -107,4 +107,10 @@ public class CsvInputKineticStream implements InputKineticStream {
         in.close();
     }
 
+    @Override
+    public byte readByte() throws Exception {
+        advance();
+        return Byte.parseByte(tokens.remove(0));
+    }
+
 }

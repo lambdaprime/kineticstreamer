@@ -89,4 +89,9 @@ public class ByteOutputKineticStream implements OutputKineticStream {
     public void close() throws Exception {
     }
 
+    @Override
+    public void writeByte(Byte b) throws Exception {
+        out.writeByte(b);
+    }
+
 }

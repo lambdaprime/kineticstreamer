@@ -51,6 +51,8 @@ public class KineticStreamWriter {
         case "java.lang.Float": out.writeFloat((Float)b); break;
         case "double":
         case "java.lang.Double": out.writeDouble((Double)b); break;
+        case "byte":
+        case "java.lang.Byte": out.writeByte((Byte)b); break;
         case "boolean":
         case "java.lang.Boolean": out.writeBoolean((Boolean)b); break;
         default: {

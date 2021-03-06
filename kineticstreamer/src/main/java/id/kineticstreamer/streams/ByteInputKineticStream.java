@@ -85,4 +85,9 @@ public class ByteInputKineticStream implements InputKineticStream {
     public void close() throws Exception {
     }
 
+    @Override
+    public byte readByte() throws Exception {
+        return in.readByte();
+    }
+
 }

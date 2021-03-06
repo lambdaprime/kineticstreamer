@@ -83,4 +83,10 @@ public class CsvOutputKineticStream implements OutputKineticStream {
         out.close();
     }
 
+    @Override
+    public void writeByte(Byte b) throws Exception {
+        out.write(b.toString());
+        out.write(';');
+    }
+
 }

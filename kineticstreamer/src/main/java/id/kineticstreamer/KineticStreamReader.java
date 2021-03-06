@@ -57,6 +57,8 @@ public class KineticStreamReader {
         case "java.lang.Float": setter.accept(in.readFloat()); break;
         case "double":
         case "java.lang.Double": setter.accept(in.readDouble()); break;
+        case "byte":
+        case "java.lang.Byte": setter.accept(in.readByte()); break;
         case "boolean":
         case "java.lang.Boolean": setter.accept(in.readBool()); break;
         default: {
