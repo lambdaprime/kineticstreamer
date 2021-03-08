@@ -99,4 +99,13 @@ public class ByteInputKineticStream implements InputKineticStream {
         return array;
     }
 
+    @Override
+    public byte[] readByteArray() throws Exception {
+        var array = new byte[in.readInt()];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = in.readByte();
+        }
+        return array;
+    }
+
 }

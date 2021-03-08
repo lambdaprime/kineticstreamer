@@ -94,4 +94,9 @@ public class CsvOutputKineticStream implements OutputKineticStream {
         throw new RuntimeException("Not supported");
     }
 
+    @Override
+    public void writeByteArray(byte[] array) throws Exception {
+        throw new RuntimeException("Not supported");
+    }
+
 }

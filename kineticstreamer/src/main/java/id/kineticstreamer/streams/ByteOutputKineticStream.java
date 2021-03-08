@@ -100,4 +100,12 @@ public class ByteOutputKineticStream implements OutputKineticStream {
         }
     }
 
+    @Override
+    public void writeByteArray(byte[] array) throws Exception {
+        out.writeInt(array.length);
+        for (var item: array) {
+            out.writeByte(item);
+        }
+    }
+
 }

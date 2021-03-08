@@ -118,4 +118,9 @@ public class CsvInputKineticStream implements InputKineticStream {
         throw new RuntimeException("Not supported");
     }
 
+    @Override
+    public byte[] readByteArray() throws Exception {
+        throw new RuntimeException("Not supported");
+    }
+
 }
