@@ -69,6 +69,8 @@
  * <li>Need to define default ctor</li>
  * <li>Fields which will be (de)serialized (streamed fields) should be annotated
  * with {@link id.kineticstreamer.annotations.Streamed} annotation</li>
+ * <li>Streamed fields should be accessible to the <b>kineticstreamer</b> or be public</li>
+ * <li>Streamed fields which point to arrays should be initialized with empty arrays</li>
  * <li>If the type of streamed field is yet another streamed class then such field
  * should be initialized with non null value (i.e. with its default ctor) otherwise the
  * <b>kineticstreamer</b> will ignore such fields during streaming with all its subfields</li>
