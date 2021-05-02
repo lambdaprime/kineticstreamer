@@ -56,9 +56,9 @@
  * streams you need to implement kinetic stream ifaces for them.</p> 
  * 
  * <h1>Arrays</h1>
- * <p><b>kineticstreamer</b> supports (de)serialization of arrays with non-primitive types.
- * If you still need to use arrays with primitive type please use their wrapped version
- * (Integer[], Long[], etc).</p>
+ * <p><b>kineticstreamer</b> supports (de)serialization of arrays with non-primitive types
+ * plus some primitive types as well. If you need to use arrays with primitive type which are not
+ * yet supported please use their wrapped version (Short[], etc).</p>
  * 
  * <h1>Defining streamed classes</h1>
  * 
