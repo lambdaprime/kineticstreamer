@@ -108,4 +108,12 @@ public class ByteOutputKineticStream implements OutputKineticStream {
         }
     }
 
+    @Override
+    public void writeDoubleArray(double[] array) throws Exception {
+        out.writeInt(array.length);
+        for (var item: array) {
+            out.writeDouble(item);
+        }
+    }
+
 }

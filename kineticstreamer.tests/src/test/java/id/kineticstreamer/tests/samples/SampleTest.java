@@ -23,10 +23,14 @@ package id.kineticstreamer.tests.samples;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.nio.file.Files;
 
 import org.junit.jupiter.api.Test;
@@ -35,8 +39,15 @@ import id.kineticstreamer.KineticStreamReader;
 import id.kineticstreamer.KineticStreamWriter;
 import id.kineticstreamer.streams.ByteInputKineticStream;
 import id.kineticstreamer.streams.ByteOutputKineticStream;
+import id.kineticstreamer.streams.CsvInputKineticStream;
+import id.kineticstreamer.streams.CsvOutputKineticStream;
+import id.kineticstreamer.tests.streamed.Author;
+import id.kineticstreamer.tests.streamed.AuthorsCatalog;
 import id.kineticstreamer.tests.streamed.StringMessage;
 
+/**
+ * Tests for code given in the documentation
+ */
 public class SampleTest {
 
     @Test
@@ -56,5 +67,26 @@ public class SampleTest {
         System.out.println(actual.data);
         
         assertEquals("hello kineticstreamer", actual.data);
+    }
+    
+    @Test
+    public void testCsvExample() throws Exception {
+        var tmpFile = Files.createTempFile("", "kineticstream");
+        var fos = new FileWriter(tmpFile.toFile());
+        var out = new CsvOutputKineticStream(new BufferedWriter(fos));
+        var ksw = new KineticStreamWriter(out);
+        var expected = new AuthorsCatalog(new Author[] {
+            new Author("Unknown", 123),
+            new Author("David Deutsch", 2121)
+        });
+        ksw.write(expected);
+        out.close();
+        var fis = new FileReader(tmpFile.toFile());
+        var in = new CsvInputKineticStream(new BufferedReader(fis));
+        var ksr = new KineticStreamReader(in);
+        
+        AuthorsCatalog actual = (AuthorsCatalog) ksr.read(AuthorsCatalog.class);
+        System.out.println(actual);
+        assertEquals(expected, actual);
     }
 }

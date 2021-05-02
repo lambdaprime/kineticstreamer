@@ -61,6 +61,8 @@ public class KineticStreamWriter {
                     out.writeIntArray((int[]) b);
                 else if (type.getComponentType() == byte.class)
                     out.writeByteArray((byte[]) b);
+                else if (type.getComponentType() == double.class)
+                    out.writeDoubleArray((double[]) b);
                 else 
                     out.writeArray((Object[]) b);
                 break;

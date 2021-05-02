@@ -24,19 +24,11 @@ package id.kineticstreamer.tests;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.nio.file.Files;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -44,11 +36,9 @@ import id.kineticstreamer.KineticStreamReader;
 import id.kineticstreamer.KineticStreamWriter;
 import id.kineticstreamer.streams.ByteInputKineticStream;
 import id.kineticstreamer.streams.ByteOutputKineticStream;
-import id.kineticstreamer.streams.CsvInputKineticStream;
-import id.kineticstreamer.streams.CsvOutputKineticStream;
 import id.kineticstreamer.tests.streamed.Author;
-import id.kineticstreamer.tests.streamed.AuthorsCatalog;
 import id.kineticstreamer.tests.streamed.Book;
+import id.kineticstreamer.tests.streamed.DepthFrame;
 import id.kineticstreamer.tests.streamed.StringMessage;
 import id.xfunction.XUtils;
 import id.xfunction.io.XInputStream;
@@ -64,7 +54,8 @@ public class KineticStreamTest {
                     new int[] {2, 3})),
             List.of("00, 00, 00, 03, 61, 61, 61", "aaa"),
             List.of("00, 00, 00, 0a", 10),
-            List.of("00, 00, 00, 03, 00, 00, 00, 01, 00, 00, 00, 01, 00, 00, 00, 01", new Integer[] {1, 1, 1})
+            List.of("00, 00, 00, 03, 00, 00, 00, 01, 00, 00, 00, 01, 00, 00, 00, 01", new Integer[] {1, 1, 1}),
+            List.of(XUtils.readResource("test2"), new DepthFrame(1., 2., 3., 4.))
         );
     }//
 
@@ -94,39 +85,4 @@ public class KineticStreamTest {
             assertEquals(expected, actual);
     }
     
-    @Test
-    public void testByteExample() throws Exception {
-        var tmpFile = Files.createTempFile("", "kineticstream");
-        var fos = new FileOutputStream(tmpFile.toFile());
-        var dos = new ByteOutputKineticStream(new DataOutputStream(fos));
-        var ksw = new KineticStreamWriter(dos);
-        ksw.write(new StringMessage("hello kineticstreamer"));
-        var fis = new FileInputStream(tmpFile.toFile());
-        var dis = new ByteInputKineticStream(new DataInputStream(fis));
-        var ksr = new KineticStreamReader(dis);
-        StringMessage actual = (StringMessage) ksr.read(StringMessage.class);
-        System.out.println(actual.data);
-        assertEquals("hello kineticstreamer", actual.data);
-    }
-    
-    @Test
-    public void testCsvExample() throws Exception {
-        var tmpFile = Files.createTempFile("", "kineticstream");
-        var fos = new FileWriter(tmpFile.toFile());
-        var out = new CsvOutputKineticStream(new BufferedWriter(fos));
-        var ksw = new KineticStreamWriter(out);
-        var expected = new AuthorsCatalog(new Author[] {
-            new Author("Unknown", 123),
-            new Author("David Deutsch", 2121)
-        });
-        ksw.write(expected);
-        out.close();
-        var fis = new FileReader(tmpFile.toFile());
-        var in = new CsvInputKineticStream(new BufferedReader(fis));
-        var ksr = new KineticStreamReader(in);
-        
-        AuthorsCatalog actual = (AuthorsCatalog) ksr.read(AuthorsCatalog.class);
-        System.out.println(actual);
-        assertEquals(expected, actual);
-    }
 }
