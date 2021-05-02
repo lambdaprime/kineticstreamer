@@ -17,7 +17,7 @@
  */
 /*
  * Authors:
- * - lambdaprime <id.blackmesa@gmail.com>
+ * - lambdaprime <intid@protonmail.com>
  */
 /**
  * <p><b>kineticstreamer</b> - Java module to do (de)serialization of Java

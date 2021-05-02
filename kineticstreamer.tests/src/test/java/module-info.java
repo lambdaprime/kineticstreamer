@@ -17,7 +17,7 @@
  */
 /*
  * Authors:
- * - lambdaprime <id.blackmesa@gmail.com>
+ * - lambdaprime <intid@protonmail.com>
  */
 module id.kineticstreamer.tests {
     exports id.kineticstreamer.tests;
