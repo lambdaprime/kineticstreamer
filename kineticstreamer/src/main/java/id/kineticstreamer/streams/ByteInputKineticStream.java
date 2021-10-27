@@ -94,7 +94,7 @@ public class ByteInputKineticStream implements InputKineticStream {
     public int[] readIntArray() throws Exception {
         var array = new int[in.readInt()];
         for (int i = 0; i < array.length; i++) {
-            array[i] = in.readInt();
+            array[i] = readInt();
         }
         return array;
     }
@@ -103,7 +103,7 @@ public class ByteInputKineticStream implements InputKineticStream {
     public byte[] readByteArray() throws Exception {
         var array = new byte[in.readInt()];
         for (int i = 0; i < array.length; i++) {
-            array[i] = in.readByte();
+            array[i] = readByte();
         }
         return array;
     }
@@ -112,7 +112,16 @@ public class ByteInputKineticStream implements InputKineticStream {
     public double[] readDoubleArray() throws Exception {
         var array = new double[in.readInt()];
         for (int i = 0; i < array.length; i++) {
-            array[i] = in.readDouble();
+            array[i] = readDouble();
+        }
+        return array;
+    }
+
+    @Override
+    public boolean[] readBooleanArray() throws Exception {
+        var array = new boolean[in.readInt()];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = readBool();
         }
         return array;
     }

@@ -128,4 +128,9 @@ public class CsvInputKineticStream implements InputKineticStream {
         throw new RuntimeException("Not supported");
     }
 
+    @Override
+    public boolean[] readBooleanArray() throws Exception {
+        throw new RuntimeException("Not supported");
+    }
+
 }

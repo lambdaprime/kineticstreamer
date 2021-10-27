@@ -96,7 +96,7 @@ public class ByteOutputKineticStream implements OutputKineticStream {
     public void writeIntArray(int[] array) throws Exception {
         out.writeInt(array.length);
         for (var item: array) {
-            out.writeInt(item);
+            writeInt(item);
         }
     }
 
@@ -104,7 +104,7 @@ public class ByteOutputKineticStream implements OutputKineticStream {
     public void writeByteArray(byte[] array) throws Exception {
         out.writeInt(array.length);
         for (var item: array) {
-            out.writeByte(item);
+            writeByte(item);
         }
     }
 
@@ -112,7 +112,15 @@ public class ByteOutputKineticStream implements OutputKineticStream {
     public void writeDoubleArray(double[] array) throws Exception {
         out.writeInt(array.length);
         for (var item: array) {
-            out.writeDouble(item);
+            writeDouble(item);
+        }
+    }
+
+    @Override
+    public void writeBooleanArray(boolean[] array) throws Exception {
+        out.writeInt(array.length);
+        for (var item: array) {
+            writeBoolean(item);
         }
     }
 

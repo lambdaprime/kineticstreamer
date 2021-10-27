@@ -71,6 +71,8 @@ public class KineticStreamReader {
                     a = in.readByteArray();
                 else if (type == double.class)
                     a = in.readDoubleArray();
+                else if (type == boolean.class)
+                    a = in.readBooleanArray();
                 else
                     a = in.readArray(type);
                 setter.accept(a);
