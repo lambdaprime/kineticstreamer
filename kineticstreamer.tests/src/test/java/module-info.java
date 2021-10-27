@@ -19,7 +19,7 @@
  * Authors:
  * - lambdaprime <intid@protonmail.com>
  */
-module id.kineticstreamer.tests {
+open module id.kineticstreamer.tests {
     exports id.kineticstreamer.tests;
     
     // for reflection
