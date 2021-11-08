@@ -16,7 +16,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="libs/xfunction-10.0.jar">
+	<classpathentry kind="lib" path="libs/xfunction-14.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

@@ -23,11 +23,13 @@ package id.kineticstreamer;
 
 import id.kineticstreamer.utils.KineticUtils;
 import id.xfunction.function.Unchecked;
+import id.xfunction.logging.XLogger;
 
 /**
  * Writes Java objects into kinetic streams
  */
 public class KineticStreamWriter {
+    private static final XLogger LOGGER = XLogger.getLogger(KineticStreamWriter.class);
 
     private OutputKineticStream out;
     private KineticUtils utils = new KineticUtils();
@@ -42,6 +44,7 @@ public class KineticStreamWriter {
      */
     public void write(Object b) throws Exception {
         if (b == null) return;
+        LOGGER.fine("Writing object type {0}", b.getClass().getSimpleName());
         var type = b.getClass();
         switch (type.getName()) {
         case "java.lang.String": out.writeString((String)b); break;

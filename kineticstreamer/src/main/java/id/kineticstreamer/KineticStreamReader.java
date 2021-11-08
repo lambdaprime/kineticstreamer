@@ -25,11 +25,13 @@ import id.kineticstreamer.utils.KineticUtils;
 import id.kineticstreamer.utils.ValueSetter;
 import id.xfunction.function.ThrowingConsumer;
 import id.xfunction.function.Unchecked;
+import id.xfunction.logging.XLogger;
 
 /**
  * Reads Java objects from kinetic streams
  */
 public class KineticStreamReader {
+    private static final XLogger LOGGER = XLogger.getLogger(KineticStreamReader.class);
 
     private InputKineticStream in;
     private KineticUtils utils = new KineticUtils();
@@ -49,6 +51,7 @@ public class KineticStreamReader {
     }
 
     private void read(Class<?> type, ThrowingConsumer<Object, Exception> setter) throws Exception {
+        LOGGER.fine("Reading object type {0}", type.getSimpleName());
         switch (type.getName()) {
         case "java.lang.String": setter.accept(in.readString()); break;
         case "int":

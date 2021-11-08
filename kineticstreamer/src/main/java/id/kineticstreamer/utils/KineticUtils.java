@@ -28,7 +28,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import id.kineticstreamer.annotations.Streamed;
-import id.xfunction.XUtils;
+import id.xfunction.lang.XRE;
 
 public class KineticUtils {
 
@@ -39,7 +39,7 @@ public class KineticUtils {
         try {
             var ctor = type.getConstructor();
             if (ctor == null)
-                XUtils.throwRuntime("Type %s has no default ctor",  type);
+                throw new XRE("Type %s has no default ctor",  type);
             return ctor.newInstance();
         } catch (Exception e ) {
             throw new RuntimeException(e);

@@ -40,22 +40,24 @@ import id.kineticstreamer.tests.streamed.Author;
 import id.kineticstreamer.tests.streamed.Book;
 import id.kineticstreamer.tests.streamed.DepthFrame;
 import id.kineticstreamer.tests.streamed.StringMessage;
-import id.xfunction.XUtils;
+import id.xfunction.ResourceUtils;
 import id.xfunction.io.XInputStream;
 import id.xfunction.io.XOutputStream;
 
 public class KineticStreamTest {
 
+    private static final ResourceUtils resourceUtils = new ResourceUtils();
+
     static Stream<List> dataProvider() {
         return Stream.of(
             List.of("00, 00, 00, 05, 68, 65, 6c, 6c, 6f", new StringMessage("hello")),
-            List.of(XUtils.readResource("test1"),
+            List.of(resourceUtils.readResource("test1"),
                 new Book("aaaaaaaa", 15.5F, 31.4, 11, new Author("bbbbb", 123), true, new Integer[] {9, 9, 9},
                     new int[] {2, 3})),
             List.of("00, 00, 00, 03, 61, 61, 61", "aaa"),
             List.of("00, 00, 00, 0a", 10),
             List.of("00, 00, 00, 03, 00, 00, 00, 01, 00, 00, 00, 01, 00, 00, 00, 01", new Integer[] {1, 1, 1}),
-            List.of(XUtils.readResource("test2"), new DepthFrame(1., 2., 3., 4.))
+            List.of(resourceUtils.readResource("test2"), new DepthFrame(1., 2., 3., 4.))
         );
     }//
 
