@@ -4,11 +4,6 @@ plugins {
 
 apply plugin : 'eclipse'
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-}
-
 dependencies {
     testImplementation project(':kineticstreamer')
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.4.2')
