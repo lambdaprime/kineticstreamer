@@ -1,6 +1,6 @@
-/bin/
-/build/
-/.gradle/
-/.settings/
-/src/gen/
-/docs/
+**/bin/
+**/build/
+**/.gradle/
+**/.settings/
+**/src/gen/
+docs/
