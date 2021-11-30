@@ -1,2 +1,0 @@
-include 'kineticstreamer'
-project(':kineticstreamer').projectDir = new File(rootDir, '../kineticstreamer')

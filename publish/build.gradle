@@ -1,4 +1,5 @@
-/*
+/*************************************************
+
 First we need publish main project to staging repo.
 
 Run following command in the root folder of the project:
@@ -19,12 +20,12 @@ Once it is done we can promote it to release repo:
 cd publish
 gradle closeAndReleaseRepository -PnexusUsername=XXX -PnexusPassword=XXX
 
-*/
+**************************************************/
 
 /*
-This is taken from https://github.com/Codearte/gradle-nexus-staging-plugin/
-It is used to publish from staging to release repo
-*/
+ * This is taken from https://github.com/Codearte/gradle-nexus-staging-plugin/
+ * It is used to publish from staging to release repo
+ */
 
 buildscript {
     repositories {
@@ -44,9 +45,10 @@ nexusStaging {
 }
 
 /*
-Now we include original build.gradle which will build subprojects
-as usual + let them sign and publish to staging repo
-*/
+ * Now we include original build.gradle which will build subprojects
+ * as usual + let them sign and publish to staging repo
+ */
+
 Properties props = new Properties()
 InputStream ins = new FileInputStream("../gradle.properties")
 props.load(ins)
