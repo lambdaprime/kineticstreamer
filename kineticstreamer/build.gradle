@@ -54,7 +54,7 @@ createRelease.dependsOn createPackage
 assemble.dependsOn createRelease
 clean.dependsOn cleanRelease
 
-if (project.hasProperty('publishToStagingRepo')) {
+if (project.hasProperty('publish')) {
 
   // Initially it was taken from https://central.sonatype.org/publish/publish-gradle/
   // but since Gradle removed this plugin https://docs.gradle.org/7.0/userguide/upgrading_version_6.html#removal_of_the_legacy_maven_plugin
@@ -84,7 +84,7 @@ if (project.hasProperty('publishToStagingRepo')) {
         groupId = 'io.github.lambdaprime'
         from components.java
         pom {
-          name = 'ICE'
+          name = 'kineticstreamer'
           description = 'Java module to do (de)serialization of Java objects into streams'
           url = 'https://github.com/lambdaprime/kineticstreamer'
 
@@ -108,16 +108,15 @@ if (project.hasProperty('publishToStagingRepo')) {
         }
       }
     }
-      repositories {
-        maven {
-          credentials {
-            username ossrhUsername
-            password ossrhPassword
-          }
-          url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+    repositories {
+      maven {
+        credentials {
+          username ossrhUsername
+          password ossrhPassword
         }
+        url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
       }
-    
+    }    
   }
 
   apply plugin: 'signing'

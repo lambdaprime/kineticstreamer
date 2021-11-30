@@ -5,12 +5,14 @@ Run following command in the root folder of the project:
 
 gradle clean build
 gradle publish \
- -PpublishToStagingRepo=true \
+ -Ppublish=true \
  -Psigning.secretKeyRingFile=XXX \
  -Psigning.password=XXX \
  -Psigning.keyId=XXX \
  -PossrhUsername=XXX \
  -PossrhPassword=XXX
+
+Or you can use publishToMavenLocal to publish to local repo before.
 
 Once it is done we can promote it to release repo:
 
