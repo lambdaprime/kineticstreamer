@@ -1,10 +1,8 @@
 **kineticstreamer** - Java module to do (de)serialization of Java objects into streams. It provides default implementations for object conversion to stream of bytes and CSV files. But you can add support to any other format as well.
 
-lambdaprime <intid@protonmail.com>
-
 # Requirements
 
-Java 11
+Java 11+
 
 # Download
 
@@ -20,6 +18,10 @@ dependencies {
 }
 ```
 
-# Documentation
+# Links
 
-Javadoc is available here <http://portal2.atwebpages.com/kineticstreamer>
+[kineticstreamer documentation](http://portal2.atwebpages.com/kineticstreamer)
+
+# Contributors
+
+lambdaprime <intid@protonmail.com>
