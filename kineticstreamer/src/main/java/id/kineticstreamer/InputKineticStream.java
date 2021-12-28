@@ -41,4 +41,5 @@ public interface InputKineticStream extends AutoCloseable {
     byte[] readByteArray() throws Exception;
     double[] readDoubleArray() throws Exception;
     boolean[] readBooleanArray() throws Exception;
+    long readLong() throws Exception;
 }

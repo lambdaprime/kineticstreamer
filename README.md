@@ -20,7 +20,8 @@ dependencies {
 
 # Links
 
-[kineticstreamer documentation](http://portal2.atwebpages.com/kineticstreamer)
+[Documentation](http://portal2.atwebpages.com/kineticstreamer)
+[Development](DEVELOPMENT.md)
 
 # Contributors
 

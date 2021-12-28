@@ -50,6 +50,8 @@ public class KineticStreamWriter {
         case "java.lang.String": out.writeString((String)b); break;
         case "int":
         case "java.lang.Integer": out.writeInt((Integer)b); break;
+        case "long":
+        case "java.lang.Long": out.writeLong((Long)b); break;
         case "float":
         case "java.lang.Float": out.writeFloat((Float)b); break;
         case "double":

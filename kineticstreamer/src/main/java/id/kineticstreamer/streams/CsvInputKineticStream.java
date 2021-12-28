@@ -133,4 +133,10 @@ public class CsvInputKineticStream implements InputKineticStream {
         throw new RuntimeException("Not supported");
     }
 
+    @Override
+    public long readLong() throws Exception {
+        advance();
+        return Long.parseLong(tokens.remove(0));
+    }
+
 }

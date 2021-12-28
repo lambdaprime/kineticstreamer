@@ -31,7 +31,6 @@ import id.kineticstreamer.KineticStreamReader;
 /**
  * Kinetic stream implementation for deserialization of Java objects
  * into sequence of bytes.
- *
  */
 public class ByteInputKineticStream implements InputKineticStream {
 
@@ -124,6 +123,11 @@ public class ByteInputKineticStream implements InputKineticStream {
             array[i] = readBool();
         }
         return array;
+    }
+
+    @Override
+    public long readLong() throws Exception {
+        return in.readLong();
     }
 
 }

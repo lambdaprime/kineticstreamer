@@ -2,6 +2,8 @@ plugins {
     id 'java'
 }
 
+apply plugin : 'eclipse'
+
 dependencies {
    implementation 'io.github.lambdaprime:id.xfunction:14.0'
 

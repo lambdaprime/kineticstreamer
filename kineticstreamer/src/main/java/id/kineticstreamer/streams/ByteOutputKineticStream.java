@@ -124,4 +124,9 @@ public class ByteOutputKineticStream implements OutputKineticStream {
         }
     }
 
+    @Override
+    public void writeLong(Long l) throws Exception {
+        out.writeLong(l);
+    }
+
 }

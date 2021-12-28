@@ -109,4 +109,10 @@ public class CsvOutputKineticStream implements OutputKineticStream {
         throw new RuntimeException("Not supported");
     }
 
+    @Override
+    public void writeLong(Long l) throws Exception {
+        out.write(l.toString());
+        out.write(';');
+    }
+
 }
