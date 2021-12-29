@@ -130,4 +130,13 @@ public class ByteInputKineticStream implements InputKineticStream {
         return in.readLong();
     }
 
+    @Override
+    public long[] readLongArray(long[] a) throws Exception {
+        var array = new long[in.readInt()];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = readLong();
+        }
+        return array;
+    }
+
 }

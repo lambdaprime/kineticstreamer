@@ -45,7 +45,11 @@ public class KineticStreamReader {
      * Reads an object from kinetic stream
      * @throws Exception
      */
-    public Object read(Class<?> type) throws Exception {
+    public <T> T read(Class<T> type) throws Exception {
+        return (T) readInternal(type);
+    }
+
+    private Object readInternal(Class<?> type) throws Exception {
         if (type.isArray()) {
             return readArray(null, type.getComponentType());
         }
@@ -53,7 +57,7 @@ public class KineticStreamReader {
         read(type, obj -> holder[0] = obj);
         return holder[0];
     }
-
+    
     private void read(Class<?> type, ThrowingConsumer<Object, Exception> setter) throws Exception {
         LOGGER.fine("Reading object type {0}", type.getSimpleName());
         switch (type.getName()) {
@@ -97,6 +101,11 @@ public class KineticStreamReader {
             var a = (int[])targetArray;
             if (a == null) a = new int[0];
             val = in.readIntArray(a);
+            inPlace = a == val;
+        } else if (type == long.class) {
+            var a = (long[])targetArray;
+            if (a == null) a = new long[0];
+            val = in.readLongArray(a);
             inPlace = a == val;
         } else if (type == byte.class) {
             var a = (byte[])targetArray;
