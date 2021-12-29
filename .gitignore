@@ -4,3 +4,5 @@
 **/.settings/
 **/src/gen/
 docs/
+**/.classpath
+**/.project

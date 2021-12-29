@@ -28,7 +28,7 @@ import id.kineticstreamer.annotations.Streamed;
 public class AuthorsCatalog {
 
     @Streamed
-    public Author[] authors;
+    public Author[] authors = new Author[0];
 
     public AuthorsCatalog() {
     }

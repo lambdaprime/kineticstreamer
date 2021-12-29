@@ -7,7 +7,7 @@ import id.kineticstreamer.annotations.Streamed;
 public class DepthFrame {
 
     @Streamed
-    public double[] data;
+    public double[] data = new double[0];
 
     public DepthFrame() {
 

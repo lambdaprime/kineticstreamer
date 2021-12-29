@@ -24,7 +24,6 @@ package id.kineticstreamer;
 import id.kineticstreamer.utils.KineticUtils;
 import id.kineticstreamer.utils.ValueSetter;
 import id.xfunction.function.ThrowingConsumer;
-import id.xfunction.function.Unchecked;
 import id.xfunction.logging.XLogger;
 
 /**
@@ -36,6 +35,8 @@ public class KineticStreamReader {
     private InputKineticStream in;
     private KineticUtils utils = new KineticUtils();
 
+    private boolean inPlace;
+
     public KineticStreamReader(InputKineticStream in) {
         this.in = in;
     }
@@ -45,6 +46,9 @@ public class KineticStreamReader {
      * @throws Exception
      */
     public Object read(Class<?> type) throws Exception {
+        if (type.isArray()) {
+            return readArray(null, type.getComponentType());
+        }
         Object[] holder = new Object[1];
         read(type, obj -> holder[0] = obj);
         return holder[0];
@@ -67,30 +71,54 @@ public class KineticStreamReader {
         case "boolean":
         case "java.lang.Boolean": setter.accept(in.readBool()); break;
         default: {
-            if (type.isArray()) {
-                type = type.getComponentType();
-                Object a = null;
-                if (type == int.class)
-                    a = in.readIntArray();
-                else if (type == byte.class)
-                    a = in.readByteArray();
-                else if (type == double.class)
-                    a = in.readDoubleArray();
-                else if (type == boolean.class)
-                    a = in.readBooleanArray();
-                else
-                    a = in.readArray(type);
-                setter.accept(a);
-                break;
-            } else {
-                var obj = utils.createObject(type);
-                utils.findStreamedFields(type)
-                    .forEach(Unchecked.wrapAccept(field -> read(field.getType(),
-                        new ValueSetter(obj, field)::set)));
-                setter.accept(obj);
-            }
+            var obj = utils.createObject(type);
+            utils.findStreamedFields(type).forEach(field -> {
+                try {
+                    var fieldType = field.getType();
+                    if (!fieldType.isArray()) {
+                        read(fieldType, new ValueSetter(obj, field)::set);
+                    } else {
+                        Object val = readArray(field.get(obj), fieldType.getComponentType());
+                        if (!inPlace) new ValueSetter(obj, field).set(val);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            setter.accept(obj);
         }
         }
     }
 
+    private Object readArray(Object targetArray, Class<?> type) throws Exception {
+        Object val = null;
+        inPlace = false;
+        if (type == int.class) {
+            var a = (int[])targetArray;
+            if (a == null) a = new int[0];
+            val = in.readIntArray(a);
+            inPlace = a == val;
+        } else if (type == byte.class) {
+            var a = (byte[])targetArray;
+            if (a == null) a = new byte[0];
+            val = in.readByteArray(a);
+            inPlace = a == val;
+        } else if (type == double.class) {
+            var a = (double[])targetArray;
+            if (a == null) a = new double[0];
+            val = in.readDoubleArray(a);
+            inPlace = a == val;
+        } else if (type == boolean.class) {
+            var a = (boolean[])targetArray;
+            if (a == null) a = new boolean[0];
+            val = in.readBooleanArray(a);
+            inPlace = a == val;
+        } else {
+            var a = (Object[])targetArray;
+            if (a == null) a = new Object[0];
+            val = in.readArray(a, type);
+            inPlace = a == val;
+        }
+        return val;
+    }
 }

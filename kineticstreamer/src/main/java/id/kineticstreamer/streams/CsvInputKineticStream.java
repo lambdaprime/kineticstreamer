@@ -92,7 +92,7 @@ public class CsvInputKineticStream implements InputKineticStream {
     }
 
     @Override
-    public Object[] readArray(Class<?> type) throws Exception {
+    public Object[] readArray(Object[] a, Class<?> type) throws Exception {
         List<Object> l = new ArrayList<>();
         String line = null;
         while ((line = in.readLine()) != null) {
@@ -114,22 +114,22 @@ public class CsvInputKineticStream implements InputKineticStream {
     }
 
     @Override
-    public int[] readIntArray() throws Exception {
+    public int[] readIntArray(int[] a) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public byte[] readByteArray() throws Exception {
+    public byte[] readByteArray(byte[] a) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public double[] readDoubleArray() throws Exception {
+    public double[] readDoubleArray(double[] a) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public boolean[] readBooleanArray() throws Exception {
+    public boolean[] readBooleanArray(boolean[] a) throws Exception {
         throw new RuntimeException("Not supported");
     }
 

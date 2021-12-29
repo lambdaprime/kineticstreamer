@@ -49,10 +49,10 @@ public class Book {
     public boolean hardcover;
     
     @Streamed
-    public Integer[] illustratedPages;
+    public Integer[] illustratedPages = new Integer[0];
     
     @Streamed
-    public int[] emptyPages;
+    public int[] emptyPages = new int[0];
 
     public Book() {
 
