@@ -42,4 +42,6 @@ public interface OutputKineticStream extends AutoCloseable {
     void writeDoubleArray(double[] array) throws Exception;
     void writeBooleanArray(boolean[] array) throws Exception;
     void writeLong(Long l) throws Exception;
+    void writeShort(Short s) throws Exception;
+    void writeShortArray(short[] a) throws Exception;
 }

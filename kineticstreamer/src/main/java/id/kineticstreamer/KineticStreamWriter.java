@@ -52,6 +52,8 @@ public class KineticStreamWriter {
         case "java.lang.Integer": out.writeInt((Integer)b); break;
         case "long":
         case "java.lang.Long": out.writeLong((Long)b); break;
+        case "short":
+        case "java.lang.Short": out.writeShort((Short)b); break;
         case "float":
         case "java.lang.Float": out.writeFloat((Float)b); break;
         case "double":
@@ -66,6 +68,8 @@ public class KineticStreamWriter {
                     out.writeIntArray((int[]) b);
                 else if (type.getComponentType() == byte.class)
                     out.writeByteArray((byte[]) b);
+                else if (type.getComponentType() == short.class)
+                    out.writeShortArray((short[]) b);
                 else if (type.getComponentType() == double.class)
                     out.writeDoubleArray((double[]) b);
                 else if (type.getComponentType() == boolean.class)

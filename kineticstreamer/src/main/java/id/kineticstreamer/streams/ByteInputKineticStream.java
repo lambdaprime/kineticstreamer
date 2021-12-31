@@ -139,4 +139,18 @@ public class ByteInputKineticStream implements InputKineticStream {
         return array;
     }
 
+    @Override
+    public short readShort() throws Exception {
+        return in.readShort();
+    }
+
+    @Override
+    public short[] readShortArray(short[] a) throws Exception {
+        var array = new short[in.readInt()];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = readShort();
+        }
+        return array;
+    }
+
 }

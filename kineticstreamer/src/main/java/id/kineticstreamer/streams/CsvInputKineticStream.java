@@ -144,4 +144,14 @@ public class CsvInputKineticStream implements InputKineticStream {
         throw new RuntimeException("Not supported");
     }
 
+    @Override
+    public short readShort() throws Exception {
+        throw new RuntimeException("Not supported");
+    }
+
+    @Override
+    public short[] readShortArray(short[] a) throws Exception {
+        throw new RuntimeException("Not supported");
+    }
+
 }

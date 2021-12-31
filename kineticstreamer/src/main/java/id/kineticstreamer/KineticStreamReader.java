@@ -66,6 +66,8 @@ public class KineticStreamReader {
         case "java.lang.Integer": setter.accept(in.readInt()); break;
         case "long":
         case "java.lang.Long": setter.accept(in.readLong()); break;
+        case "short":
+        case "java.lang.Short": setter.accept(in.readShort()); break;
         case "float":
         case "java.lang.Float": setter.accept(in.readFloat()); break;
         case "double":
@@ -106,6 +108,11 @@ public class KineticStreamReader {
             var a = (long[])targetArray;
             if (a == null) a = new long[0];
             val = in.readLongArray(a);
+            inPlace = a == val;
+        } else if (type == short.class) {
+            var a = (short[])targetArray;
+            if (a == null) a = new short[0];
+            val = in.readShortArray(a);
             inPlace = a == val;
         } else if (type == byte.class) {
             var a = (byte[])targetArray;

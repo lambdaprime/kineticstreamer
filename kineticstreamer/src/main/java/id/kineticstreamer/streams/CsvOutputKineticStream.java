@@ -111,8 +111,17 @@ public class CsvOutputKineticStream implements OutputKineticStream {
 
     @Override
     public void writeLong(Long l) throws Exception {
-        out.write(l.toString());
-        out.write(';');
+        throw new RuntimeException("Not supported");
+    }
+
+    @Override
+    public void writeShort(Short s) throws Exception {
+        throw new RuntimeException("Not supported");
+    }
+
+    @Override
+    public void writeShortArray(short[] a) throws Exception {
+        throw new RuntimeException("Not supported");
     }
 
 }
