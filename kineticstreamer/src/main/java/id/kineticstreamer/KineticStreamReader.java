@@ -34,11 +34,16 @@ public class KineticStreamReader {
 
     private InputKineticStream in;
     private KineticUtils utils = new KineticUtils();
-
+    private KineticStreamReaderController controller = new KineticStreamReaderController();
     private boolean inPlace;
 
     public KineticStreamReader(InputKineticStream in) {
         this.in = in;
+    }
+
+    public KineticStreamReader withController(KineticStreamReaderController controller) {
+        this.controller = controller;
+        return this;
     }
 
     /**
@@ -81,11 +86,18 @@ public class KineticStreamReader {
             utils.findStreamedFields(type).forEach(field -> {
                 try {
                     var fieldType = field.getType();
+                    var objSetter = new ValueSetter(obj, field);
                     if (!fieldType.isArray()) {
-                        read(fieldType, new ValueSetter(obj, field)::set);
+                        var res = controller.onNextObject(obj, fieldType);
+                        if (res.skip) {
+                            if (res.object.isPresent())
+                                objSetter.set(res.object.get());
+                        } else {
+                            read(fieldType, objSetter::set);
+                        }
                     } else {
                         Object val = readArray(field.get(obj), fieldType.getComponentType());
-                        if (!inPlace) new ValueSetter(obj, field).set(val);
+                        if (!inPlace) objSetter.set(val);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
