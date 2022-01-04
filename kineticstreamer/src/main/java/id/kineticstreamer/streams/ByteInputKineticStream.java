@@ -24,6 +24,7 @@ package id.kineticstreamer.streams;
 import java.io.DataInput;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.util.List;
 
 import id.kineticstreamer.InputKineticStream;
 import id.kineticstreamer.KineticStreamReader;
@@ -151,6 +152,11 @@ public class ByteInputKineticStream implements InputKineticStream {
             array[i] = readShort();
         }
         return array;
+    }
+
+    @Override
+    public List readList(List list, Class<?> genericType) {
+        throw new RuntimeException("Not supported");
     }
 
 }

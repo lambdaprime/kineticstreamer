@@ -21,6 +21,9 @@
  */
 package id.kineticstreamer;
 
+import java.lang.reflect.ParameterizedType;
+import java.util.List;
+
 import id.kineticstreamer.utils.KineticUtils;
 import id.kineticstreamer.utils.ValueSetter;
 import id.xfunction.function.ThrowingConsumer;
@@ -87,7 +90,19 @@ public class KineticStreamReader {
                 try {
                     var fieldType = field.getType();
                     var objSetter = new ValueSetter(obj, field);
-                    if (!fieldType.isArray()) {
+                    if (fieldType.isArray()) {
+                        Object val = readArray(field.get(obj), fieldType.getComponentType());
+                        if (!inPlace) objSetter.set(val);
+                    } else if (fieldType == List.class) {
+                        var list = (List)field.get(obj);
+                        var genericType = (ParameterizedType) field.getGenericType();
+                        Class<?> genericClass = null;
+                        if (genericType != null) {
+                            genericClass = (Class) genericType.getActualTypeArguments()[0];
+                        }
+                        var newList = in.readList(list, genericClass);
+                        if (newList != list) objSetter.set(newList);
+                    } else {
                         var res = controller.onNextObject(obj, fieldType);
                         if (res.skip) {
                             if (res.object.isPresent())
@@ -95,9 +110,6 @@ public class KineticStreamReader {
                         } else {
                             read(fieldType, objSetter::set);
                         }
-                    } else {
-                        Object val = readArray(field.get(obj), fieldType.getComponentType());
-                        if (!inPlace) objSetter.set(val);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

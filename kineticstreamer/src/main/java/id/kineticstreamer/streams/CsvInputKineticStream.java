@@ -154,4 +154,9 @@ public class CsvInputKineticStream implements InputKineticStream {
         throw new RuntimeException("Not supported");
     }
 
+    @Override
+    public List readList(List list, Class<?> genericType) {
+        throw new RuntimeException("Not supported");
+    }
+
 }

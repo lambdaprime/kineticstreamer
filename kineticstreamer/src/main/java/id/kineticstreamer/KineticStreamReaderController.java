@@ -56,7 +56,8 @@ public class KineticStreamReaderController {
     }
     
     /**
-     * Decide whether to skip fields or not.
+     * Decide whether to skip fields or not as well as perform custom
+     * desirialization.
      * 
      * <p>By overriding this method users can read object manually and
      * return it back to <b>kineticstreamer</b> which will store it as
@@ -67,7 +68,7 @@ public class KineticStreamReaderController {
      * @param fieldType type of the field which <b>kineticstreamer</b>
      * is about to read
      */
-    public Result onNextObject(Object obj, Class<?> fieldType) {
+    public Result onNextObject(Object obj, Class<?> fieldType) throws Exception {
         return Result.CONTINUE;
     }
 

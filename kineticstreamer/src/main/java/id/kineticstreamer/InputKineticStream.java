@@ -21,6 +21,8 @@
  */
 package id.kineticstreamer;
 
+import java.util.List;
+
 /**
  * <p>Interface which needs to be implemented to support deserialization of
  * new types of kinetic streams.</p>
@@ -50,4 +52,15 @@ public interface InputKineticStream extends AutoCloseable {
     long[] readLongArray(long[] a) throws Exception;
     short readShort() throws Exception;
     short[] readShortArray(short[] a) throws Exception;
+    
+    /**
+     * Read list from the stream
+     * 
+     * @param list target list as declared in the object which is being deserialized. When
+     * it is declared without initialization then it is null
+     * @param genericType parametrized type of the target list. For example String in case List&lt;String>
+     * @return it can return either new list or the input list (in case it is not null). In both
+     * cases List should be populated with values read from the stream.
+     */
+    List readList(List list, Class<?> genericType) throws Exception;
 }
