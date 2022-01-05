@@ -24,10 +24,10 @@ package id.kineticstreamer.utils;
 import static java.util.stream.Collectors.toList;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
 
-import id.kineticstreamer.annotations.Streamed;
 import id.xfunction.lang.XRE;
 
 public class KineticUtils {
@@ -51,7 +51,9 @@ public class KineticUtils {
      */
     public List<Field> findStreamedFields(Class<?> clazz) {
         return Arrays.stream(clazz.getFields())
-                .filter(f -> f.getAnnotationsByType(Streamed.class).length != 0)
+                .filter(f -> !Modifier.isTransient(f.getModifiers()))
+//                .peek(f -> System.out.println(f.getName()))
                 .collect(toList());
     }
+
 }

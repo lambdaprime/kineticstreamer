@@ -21,11 +21,8 @@
  */
 package id.kineticstreamer.tests.samples;
 
-import id.kineticstreamer.annotations.Streamed;
-
 public class StringMessage {
 
-    @Streamed
     public String data;
 
     public StringMessage() {

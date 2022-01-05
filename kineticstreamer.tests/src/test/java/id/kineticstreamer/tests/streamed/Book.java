@@ -24,34 +24,24 @@ package id.kineticstreamer.tests.streamed;
 import java.util.Arrays;
 import java.util.Objects;
 
-import id.kineticstreamer.annotations.Streamed;
-
 public class Book {
 
-    @Streamed
     public String name;
     
-    @Streamed
     public float price;
 
-    @Streamed
     public Integer weight;
 
-    @Streamed
     public Double rating;
     
-    @Streamed
     public Author author;
     
-    public String ignore = "ignore";
+    public transient String ignore = "ignore";
 
-    @Streamed
     public boolean hardcover;
     
-    @Streamed
-    public Integer[] illustratedPages = new Integer[0];
+    public Integer[] illustratedPages;
     
-    @Streamed
     public int[] emptyPages = new int[0];
 
     public Book() {

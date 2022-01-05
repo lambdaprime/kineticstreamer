@@ -2,11 +2,8 @@ package id.kineticstreamer.tests.streamed;
 
 import java.util.Arrays;
 
-import id.kineticstreamer.annotations.Streamed;
-
 public class DepthFrame {
 
-    @Streamed
     public double[] data = new double[0];
 
     public DepthFrame() {

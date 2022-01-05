@@ -23,11 +23,8 @@ package id.kineticstreamer.tests.streamed;
 
 import java.util.Objects;
 
-import id.kineticstreamer.annotations.Streamed;
-
 public class StringMessage {
 
-    @Streamed
     public String data;
 
     public StringMessage() {

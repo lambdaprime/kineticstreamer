@@ -23,14 +23,10 @@ package id.kineticstreamer.tests.streamed;
 
 import java.util.Objects;
 
-import id.kineticstreamer.annotations.Streamed;
-
 public class Author {
 
-    @Streamed
     public String name;
     
-    @Streamed
     public int booksNum;
 
     public Author() {
