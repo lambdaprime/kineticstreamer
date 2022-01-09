@@ -43,6 +43,8 @@ public class Book {
     public Integer[] illustratedPages;
     
     public int[] emptyPages = new int[0];
+    
+    public final int[] ignoreFinal = new int[0];
 
     public Book() {
 

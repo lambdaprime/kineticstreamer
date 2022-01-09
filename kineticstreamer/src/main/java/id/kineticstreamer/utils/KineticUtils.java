@@ -52,6 +52,7 @@ public class KineticUtils {
     public List<Field> findStreamedFields(Class<?> clazz) {
         return Arrays.stream(clazz.getFields())
                 .filter(f -> !Modifier.isTransient(f.getModifiers()))
+                .filter(f -> !Modifier.isFinal(f.getModifiers()))
 //                .peek(f -> System.out.println(f.getName()))
                 .collect(toList());
     }
