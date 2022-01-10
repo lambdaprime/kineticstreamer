@@ -155,7 +155,7 @@ public class ByteInputKineticStream implements InputKineticStream {
     }
 
     @Override
-    public List readList(List list, Class<?> genericType) {
+    public List<?> readList(List<?> list, Class<?> genericType) {
         throw new RuntimeException("Not supported");
     }
 

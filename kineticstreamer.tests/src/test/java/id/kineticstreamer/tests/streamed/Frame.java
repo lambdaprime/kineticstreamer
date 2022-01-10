@@ -21,26 +21,24 @@
  */
 package id.kineticstreamer.tests.streamed;
 
-import java.util.Arrays;
+public class Frame {
 
-public class DepthFrame extends Frame {
+    public int width, height;
 
-    public double[] data = new double[0];
-
-    public DepthFrame() {
+    public Frame() {
 
     }
 
-    public DepthFrame(int width, int height, double... data) {
-        super(width, height);
-        this.data = data;
+    public Frame(int width, int height) {
+        this.width = width;
+        this.height = height;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (!super.equals(obj)) return false;
-        var other = (DepthFrame) obj;
-        System.out.format("%s == %s\n", Arrays.toString(data), Arrays.toString(other.data));
-        return Arrays.equals(data, other.data);
+        var other = (Frame) obj;
+        System.out.format("%s == %s\n", width, other.width);
+        System.out.format("%s == %s\n", height, other.height);
+        return width == other.width && height == other.height;
     }
 }

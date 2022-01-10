@@ -62,5 +62,5 @@ public interface InputKineticStream extends AutoCloseable {
      * @return it can return either new list or the input list (in case it is not null). In both
      * cases List should be populated with values read from the stream.
      */
-    List readList(List list, Class<?> genericType) throws Exception;
+    List<?> readList(List<?> list, Class<?> genericType) throws Exception;
 }

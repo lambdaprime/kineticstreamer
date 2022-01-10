@@ -28,6 +28,8 @@ public class Author {
     public String name;
     
     public int booksNum;
+    
+    private int ignoredField = 10;
 
     public Author() {
 
