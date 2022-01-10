@@ -86,7 +86,8 @@ public class KineticStreamReader {
                         var genericType = (ParameterizedType) field.getGenericType();
                         Class<?> genericClass = null;
                         if (genericType != null) {
-                            genericClass = (Class) genericType.getActualTypeArguments()[0];
+                            genericClass = (Class<?>)((ParameterizedType) genericType.getActualTypeArguments()[0])
+                                    .getRawType();
                         }
                         var newList = in.readList(list, genericClass);
                         if (newList != list) objSetter.set(newList);
