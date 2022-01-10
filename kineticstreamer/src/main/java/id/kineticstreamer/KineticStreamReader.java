@@ -27,7 +27,10 @@ import java.util.List;
 import id.kineticstreamer.utils.KineticUtils;
 import id.kineticstreamer.utils.ValueSetter;
 import id.xfunction.function.ThrowingConsumer;
+import id.xfunction.lang.XRE;
 import id.xfunction.logging.XLogger;
+
+import static id.kineticstreamer.KineticstreamerPrimitiveTypes.*;
 
 /**
  * Reads Java objects from kinetic streams
@@ -68,23 +71,8 @@ public class KineticStreamReader {
     
     private void read(Class<?> type, ThrowingConsumer<Object, Exception> setter) throws Exception {
         LOGGER.fine("Reading object type {0}", type.getSimpleName());
-        switch (type.getName()) {
-        case "java.lang.String": setter.accept(in.readString()); break;
-        case "int":
-        case "java.lang.Integer": setter.accept(in.readInt()); break;
-        case "long":
-        case "java.lang.Long": setter.accept(in.readLong()); break;
-        case "short":
-        case "java.lang.Short": setter.accept(in.readShort()); break;
-        case "float":
-        case "java.lang.Float": setter.accept(in.readFloat()); break;
-        case "double":
-        case "java.lang.Double": setter.accept(in.readDouble()); break;
-        case "byte":
-        case "java.lang.Byte": setter.accept(in.readByte()); break;
-        case "boolean":
-        case "java.lang.Boolean": setter.accept(in.readBool()); break;
-        default: {
+        var ksPrimitiveType = TYPE_NAME_MAP.get(type.getName());
+        if (ksPrimitiveType == null) {
             var obj = utils.createObject(type);
             utils.findStreamedFields(type).forEach(field -> {
                 try {
@@ -94,7 +82,7 @@ public class KineticStreamReader {
                         Object val = readArray(field.get(obj), fieldType.getComponentType());
                         if (!inPlace) objSetter.set(val);
                     } else if (fieldType == List.class) {
-                        var list = (List)field.get(obj);
+                        var list = (List<?>)field.get(obj);
                         var genericType = (ParameterizedType) field.getGenericType();
                         Class<?> genericClass = null;
                         if (genericType != null) {
@@ -116,48 +104,84 @@ public class KineticStreamReader {
                 }
             });
             setter.accept(obj);
+            return;
         }
+        switch (ksPrimitiveType) {
+        case STRING: setter.accept(in.readString()); break;
+        case INT:
+        case INT_WRAPPER: setter.accept(in.readInt()); break;
+        case LONG:
+        case LONG_WRAPPER: setter.accept(in.readLong()); break;
+        case SHORT:
+        case SHORT_WRAPPER: setter.accept(in.readShort()); break;
+        case FLOAT:
+        case FLOAT_WRAPPER: setter.accept(in.readFloat()); break;
+        case DOUBLE:
+        case DOUBLE_WRAPPER: setter.accept(in.readDouble()); break;
+        case BYTE:
+        case BYTE_WRAPPER: setter.accept(in.readByte()); break;
+        case BOOL:
+        case BOOL_WRAPPER: setter.accept(in.readBool()); break;
+        default: throw new XRE("Not supported primitive type %s", type.getName());
         }
     }
 
     private Object readArray(Object targetArray, Class<?> type) throws Exception {
-        Object val = null;
         inPlace = false;
-        if (type == int.class) {
-            var a = (int[])targetArray;
-            if (a == null) a = new int[0];
-            val = in.readIntArray(a);
-            inPlace = a == val;
-        } else if (type == long.class) {
-            var a = (long[])targetArray;
-            if (a == null) a = new long[0];
-            val = in.readLongArray(a);
-            inPlace = a == val;
-        } else if (type == short.class) {
-            var a = (short[])targetArray;
-            if (a == null) a = new short[0];
-            val = in.readShortArray(a);
-            inPlace = a == val;
-        } else if (type == byte.class) {
-            var a = (byte[])targetArray;
-            if (a == null) a = new byte[0];
-            val = in.readByteArray(a);
-            inPlace = a == val;
-        } else if (type == double.class) {
-            var a = (double[])targetArray;
-            if (a == null) a = new double[0];
-            val = in.readDoubleArray(a);
-            inPlace = a == val;
-        } else if (type == boolean.class) {
-            var a = (boolean[])targetArray;
-            if (a == null) a = new boolean[0];
-            val = in.readBooleanArray(a);
-            inPlace = a == val;
-        } else {
+        var ksPrimitiveType = TYPE_NAME_MAP.get(type.getName());
+        if (ksPrimitiveType == null || ksPrimitiveType.isWrapper()) {
+            Object val = null;
             var a = (Object[])targetArray;
             if (a == null) a = new Object[0];
             val = in.readArray(a, type);
             inPlace = a == val;
+            return val;
+        }
+        Object val = null;
+        switch (ksPrimitiveType) {
+        case INT: {
+            var a = (int[])targetArray;
+            if (a == null) a = new int[0];
+            val = in.readIntArray(a);
+            inPlace = a == val;
+            break;
+        }
+        case LONG: {
+            var a = (long[])targetArray;
+            if (a == null) a = new long[0];
+            val = in.readLongArray(a);
+            inPlace = a == val;
+            break;
+        }
+        case SHORT: {
+            var a = (short[])targetArray;
+            if (a == null) a = new short[0];
+            val = in.readShortArray(a);
+            inPlace = a == val;
+            break;
+        }
+        case BYTE: {
+            var a = (byte[])targetArray;
+            if (a == null) a = new byte[0];
+            val = in.readByteArray(a);
+            inPlace = a == val;
+            break;
+        }
+        case DOUBLE: {
+            var a = (double[])targetArray;
+            if (a == null) a = new double[0];
+            val = in.readDoubleArray(a);
+            inPlace = a == val;
+            break;
+        }
+        case BOOL: {
+            var a = (boolean[])targetArray;
+            if (a == null) a = new boolean[0];
+            val = in.readBooleanArray(a);
+            inPlace = a == val;
+            break;
+        }
+        default: throw new XRE("Not supported primitive array type %s", type.getName());
         }
         return val;
     }

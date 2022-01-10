@@ -21,8 +21,11 @@
  */
 package id.kineticstreamer;
 
+import static id.kineticstreamer.KineticstreamerPrimitiveTypes.TYPE_NAME_MAP;
+
 import id.kineticstreamer.utils.KineticUtils;
 import id.xfunction.function.Unchecked;
+import id.xfunction.lang.XRE;
 import id.xfunction.logging.XLogger;
 
 /**
@@ -46,43 +49,50 @@ public class KineticStreamWriter {
         if (b == null) return;
         LOGGER.fine("Writing object type {0}", b.getClass().getSimpleName());
         var type = b.getClass();
-        switch (type.getName()) {
-        case "java.lang.String": out.writeString((String)b); break;
-        case "int":
-        case "java.lang.Integer": out.writeInt((Integer)b); break;
-        case "long":
-        case "java.lang.Long": out.writeLong((Long)b); break;
-        case "short":
-        case "java.lang.Short": out.writeShort((Short)b); break;
-        case "float":
-        case "java.lang.Float": out.writeFloat((Float)b); break;
-        case "double":
-        case "java.lang.Double": out.writeDouble((Double)b); break;
-        case "byte":
-        case "java.lang.Byte": out.writeByte((Byte)b); break;
-        case "boolean":
-        case "java.lang.Boolean": out.writeBoolean((Boolean)b); break;
-        default: {
+        var ksPrimitiveType = TYPE_NAME_MAP.get(type.getName());
+        if (ksPrimitiveType == null) {
             if (type.isArray()) {
-                if (type.getComponentType() == int.class)
-                    out.writeIntArray((int[]) b);
-                else if (type.getComponentType() == byte.class)
-                    out.writeByteArray((byte[]) b);
-                else if (type.getComponentType() == short.class)
-                    out.writeShortArray((short[]) b);
-                else if (type.getComponentType() == double.class)
-                    out.writeDoubleArray((double[]) b);
-                else if (type.getComponentType() == boolean.class)
-                    out.writeBooleanArray((boolean[]) b);
-                else 
-                    out.writeArray((Object[]) b);
-                break;
+                writeArray(b, type.getComponentType());
             } else {
                 utils.findStreamedFields(type).stream()
                     .map(f -> Unchecked.get(() -> f.get(b)))
                     .forEach(Unchecked.wrapAccept(this::write));
             }
+            return;
         }
+        switch (ksPrimitiveType) {
+        case STRING: out.writeString((String)b); break;
+        case INT:
+        case INT_WRAPPER: out.writeInt((Integer)b); break;
+        case LONG:
+        case LONG_WRAPPER: out.writeLong((Long)b); break;
+        case SHORT:
+        case SHORT_WRAPPER: out.writeShort((Short)b); break;
+        case FLOAT:
+        case FLOAT_WRAPPER: out.writeFloat((Float)b); break;
+        case DOUBLE:
+        case DOUBLE_WRAPPER: out.writeDouble((Double)b); break;
+        case BYTE:
+        case BYTE_WRAPPER: out.writeByte((Byte)b); break;
+        case BOOL:
+        case BOOL_WRAPPER: out.writeBoolean((Boolean)b); break;
+        default: throw new XRE("Not supported primitive type %s", type.getName());
+        }
+    }
+
+    private void writeArray(Object obj, Class<?> type) throws Exception {
+        var ksPrimitiveType = TYPE_NAME_MAP.get(type.getName());
+        if (ksPrimitiveType == null || ksPrimitiveType.isWrapper()) {
+            out.writeArray((Object[]) obj);
+            return;
+        }
+        switch (ksPrimitiveType) {
+        case INT: out.writeIntArray((int[]) obj); break;
+        case BYTE: out.writeByteArray((byte[]) obj); break;
+        case SHORT: out.writeShortArray((short[]) obj); break;
+        case DOUBLE: out.writeDoubleArray((double[]) obj); break;
+        case BOOL: out.writeBooleanArray((boolean[]) obj); break;
+        default: throw new XRE("Not supported primitive array type %s", type.getName());
         }
     }
 }
