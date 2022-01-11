@@ -106,7 +106,7 @@ public class KineticStreamReader {
             Object val = readArray(field.get(obj), fieldType.getComponentType());
             if (!inPlace) objSetter.set(val);
         } else {
-            var res = controller.onNextObject(this, obj, fieldType);
+            var res = controller.onNextObject(in, obj, fieldType);
             if (res.skip) {
                 if (res.object.isPresent())
                     objSetter.set(res.object.get());

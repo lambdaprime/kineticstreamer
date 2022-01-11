@@ -52,7 +52,7 @@ public class KineticStreamWriterController {
      * @param obj object which being currently serialized and which
      * field {@link KineticStreamWriter} is going to write next
      */
-    public Result onNextObject(KineticStreamWriter writer, Object obj) throws Exception {
+    public Result onNextObject(OutputKineticStream out, Object obj) throws Exception {
         return Result.CONTINUE;
     }
 

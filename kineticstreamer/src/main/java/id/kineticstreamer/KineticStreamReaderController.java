@@ -64,7 +64,7 @@ public class KineticStreamReaderController {
      * @param fieldType type of the field which {@link KineticStreamReader}
      * is about to read
      */
-    public Result onNextObject(KineticStreamReader reader, Object obj, Class<?> fieldType) throws Exception {
+    public Result onNextObject(InputKineticStream in, Object obj, Class<?> fieldType) throws Exception {
         return Result.CONTINUE;
     }
 

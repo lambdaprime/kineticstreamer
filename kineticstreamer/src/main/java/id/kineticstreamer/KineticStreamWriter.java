@@ -60,10 +60,8 @@ public class KineticStreamWriter {
                 writeArray(obj, type.getComponentType());
             } else {
                 for (var field: utils.findStreamedFields(type)) {
-                    System.out.println(field);
                     var fieldObj = field.get(obj);
-                    if (controller.onNextObject(this, fieldObj).skip) continue;
-                    System.out.println(field);
+                    if (controller.onNextObject(out, fieldObj).skip) continue;
                     write(fieldObj);
                 }
             }
