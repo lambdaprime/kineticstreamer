@@ -23,8 +23,6 @@ package id.kineticstreamer;
 
 import static id.kineticstreamer.KineticstreamerPrimitiveTypes.TYPE_NAME_MAP;
 
-import java.util.List;
-
 import id.kineticstreamer.utils.KineticUtils;
 import id.xfunction.function.Unchecked;
 import id.xfunction.lang.XRE;
@@ -56,14 +54,6 @@ public class KineticStreamWriter {
         if (ksPrimitiveType == null) {
             if (type.isArray()) {
                 writeArray(obj, type.getComponentType());
-            } else if (obj instanceof List) {
-                var list = (List<?>)obj;
-                Class<?> genericType = null;
-                var params = obj.getClass().getTypeParameters();
-                if (params.length != 0) {
-                    genericType = params[0].getClass();
-                }
-                out.writeList(list, genericType);
             } else {
                 utils.findStreamedFields(type).stream()
                     .map(f -> Unchecked.get(() -> f.get(obj)))

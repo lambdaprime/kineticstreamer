@@ -124,9 +124,4 @@ public class CsvOutputKineticStream implements OutputKineticStream {
     public void writeShortArray(short[] a) throws Exception {
         throw new RuntimeException("Not supported");
     }
-
-    @Override
-    public void writeList(List<?> list, Class<?> genericType) throws Exception {
-        throw new RuntimeException("Not supported");
-    }
 }

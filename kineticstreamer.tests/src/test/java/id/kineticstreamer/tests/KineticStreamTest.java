@@ -57,10 +57,7 @@ public class KineticStreamTest {
             List.of("00, 00, 00, 03, 61, 61, 61", "aaa"),
             List.of("00, 00, 00, 0a", 10),
             List.of("00, 00, 00, 03, 00, 00, 00, 01, 00, 00, 00, 01, 00, 00, 00, 01", new Integer[] {1, 1, 1}),
-            List.of(resourceUtils.readResource("test2"), new DepthFrame(1024, 680, 1., 2., 3., 4.)),
-            List.of(resourceUtils.readResource("test3"),
-                new Book("aaaaaaaa", .5F, 0, 2, new Author("bob", 321), true, new Integer[] {1, 2, 3},
-                    new int[0], List.of("queen", "rabbit", "knight")))
+            List.of(resourceUtils.readResource("test2"), new DepthFrame(1024, 680, 1., 2., 3., 4.))
         );
     }//
 

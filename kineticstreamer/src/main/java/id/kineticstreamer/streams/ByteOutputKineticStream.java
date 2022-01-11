@@ -142,13 +142,4 @@ public class ByteOutputKineticStream implements OutputKineticStream {
             writeShort(item);
         }
     }
-
-    @Override
-    public void writeList(List<?> list, Class<?> genericType) throws Exception {
-        out.writeInt(list.size());
-        for (var item: list) {
-            writeString((String) item);
-        }
-    }
-
 }

@@ -22,7 +22,6 @@
 package id.kineticstreamer.tests.streamed;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 public class Book {
@@ -47,8 +46,6 @@ public class Book {
     
     public final int[] ignoreFinal = new int[0];
     
-    public List<String> keywords;
-
     public Book() {
 
     }
@@ -65,13 +62,6 @@ public class Book {
         this.emptyPages = emptyPages;
     }
     
-    public Book(String name, float price, double rating, int weight, Author author, boolean hardcover,
-            Integer[] illustratedPages, int[] emptyPages, List<String> keywords) {
-        this(name, price, rating, weight, author, hardcover,
-            illustratedPages, emptyPages);
-        this.keywords = keywords;
-    }
-
     @Override
     public boolean equals(Object obj) {
         Book other = (Book) obj;
@@ -81,7 +71,6 @@ public class Book {
         System.out.format("%s == %s\n", rating, other.rating);
         System.out.format("%s == %s\n", author, other.author);
         System.out.format("%s == %s\n", hardcover, other.hardcover);
-        System.out.format("%s == %s\n", keywords, other.keywords);
         System.out.format("%s == %s\n", Arrays.toString(illustratedPages), Arrays.toString(other.illustratedPages));
         System.out.format("%s == %s\n", Arrays.toString(emptyPages), Arrays.toString(other.emptyPages));
         return Objects.equals(name, other.name) &&
@@ -89,7 +78,6 @@ public class Book {
                 Objects.equals(rating, other.rating) &&
                 Objects.equals(weight, other.weight) &&
                 Objects.equals(hardcover, other.hardcover) &&
-                Objects.equals(keywords, other.keywords) &&
                 Arrays.equals(illustratedPages, other.illustratedPages) &&
                 Arrays.equals(emptyPages, other.emptyPages) &&
                 Objects.equals(author, other.author);

@@ -21,17 +21,13 @@
  */
 package id.kineticstreamer;
 
-import java.lang.reflect.ParameterizedType;
-import java.util.Arrays;
-import java.util.List;
+import static id.kineticstreamer.KineticstreamerPrimitiveTypes.TYPE_NAME_MAP;
 
 import id.kineticstreamer.utils.KineticUtils;
 import id.kineticstreamer.utils.ValueSetter;
 import id.xfunction.function.ThrowingConsumer;
 import id.xfunction.lang.XRE;
 import id.xfunction.logging.XLogger;
-
-import static id.kineticstreamer.KineticstreamerPrimitiveTypes.*;
 
 /**
  * Reads Java objects from kinetic streams
@@ -82,15 +78,6 @@ public class KineticStreamReader {
                     if (fieldType.isArray()) {
                         Object val = readArray(field.get(obj), fieldType.getComponentType());
                         if (!inPlace) objSetter.set(val);
-                    } else if (fieldType == List.class) {
-                        var list = (List<?>)field.get(obj);
-                        Class<?> genericType = null;
-                        var params = ((ParameterizedType)field.getGenericType()).getActualTypeArguments();
-                        if (params.length != 0) {
-                            genericType = (Class<?>)params[0];
-                        }
-                        var newList = in.readList(list, genericType);
-                        if (newList != list) objSetter.set(newList);
                     } else {
                         var res = controller.onNextObject(obj, fieldType);
                         if (res.skip) {

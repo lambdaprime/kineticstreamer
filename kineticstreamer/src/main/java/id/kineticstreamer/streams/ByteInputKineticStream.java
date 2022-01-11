@@ -154,15 +154,4 @@ public class ByteInputKineticStream implements InputKineticStream {
         }
         return array;
     }
-
-    @Override
-    public List<?> readList(List<?> list, Class<?> genericType) throws Exception {
-        var out = new ArrayList<String>();
-        var len = in.readInt();
-        for (int i = 0; i < len; i++) {
-            out.add(readString());
-        }
-        return out;
-    }
-
 }
