@@ -21,14 +21,12 @@
  */
 /**
  * <p><b>kineticstreamer</b> - Java module to do (de)serialization of Java
- * objects into streams. It provides default implementations for object
+ * objects into any type of streams. It provides default implementations for object
  * conversion to stream of bytes and CSV files. But you can add support
- * to any other format as well.</p>
+ * for any other format as well.</p>
  * 
  * <p>It parses object tree and allows you to get control over how types
  * are going to be (de)serialized.</p>
- * 
- * <p>Only fields annotated with {@link id.kineticstreamer.annotations.Streamed} annotation will be (de)serialized.</p>
  * 
  * <h1>Stream</h1>
  * <p>In terms of <b>kineticstreamer</b> 'stream' represents sequence of any
@@ -49,28 +47,50 @@
  * <p>Kinetic streams allow <b>kineticstreamer</b> to operate with any type of
  * streams without even knowing anything about their format.</p>
  * 
- * <p>Every type of stream has its own implementation of kinetic stream ifaces.</p>
+ * <p>Every type of kinetic stream must have its own implementation of {@link id.kineticstreamer.InputKineticStream}
+ * (for reading objects from it) and {@link id.kineticstreamer.OutputKineticStream} for writing them).</p>
  * 
  * <p><b>kineticstreamer</b> comes with some predefined kinetic streams
  * (see {@link id.kineticstreamer.streams}). To add support for custom types of
- * streams you need to implement kinetic stream ifaces for them.</p> 
+ * streams you need to implement kinetic stream interfaces for them.</p> 
+ * 
+ * <h1>Streamed classes</h1>
+ * 
+ * <p>Streamed classes are classes which objects are going to be (de)serialized. There are certain requirements to such classes:</p>
+ * 
+ * <ul>
+ * <li>Streamed class must have default ctor</li>
+ * <li>Streamed fields (fields which are going to be (de)serialized) should be public. Any static, private, final,
+ * transient fields are ignored.</li>
+ * </ul>
+ * 
+ * <h2>Field types</h2>
+ * <b>kineticstreamer</b> divides all types into two categories:
+ * <ul>
+ * <li>kinetic stream types - these are all Java primitive types plus any other types for which there are separate
+ * method definition in {@link id.kineticstreamer.InputKineticStream} and {@link id.kineticstreamer.OutputKineticStream}
+ * <li>foreign types - all non kinetic stream types
+ * </ul>
+ * <p>Understanding this separation is important for writing controllers described below. 
  * 
  * <h1>Arrays</h1>
  * <p><b>kineticstreamer</b> supports (de)serialization of arrays with non-primitive types
  * plus some primitive types as well. If you need to use arrays with primitive type which are not
  * yet supported please use their wrapped version (Short[], etc).</p>
  * 
- * <h1>Defining streamed classes</h1>
+ * <h1>Controllers</h1>
  * 
- * <p>These are the classes which are going to be (de)serialized with their fields being
- * streamed. There are certain requirements to such classes:</p>
- * 
+ * <p>Controllers help in case of complex serialization logic of certain foreign field types.
+ * For example:
  * <ul>
- * <li>Need to define default ctor</li>
- * <li>Streamed fields (fields which are going to be (de)serialized) should be accessible to
- * the <b>kineticstreamer</b> or be public</li>
- * <li>Non streamed fields should be declared with transient modifier</li>
+ * <li>they allow to support polymorphic fields which type is undefined until certain flags
+ * are read from the stream
+ * <li>when certain fields may be present in the stream or not based on data which was previously read
+ * from it
  * </ul>
+ * <p>Controllers defined in {@link id.kineticstreamer.KineticStreamReaderController} and
+ * {@link id.kineticstreamer.KineticStreamWriterController}. Users can extend them to provide custom
+ * logic and inject into {@link id.kineticstreamer.KineticStreamReader} and {@link id.kineticstreamer.KineticStreamWriter} correspondingly. 
  *
  * <h1>Examples</h1>
  * 
@@ -92,7 +112,7 @@ public class StringMessage {
 }
  * </code></pre>
  *
- * Streaming:
+ * Streaming StringMessage object to stream of bytes and back:
  *
  * <pre>{@code
 // write

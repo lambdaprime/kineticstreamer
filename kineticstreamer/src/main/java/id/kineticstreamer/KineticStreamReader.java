@@ -21,7 +21,9 @@
  */
 package id.kineticstreamer;
 
-import static id.kineticstreamer.KineticstreamerPrimitiveTypes.TYPE_NAME_MAP;
+import static id.kineticstreamer.KineticStreamTypes.TYPE_NAME_MAP;
+
+import java.lang.reflect.Field;
 
 import id.kineticstreamer.utils.KineticUtils;
 import id.kineticstreamer.utils.ValueSetter;
@@ -71,26 +73,9 @@ public class KineticStreamReader {
         var ksPrimitiveType = TYPE_NAME_MAP.get(type.getName());
         if (ksPrimitiveType == null) {
             var obj = utils.createObject(type);
-            utils.findStreamedFields(type).forEach(field -> {
-                try {
-                    var fieldType = field.getType();
-                    var objSetter = new ValueSetter(obj, field);
-                    if (fieldType.isArray()) {
-                        Object val = readArray(field.get(obj), fieldType.getComponentType());
-                        if (!inPlace) objSetter.set(val);
-                    } else {
-                        var res = controller.onNextObject(obj, fieldType);
-                        if (res.skip) {
-                            if (res.object.isPresent())
-                                objSetter.set(res.object.get());
-                        } else {
-                            read(fieldType, objSetter::set);
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
+            for (var field: utils.findStreamedFields(type)) {
+                readComplexField(obj, field);
+            }
             setter.accept(obj);
             return;
         }
@@ -111,6 +96,23 @@ public class KineticStreamReader {
         case BOOL:
         case BOOL_WRAPPER: setter.accept(in.readBool()); break;
         default: throw new XRE("Not supported primitive type %s", type.getName());
+        }
+    }
+
+    private void readComplexField(Object obj, Field field) throws Exception {
+        var fieldType = field.getType();
+        var objSetter = new ValueSetter(obj, field);
+        if (fieldType.isArray()) {
+            Object val = readArray(field.get(obj), fieldType.getComponentType());
+            if (!inPlace) objSetter.set(val);
+        } else {
+            var res = controller.onNextObject(this, obj, fieldType);
+            if (res.skip) {
+                if (res.object.isPresent())
+                    objSetter.set(res.object.get());
+            } else {
+                read(fieldType, objSetter::set);
+            }
         }
     }
 

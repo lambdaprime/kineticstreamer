@@ -5,7 +5,7 @@ import java.util.EnumSet;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-enum KineticstreamerPrimitiveTypes {
+enum KineticStreamTypes {
 
     STRING("java.lang.String"),
     INT("int"),
@@ -23,14 +23,14 @@ enum KineticstreamerPrimitiveTypes {
     BOOL("boolean"),
     BOOL_WRAPPER("java.lang.Boolean");
 
-    public static final Map<String, KineticstreamerPrimitiveTypes> TYPE_NAME_MAP = Arrays.stream(values())
+    public static final Map<String, KineticStreamTypes> TYPE_NAME_MAP = Arrays.stream(values())
             .collect(Collectors.toMap(k -> k.type, v -> v));
-    public static final EnumSet<KineticstreamerPrimitiveTypes> WRAPPERS = EnumSet.of(
+    public static final EnumSet<KineticStreamTypes> WRAPPERS = EnumSet.of(
         INT_WRAPPER, LONG_WRAPPER, SHORT_WRAPPER, FLOAT_WRAPPER, DOUBLE_WRAPPER, BYTE_WRAPPER,
         BOOL_WRAPPER);
     private String type;
 
-    KineticstreamerPrimitiveTypes(String type) {
+    KineticStreamTypes(String type) {
         this.type = type;
     }
     

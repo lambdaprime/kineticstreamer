@@ -21,10 +21,9 @@
  */
 package id.kineticstreamer;
 
-import static id.kineticstreamer.KineticstreamerPrimitiveTypes.TYPE_NAME_MAP;
+import static id.kineticstreamer.KineticStreamTypes.TYPE_NAME_MAP;
 
 import id.kineticstreamer.utils.KineticUtils;
-import id.xfunction.function.Unchecked;
 import id.xfunction.lang.XRE;
 import id.xfunction.logging.XLogger;
 
@@ -36,9 +35,15 @@ public class KineticStreamWriter {
 
     private OutputKineticStream out;
     private KineticUtils utils = new KineticUtils();
+    private KineticStreamWriterController controller = new KineticStreamWriterController();
 
     public KineticStreamWriter(OutputKineticStream out) {
         this.out = out;
+    }
+
+    public KineticStreamWriter withController(KineticStreamWriterController controller) {
+        this.controller = controller;
+        return this;
     }
 
     /**
@@ -50,14 +55,17 @@ public class KineticStreamWriter {
         LOGGER.fine("Writing object type {0}", obj.getClass().getSimpleName());
         var type = obj.getClass();
         var ksPrimitiveType = TYPE_NAME_MAP.get(type.getName());
-        System.out.println(type);
         if (ksPrimitiveType == null) {
             if (type.isArray()) {
                 writeArray(obj, type.getComponentType());
             } else {
-                utils.findStreamedFields(type).stream()
-                    .map(f -> Unchecked.get(() -> f.get(obj)))
-                    .forEach(Unchecked.wrapAccept(this::write));
+                for (var field: utils.findStreamedFields(type)) {
+                    System.out.println(field);
+                    var fieldObj = field.get(obj);
+                    if (controller.onNextObject(this, fieldObj).skip) continue;
+                    System.out.println(field);
+                    write(fieldObj);
+                }
             }
             return;
         }

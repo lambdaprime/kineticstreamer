@@ -21,19 +21,16 @@
  */
 package id.kineticstreamer;
 
-import java.util.Optional;
-
 /**
- * Allows user to intercept and change {@link KineticStreamReader} behavior.
+ * Allows user to intercept and change {@link KineticStreamWriter} behavior.
  */
-public class KineticStreamReaderController {
+public class KineticStreamWriterController {
 
     public static class Result {
         boolean skip;
-        Optional<Object> object = Optional.empty();
 
         /**
-         * Tell {@link KineticStreamReader} to continue reading the field
+         * Tell {@link KineticStreamWriter} to continue writing the field
          */
         public static final Result CONTINUE = new Result();
 
@@ -44,27 +41,18 @@ public class KineticStreamReaderController {
         public Result(boolean skip) {
             this.skip = skip;
         }
-
-        public Result(boolean skip, Object object) {
-            this.skip = skip;
-            this.object = Optional.of(object);
-        }
     }
     
     /**
-     * Decide whether to skip reading next field or not as well as perform custom
-     * deserialization.
+     * Decide whether to skip writing next field or not as well as perform custom
+     * serialization.
      * 
-     * <p>By overriding this method users can read object manually and
-     * return it back to {@link KineticStreamReader} which will store it as
-     * a field of the deserialized object.
+     * <p>By overriding this method users can write object manually.
      * 
-     * @param obj object which being currently deserialized and which
-     * field {@link KineticStreamReader} is going to read next
-     * @param fieldType type of the field which {@link KineticStreamReader}
-     * is about to read
+     * @param obj object which being currently serialized and which
+     * field {@link KineticStreamWriter} is going to write next
      */
-    public Result onNextObject(KineticStreamReader reader, Object obj, Class<?> fieldType) throws Exception {
+    public Result onNextObject(KineticStreamWriter writer, Object obj) throws Exception {
         return Result.CONTINUE;
     }
 
