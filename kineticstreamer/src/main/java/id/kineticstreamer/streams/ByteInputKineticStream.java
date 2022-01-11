@@ -24,6 +24,7 @@ package id.kineticstreamer.streams;
 import java.io.DataInput;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import id.kineticstreamer.InputKineticStream;
@@ -155,8 +156,13 @@ public class ByteInputKineticStream implements InputKineticStream {
     }
 
     @Override
-    public List<?> readList(List<?> list, Class<?> genericType) {
-        throw new RuntimeException("Not supported");
+    public List<?> readList(List<?> list, Class<?> genericType) throws Exception {
+        var out = new ArrayList<String>();
+        var len = in.readInt();
+        for (int i = 0; i < len; i++) {
+            out.add(readString());
+        }
+        return out;
     }
 
 }

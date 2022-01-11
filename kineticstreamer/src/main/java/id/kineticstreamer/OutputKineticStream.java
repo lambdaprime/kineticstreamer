@@ -21,6 +21,8 @@
  */
 package id.kineticstreamer;
 
+import java.util.List;
+
 /**
  * <p>Interface which needs to be implemented to support serialization of
  * new types of kinetic streams.</p>
@@ -44,4 +46,12 @@ public interface OutputKineticStream extends AutoCloseable {
     void writeLong(Long l) throws Exception;
     void writeShort(Short s) throws Exception;
     void writeShortArray(short[] a) throws Exception;
+    
+    /**
+     * Write list to the stream
+     * 
+     * @param list list to write
+     * @param genericType parameterized type of the list. For example String in case List&lt;String>
+     */
+    void writeList(List<?> list, Class<?> genericType) throws Exception;
 }

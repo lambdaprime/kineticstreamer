@@ -23,6 +23,8 @@ package id.kineticstreamer;
 
 import static id.kineticstreamer.KineticstreamerPrimitiveTypes.TYPE_NAME_MAP;
 
+import java.util.List;
+
 import id.kineticstreamer.utils.KineticUtils;
 import id.xfunction.function.Unchecked;
 import id.xfunction.lang.XRE;
@@ -45,37 +47,46 @@ public class KineticStreamWriter {
      * Writes an object into kinetic stream
      * @throws Exception
      */
-    public void write(Object b) throws Exception {
-        if (b == null) return;
-        LOGGER.fine("Writing object type {0}", b.getClass().getSimpleName());
-        var type = b.getClass();
+    public void write(Object obj) throws Exception {
+        if (obj == null) return;
+        LOGGER.fine("Writing object type {0}", obj.getClass().getSimpleName());
+        var type = obj.getClass();
         var ksPrimitiveType = TYPE_NAME_MAP.get(type.getName());
+        System.out.println(type);
         if (ksPrimitiveType == null) {
             if (type.isArray()) {
-                writeArray(b, type.getComponentType());
+                writeArray(obj, type.getComponentType());
+            } else if (obj instanceof List) {
+                var list = (List<?>)obj;
+                Class<?> genericType = null;
+                var params = obj.getClass().getTypeParameters();
+                if (params.length != 0) {
+                    genericType = params[0].getClass();
+                }
+                out.writeList(list, genericType);
             } else {
                 utils.findStreamedFields(type).stream()
-                    .map(f -> Unchecked.get(() -> f.get(b)))
+                    .map(f -> Unchecked.get(() -> f.get(obj)))
                     .forEach(Unchecked.wrapAccept(this::write));
             }
             return;
         }
         switch (ksPrimitiveType) {
-        case STRING: out.writeString((String)b); break;
+        case STRING: out.writeString((String)obj); break;
         case INT:
-        case INT_WRAPPER: out.writeInt((Integer)b); break;
+        case INT_WRAPPER: out.writeInt((Integer)obj); break;
         case LONG:
-        case LONG_WRAPPER: out.writeLong((Long)b); break;
+        case LONG_WRAPPER: out.writeLong((Long)obj); break;
         case SHORT:
-        case SHORT_WRAPPER: out.writeShort((Short)b); break;
+        case SHORT_WRAPPER: out.writeShort((Short)obj); break;
         case FLOAT:
-        case FLOAT_WRAPPER: out.writeFloat((Float)b); break;
+        case FLOAT_WRAPPER: out.writeFloat((Float)obj); break;
         case DOUBLE:
-        case DOUBLE_WRAPPER: out.writeDouble((Double)b); break;
+        case DOUBLE_WRAPPER: out.writeDouble((Double)obj); break;
         case BYTE:
-        case BYTE_WRAPPER: out.writeByte((Byte)b); break;
+        case BYTE_WRAPPER: out.writeByte((Byte)obj); break;
         case BOOL:
-        case BOOL_WRAPPER: out.writeBoolean((Boolean)b); break;
+        case BOOL_WRAPPER: out.writeBoolean((Boolean)obj); break;
         default: throw new XRE("Not supported primitive type %s", type.getName());
         }
     }

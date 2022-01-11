@@ -23,6 +23,7 @@ package id.kineticstreamer.streams;
 
 import java.io.DataOutput;
 import java.io.IOException;
+import java.util.List;
 
 import id.kineticstreamer.KineticStreamWriter;
 import id.kineticstreamer.OutputKineticStream;
@@ -139,6 +140,14 @@ public class ByteOutputKineticStream implements OutputKineticStream {
         out.writeInt(a.length);
         for (var item: a) {
             writeShort(item);
+        }
+    }
+
+    @Override
+    public void writeList(List<?> list, Class<?> genericType) throws Exception {
+        out.writeInt(list.size());
+        for (var item: list) {
+            writeString((String) item);
         }
     }
 

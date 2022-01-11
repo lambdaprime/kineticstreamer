@@ -23,6 +23,7 @@ package id.kineticstreamer.streams;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.List;
 
 import id.kineticstreamer.KineticStreamWriter;
 import id.kineticstreamer.OutputKineticStream;
@@ -124,4 +125,8 @@ public class CsvOutputKineticStream implements OutputKineticStream {
         throw new RuntimeException("Not supported");
     }
 
+    @Override
+    public void writeList(List<?> list, Class<?> genericType) throws Exception {
+        throw new RuntimeException("Not supported");
+    }
 }
