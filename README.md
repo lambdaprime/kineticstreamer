@@ -6,7 +6,7 @@ Java 11+
 
 # Download
 
-You can download **kineticstreamer** from <https://github.com/lambdaprime/kineticstreamer/releases>
+[Release versions](https://github.com/lambdaprime/kineticstreamer/releases)
 
 Or you can add dependency to it as follows:
 
@@ -21,6 +21,7 @@ dependencies {
 # Links
 
 [Documentation](http://portal2.atwebpages.com/kineticstreamer)
+
 [Development](DEVELOPMENT.md)
 
 # Contributors

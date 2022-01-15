@@ -24,13 +24,3 @@ allprojects {
 ext {
     releaseFileName = "${projectName}-v${version}.zip"
 }
-
-// include xfunction for updateVersion
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "io.github.lambdaprime:id.xfunction:14.0"
-    }
-}

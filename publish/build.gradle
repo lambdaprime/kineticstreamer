@@ -13,8 +13,6 @@ gradle publish \
  -PossrhUsername=XXX \
  -PossrhPassword=XXX
 
-Or you can use publishToMavenLocal to publish to local repo before.
-
 Once it is done we can promote it to release repo:
 
 cd publish
@@ -26,7 +24,6 @@ gradle closeAndReleaseRepository -PnexusUsername=XXX -PnexusPassword=XXX
  * This is taken from https://github.com/Codearte/gradle-nexus-staging-plugin/
  * It is used to publish from staging to release repo
  */
-
 buildscript {
     repositories {
         mavenCentral()
