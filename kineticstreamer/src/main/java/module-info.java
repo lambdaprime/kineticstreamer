@@ -56,13 +56,8 @@
  * 
  * <h1>Streamed classes</h1>
  * 
- * <p>Streamed classes are classes which objects are going to be (de)serialized. There are certain requirements to such classes:</p>
- * 
- * <ul>
- * <li>Streamed class must have default ctor</li>
- * <li>Streamed fields (fields which are going to be (de)serialized) should be public. Any static, private, final,
- * transient fields are ignored.</li>
- * </ul>
+ * <p>Streamed classes are classes which objects can be (de)serialized.</p> 
+ * <p>Streamed fields - fields of a streamed classes which are going to be (de)serialized.</p>
  * 
  * <h2>Field types</h2>
  * <b>kineticstreamer</b> divides all types into two categories:
@@ -71,26 +66,38 @@
  * method definition in {@link id.kineticstreamer.InputKineticStream} and {@link id.kineticstreamer.OutputKineticStream}
  * <li>foreign types - all non kinetic stream types
  * </ul>
- * <p>Understanding this separation is important for writing controllers described below. 
+ * <p>Understanding this separation is important for creating streamed classes and controllers. 
  * 
- * <h1>Arrays</h1>
- * <p><b>kineticstreamer</b> supports (de)serialization of arrays with non-primitive types
- * plus some primitive types as well. If you need to use arrays with primitive type which are not
- * yet supported please use their wrapped version (Short[], etc).</p>
+ * <h2>Defining streamed classes</h2>
+ * <p>Streamed classes must satisfy following requirements:</p>
  * 
+ * <ul>
+ * <li>Streamed class must have default constructor</li>
+ * <li>Streamed fields must be public. Any static, private, final,
+ * transient fields are ignored.</li>
+ * <li>Streamed fields of foreign types must not be null (unless you
+ * implement controllers and handle (de)serialization of such types manually).
+ * This is required for deserialization purposes. By default during deserialization
+ * {@link id.kineticstreamer.KineticStreamReader} expects
+ * all streamed fields of foreign types be present in the stream.
+ * It is a good practice to initialize such fields with their default constructor.
+ * </li>
+ * </ul>
+ *
  * <h1>Controllers</h1>
  * 
  * <p>Controllers help in case of complex serialization logic of certain foreign field types.
- * For example:
+ * For example:</p>
  * <ul>
  * <li>they allow to support polymorphic fields which type is undefined until certain flags
  * are read from the stream
  * <li>when certain fields may be present in the stream or not based on data which was previously read
  * from it
  * </ul>
- * <p>Controllers defined in {@link id.kineticstreamer.KineticStreamReaderController} and
+ * <p>Controllers are defined in {@link id.kineticstreamer.KineticStreamReaderController} and
  * {@link id.kineticstreamer.KineticStreamWriterController}. Users can extend them to provide custom
- * logic and inject into {@link id.kineticstreamer.KineticStreamReader} and {@link id.kineticstreamer.KineticStreamWriter} correspondingly. 
+ * logic and inject into {@link id.kineticstreamer.KineticStreamReader} and {@link id.kineticstreamer.KineticStreamWriter}
+ * correspondingly.
  *
  * <h1>Examples</h1>
  * 
@@ -99,16 +106,16 @@
  * <pre><code>
 public class StringMessage {
 
+    // will be initialized later with one of StringMessage constructors
     public String data;
 
-    // streamed objects require default ctor
+    // streamed classes require default ctor
     public StringMessage() {
     }
 
     public StringMessage(String data) {
         this.data = data;
     }
-
 }
  * </code></pre>
  *
