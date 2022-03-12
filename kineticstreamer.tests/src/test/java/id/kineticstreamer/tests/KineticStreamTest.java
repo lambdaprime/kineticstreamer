@@ -64,11 +64,11 @@ public class KineticStreamTest {
     @ParameterizedTest
     @MethodSource("dataProvider")
     public void testWrite(List testData) throws Exception {
-        var b = testData.get(1);
+        var obj = testData.get(1);
         XOutputStream collector = new XOutputStream();
         var dos = new ByteOutputKineticStream(new DataOutputStream(collector));
         var ks = new KineticStreamWriter(dos);
-        ks.write(b);
+        ks.write(obj);
         assertEquals(testData.get(0), collector.asHexString());
     }
 
