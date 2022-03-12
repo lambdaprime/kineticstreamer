@@ -15,20 +15,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * Authors:
- * - lambdaprime <intid@protonmail.com>
- */
 package id.kineticstreamer.tests.streamed;
 
 import java.util.Objects;
 
+/** @author lambdaprime intid@protonmail.com */
 public class StringMessage {
 
     public String data;
 
-    public StringMessage() {
-    }
+    public StringMessage() {}
 
     public StringMessage(String data) {
         this.data = data;

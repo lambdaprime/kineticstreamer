@@ -15,21 +15,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * Authors:
- * - lambdaprime <intid@protonmail.com>
- */
 package id.kineticstreamer.tests.streamed;
 
 import java.util.Arrays;
 
+/** @author lambdaprime intid@protonmail.com */
 public class DepthFrame extends Frame {
 
     public double[] data = new double[0];
 
-    public DepthFrame() {
-
-    }
+    public DepthFrame() {}
 
     public DepthFrame(int width, int height, double... data) {
         super(width, height);

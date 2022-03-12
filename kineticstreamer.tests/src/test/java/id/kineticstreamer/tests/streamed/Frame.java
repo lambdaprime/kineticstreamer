@@ -15,19 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * Authors:
- * - lambdaprime <intid@protonmail.com>
- */
 package id.kineticstreamer.tests.streamed;
 
+/** @author lambdaprime intid@protonmail.com */
 public class Frame {
 
     public int width, height;
 
-    public Frame() {
-
-    }
+    public Frame() {}
 
     public Frame(int width, int height) {
         this.width = width;

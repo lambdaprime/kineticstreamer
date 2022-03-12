@@ -15,37 +15,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * Authors:
- * - lambdaprime <intid@protonmail.com>
- */
 package id.kineticstreamer.streams;
-
-import java.io.DataOutput;
-import java.io.IOException;
-import java.util.List;
 
 import id.kineticstreamer.KineticStreamWriter;
 import id.kineticstreamer.OutputKineticStream;
+import java.io.DataOutput;
+import java.io.IOException;
 
 /**
- * <p>Kinetic stream implementation for serialization of Java objects
- * into sequence of bytes.</p>
- * 
- * <p>Any array 'A' serialized as follows:</p>
+ * Kinetic stream implementation for serialization of Java objects into sequence of bytes.
  *
- * writeInt(A.length) | KineticStreamWriter::write(a[0]) | ... | KineticStreamWriter::write(a[N])
+ * <p>Any array 'A' serialized as follows: writeInt(A.length) | KineticStreamWriter::write(a[0]) |
+ * ... | KineticStreamWriter::write(a[N])
  *
- * <p>Where write call for each item will use KineticStreamWriter on same
- * kinetic stream object (ie. 'this').</p>
+ * <p>Where write call for each item will use KineticStreamWriter on same kinetic stream object (ie.
+ * 'this').
+ *
+ * @author lambdaprime intid@protonmail.com
  */
 public class ByteOutputKineticStream implements OutputKineticStream {
 
     private DataOutput out;
 
-    /**
-     * Creates byte kinetic stream and attaches it to 'out'
-     */
+    /** Creates byte kinetic stream and attaches it to 'out' */
     public ByteOutputKineticStream(DataOutput out) {
         this.out = out;
     }
@@ -79,14 +71,13 @@ public class ByteOutputKineticStream implements OutputKineticStream {
     @Override
     public void writeArray(Object[] array) throws Exception {
         out.writeInt(array.length);
-        for (var item: array) {
+        for (var item : array) {
             new KineticStreamWriter(this).write(item);
         }
     }
 
     @Override
-    public void close() throws Exception {
-    }
+    public void close() throws Exception {}
 
     @Override
     public void writeByte(Byte b) throws Exception {
@@ -96,7 +87,7 @@ public class ByteOutputKineticStream implements OutputKineticStream {
     @Override
     public void writeIntArray(int[] array) throws Exception {
         out.writeInt(array.length);
-        for (var item: array) {
+        for (var item : array) {
             writeInt(item);
         }
     }
@@ -104,7 +95,7 @@ public class ByteOutputKineticStream implements OutputKineticStream {
     @Override
     public void writeByteArray(byte[] array) throws Exception {
         out.writeInt(array.length);
-        for (var item: array) {
+        for (var item : array) {
             writeByte(item);
         }
     }
@@ -112,7 +103,7 @@ public class ByteOutputKineticStream implements OutputKineticStream {
     @Override
     public void writeDoubleArray(double[] array) throws Exception {
         out.writeInt(array.length);
-        for (var item: array) {
+        for (var item : array) {
             writeDouble(item);
         }
     }
@@ -120,7 +111,7 @@ public class ByteOutputKineticStream implements OutputKineticStream {
     @Override
     public void writeBooleanArray(boolean[] array) throws Exception {
         out.writeInt(array.length);
-        for (var item: array) {
+        for (var item : array) {
             writeBoolean(item);
         }
     }
@@ -138,7 +129,7 @@ public class ByteOutputKineticStream implements OutputKineticStream {
     @Override
     public void writeShortArray(short[] a) throws Exception {
         out.writeInt(a.length);
-        for (var item: a) {
+        for (var item : a) {
             writeShort(item);
         }
     }

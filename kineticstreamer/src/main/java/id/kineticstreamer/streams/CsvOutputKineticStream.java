@@ -15,23 +15,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * Authors:
- * - lambdaprime <intid@protonmail.com>
- */
 package id.kineticstreamer.streams;
-
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.util.List;
 
 import id.kineticstreamer.KineticStreamWriter;
 import id.kineticstreamer.OutputKineticStream;
+import java.io.BufferedWriter;
+import java.io.IOException;
 
 /**
- * Kinetic stream implementation for serialization of Java objects
- * into CSV files.
+ * Kinetic stream implementation for serialization of Java objects into CSV files.
  *
+ * @author lambdaprime intid@protonmail.com
  */
 public class CsvOutputKineticStream implements OutputKineticStream {
 

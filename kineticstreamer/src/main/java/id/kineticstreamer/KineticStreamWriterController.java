@@ -15,45 +15,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * Authors:
- * - lambdaprime <intid@protonmail.com>
- */
 package id.kineticstreamer;
 
 /**
  * Allows user to intercept and change {@link KineticStreamWriter} behavior.
+ *
+ * @author lambdaprime intid@protonmail.com
  */
 public class KineticStreamWriterController {
 
     public static class Result {
         boolean skip;
 
-        /**
-         * Tell {@link KineticStreamWriter} to continue writing the field
-         */
+        /** Tell {@link KineticStreamWriter} to continue writing the field */
         public static final Result CONTINUE = new Result();
 
-        public Result() {
+        public Result() {}
 
-        }
-        
         public Result(boolean skip) {
             this.skip = skip;
         }
     }
-    
+
     /**
-     * Decide whether to skip writing next field or not as well as perform custom
-     * serialization.
-     * 
+     * Decide whether to skip writing next field or not as well as perform custom serialization.
+     *
      * <p>By overriding this method users can write object manually.
-     * 
-     * @param obj object which being currently serialized and which
-     * field {@link KineticStreamWriter} is going to write next
+     *
+     * @param obj object which being currently serialized and which field {@link
+     *     KineticStreamWriter} is going to write next
      */
     public Result onNextObject(OutputKineticStream out, Object obj) throws Exception {
         return Result.CONTINUE;
     }
-
 }

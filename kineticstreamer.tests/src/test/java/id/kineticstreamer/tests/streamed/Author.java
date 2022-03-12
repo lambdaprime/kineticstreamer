@@ -15,25 +15,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * Authors:
- * - lambdaprime <intid@protonmail.com>
- */
 package id.kineticstreamer.tests.streamed;
 
 import java.util.Objects;
 
+/** @author lambdaprime intid@protonmail.com */
 public class Author {
 
     public String name;
-    
+
     public int booksNum;
-    
+
     private int ignoredField = 10;
 
-    public Author() {
-
-    }
+    public Author() {}
 
     public Author(String name, int booksNum) {
         this.name = name;
@@ -45,7 +40,6 @@ public class Author {
         Author other = (Author) obj;
         System.out.format("%s == %s\n", name, other.name);
         System.out.format("%s == %s\n", booksNum, other.booksNum);
-        return Objects.equals(name, other.name) &&
-                Objects.equals(booksNum, other.booksNum);
+        return Objects.equals(name, other.name) && Objects.equals(booksNum, other.booksNum);
     }
 }

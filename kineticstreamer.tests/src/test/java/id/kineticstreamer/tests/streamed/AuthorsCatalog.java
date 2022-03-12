@@ -15,20 +15,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * Authors:
- * - lambdaprime <intid@protonmail.com>
- */
 package id.kineticstreamer.tests.streamed;
 
 import java.util.Arrays;
 
+/** @author lambdaprime intid@protonmail.com */
 public class AuthorsCatalog {
 
     public Author[] authors;
 
-    public AuthorsCatalog() {
-    }
+    public AuthorsCatalog() {}
 
     public AuthorsCatalog(Author[] authors) {
         this.authors = authors;
@@ -36,6 +32,6 @@ public class AuthorsCatalog {
 
     @Override
     public boolean equals(Object obj) {
-        return Arrays.equals(authors, ((AuthorsCatalog)obj).authors);
+        return Arrays.equals(authors, ((AuthorsCatalog) obj).authors);
     }
 }

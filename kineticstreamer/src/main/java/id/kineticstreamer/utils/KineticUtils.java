@@ -15,12 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * Authors:
- * - lambdaprime <intid@protonmail.com>
- */
 package id.kineticstreamer.utils;
 
+import id.xfunction.lang.XRE;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -29,28 +26,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import id.xfunction.lang.XRE;
-
+/** @author lambdaprime intid@protonmail.com */
 public class KineticUtils {
     private static final Map<Class<?>, List<Field>> cache = new ConcurrentHashMap<>();
 
-    /**
-     * Creates an object of give type using its default ctor
-     */
+    /** Creates an object of give type using its default ctor */
     public Object createObject(Class<?> type) {
         try {
             var ctor = type.getConstructor();
-            if (ctor == null)
-                throw new XRE("Type %s has no default ctor",  type);
+            if (ctor == null) throw new XRE("Type %s has no default ctor", type);
             return ctor.newInstance();
-        } catch (Exception e ) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    /**
-     * Searches for all fields annotated as Streamed in the clazz.
-     */
+    /** Searches for all fields annotated as Streamed in the clazz. */
     // TODO this method must return fields in same order as they declared in the class.
     // Unfortunately Class.getDeclaredFields() may return them in any order which can
     // cause issues on certain JVMs
@@ -60,14 +51,13 @@ public class KineticUtils {
         if (cache.containsKey(clazz)) return cache.get(clazz);
         List<Field> out = new ArrayList<>(findStreamedFields(clazz.getSuperclass()));
         Arrays.stream(clazz.getDeclaredFields())
-            .filter(f -> Modifier.isPublic(f.getModifiers()))
-            .filter(f -> !Modifier.isTransient(f.getModifiers()))
-            .filter(f -> !Modifier.isFinal(f.getModifiers()))
-//            .peek(f -> System.out.println(f.getName()))
-            .forEach(out::add);
+                .filter(f -> Modifier.isPublic(f.getModifiers()))
+                .filter(f -> !Modifier.isTransient(f.getModifiers()))
+                .filter(f -> !Modifier.isFinal(f.getModifiers()))
+                //            .peek(f -> System.out.println(f.getName()))
+                .forEach(out::add);
         out = List.copyOf(out);
         cache.put(clazz, out);
         return out;
     }
-
 }

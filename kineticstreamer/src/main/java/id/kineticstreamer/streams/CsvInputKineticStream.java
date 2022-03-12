@@ -15,14 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * Authors:
- * - lambdaprime <intid@protonmail.com>
- */
 package id.kineticstreamer.streams;
 
 import static java.util.stream.Collectors.toList;
 
+import id.kineticstreamer.InputKineticStream;
+import id.kineticstreamer.KineticStreamReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
@@ -32,12 +30,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
 
-import id.kineticstreamer.InputKineticStream;
-import id.kineticstreamer.KineticStreamReader;
-
 /**
- * Kinetic stream implementation for deserialization of Java objects
- * from stream of CSV lines.
+ * Kinetic stream implementation for deserialization of Java objects from stream of CSV lines.
+ *
+ * @author lambdaprime intid@protonmail.com
  */
 public class CsvInputKineticStream implements InputKineticStream {
 
@@ -47,6 +43,7 @@ public class CsvInputKineticStream implements InputKineticStream {
 
     /**
      * Create CSV kinetic input stream
+     *
      * @param lines lines reader from CSV file
      */
     public CsvInputKineticStream(BufferedReader lines) {
@@ -63,8 +60,7 @@ public class CsvInputKineticStream implements InputKineticStream {
         if (!tokens.isEmpty()) return;
         String line = in.readLine();
         if (line == null) throw new NoSuchElementException();
-        tokens = Pattern.compile(";").splitAsStream(line)
-                .collect(toList());
+        tokens = Pattern.compile(";").splitAsStream(line).collect(toList());
     }
 
     @Override
@@ -96,8 +92,11 @@ public class CsvInputKineticStream implements InputKineticStream {
         List<Object> l = new ArrayList<>();
         String line = null;
         while ((line = in.readLine()) != null) {
-            l.add(new KineticStreamReader(new CsvInputKineticStream(
-                new BufferedReader(new StringReader(line)))).read(type));
+            l.add(
+                    new KineticStreamReader(
+                                    new CsvInputKineticStream(
+                                            new BufferedReader(new StringReader(line))))
+                            .read(type));
         }
         return l.toArray((Object[]) Array.newInstance(type, 0));
     }

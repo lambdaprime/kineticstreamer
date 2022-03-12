@@ -15,14 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * Authors:
- * - lambdaprime <intid@protonmail.com>
- */
 package id.kineticstreamer.utils;
 
 import java.lang.reflect.Field;
 
+/** @author lambdaprime intid@protonmail.com */
 public class ValueSetter {
 
     private Object obj;
@@ -35,7 +32,6 @@ public class ValueSetter {
 
     public void set(Object value) throws Exception {
         Class<?> type = field.getType();
-        field.set(obj, type.isArray()? type.cast(value): value);
+        field.set(obj, type.isArray() ? type.cast(value) : value);
     }
-
 }

@@ -15,32 +15,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * Authors:
- * - lambdaprime <intid@protonmail.com>
- */
 package id.kineticstreamer.streams;
-
-import java.io.DataInput;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 
 import id.kineticstreamer.InputKineticStream;
 import id.kineticstreamer.KineticStreamReader;
+import java.io.DataInput;
+import java.io.IOException;
+import java.lang.reflect.Array;
 
 /**
- * Kinetic stream implementation for deserialization of Java objects
- * into sequence of bytes.
+ * Kinetic stream implementation for deserialization of Java objects into sequence of bytes.
+ *
+ * @author lambdaprime intid@protonmail.com
  */
 public class ByteInputKineticStream implements InputKineticStream {
 
     private DataInput in;
 
-    /**
-     * Creates byte kinetic stream and attaches it to 'in'
-     */
+    /** Creates byte kinetic stream and attaches it to 'in' */
     public ByteInputKineticStream(DataInput in) {
         this.in = in;
     }
@@ -75,7 +67,7 @@ public class ByteInputKineticStream implements InputKineticStream {
 
     @Override
     public Object[] readArray(Object[] a, Class<?> type) throws Exception {
-        var array = (Object[])Array.newInstance(type, in.readInt());
+        var array = (Object[]) Array.newInstance(type, in.readInt());
         for (int i = 0; i < array.length; i++) {
             array[i] = new KineticStreamReader(this).read(type);
         }
@@ -83,8 +75,7 @@ public class ByteInputKineticStream implements InputKineticStream {
     }
 
     @Override
-    public void close() throws Exception {
-    }
+    public void close() throws Exception {}
 
     @Override
     public byte readByte() throws Exception {

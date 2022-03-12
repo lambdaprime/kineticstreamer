@@ -15,10 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * Authors:
- * - lambdaprime <intid@protonmail.com>
- */
 package id.kineticstreamer;
 
 import static id.kineticstreamer.KineticStreamTypes.TYPE_NAME_MAP;
@@ -30,6 +26,8 @@ import id.xfunction.logging.XLogger;
 
 /**
  * Writes Java objects into kinetic streams
+ *
+ * @author lambdaprime intid@protonmail.com
  */
 public class KineticStreamWriter {
     private static final XLogger LOGGER = XLogger.getLogger(KineticStreamWriter.class);
@@ -49,6 +47,7 @@ public class KineticStreamWriter {
 
     /**
      * Writes an object into kinetic stream
+     *
      * @throws Exception
      */
     public void write(Object obj) throws Exception {
@@ -60,7 +59,7 @@ public class KineticStreamWriter {
             if (type.isArray()) {
                 writeArray(obj, type.getComponentType());
             } else {
-                for (var field: utils.findStreamedFields(type)) {
+                for (var field : utils.findStreamedFields(type)) {
                     var fieldObj = field.get(obj);
                     if (controller.onNextObject(out, fieldObj).skip) continue;
                     write(fieldObj);
@@ -69,22 +68,39 @@ public class KineticStreamWriter {
             return;
         }
         switch (ksPrimitiveType) {
-        case STRING: out.writeString((String)obj); break;
-        case INT:
-        case INT_WRAPPER: out.writeInt((Integer)obj); break;
-        case LONG:
-        case LONG_WRAPPER: out.writeLong((Long)obj); break;
-        case SHORT:
-        case SHORT_WRAPPER: out.writeShort((Short)obj); break;
-        case FLOAT:
-        case FLOAT_WRAPPER: out.writeFloat((Float)obj); break;
-        case DOUBLE:
-        case DOUBLE_WRAPPER: out.writeDouble((Double)obj); break;
-        case BYTE:
-        case BYTE_WRAPPER: out.writeByte((Byte)obj); break;
-        case BOOL:
-        case BOOL_WRAPPER: out.writeBoolean((Boolean)obj); break;
-        default: throw new XRE("Not supported primitive type %s", type.getName());
+            case STRING:
+                out.writeString((String) obj);
+                break;
+            case INT:
+            case INT_WRAPPER:
+                out.writeInt((Integer) obj);
+                break;
+            case LONG:
+            case LONG_WRAPPER:
+                out.writeLong((Long) obj);
+                break;
+            case SHORT:
+            case SHORT_WRAPPER:
+                out.writeShort((Short) obj);
+                break;
+            case FLOAT:
+            case FLOAT_WRAPPER:
+                out.writeFloat((Float) obj);
+                break;
+            case DOUBLE:
+            case DOUBLE_WRAPPER:
+                out.writeDouble((Double) obj);
+                break;
+            case BYTE:
+            case BYTE_WRAPPER:
+                out.writeByte((Byte) obj);
+                break;
+            case BOOL:
+            case BOOL_WRAPPER:
+                out.writeBoolean((Boolean) obj);
+                break;
+            default:
+                throw new XRE("Not supported primitive type %s", type.getName());
         }
     }
 
@@ -95,12 +111,23 @@ public class KineticStreamWriter {
             return;
         }
         switch (ksPrimitiveType) {
-        case INT: out.writeIntArray((int[]) obj); break;
-        case BYTE: out.writeByteArray((byte[]) obj); break;
-        case SHORT: out.writeShortArray((short[]) obj); break;
-        case DOUBLE: out.writeDoubleArray((double[]) obj); break;
-        case BOOL: out.writeBooleanArray((boolean[]) obj); break;
-        default: throw new XRE("Not supported primitive array type %s", type.getName());
+            case INT:
+                out.writeIntArray((int[]) obj);
+                break;
+            case BYTE:
+                out.writeByteArray((byte[]) obj);
+                break;
+            case SHORT:
+                out.writeShortArray((short[]) obj);
+                break;
+            case DOUBLE:
+                out.writeDoubleArray((double[]) obj);
+                break;
+            case BOOL:
+                out.writeBooleanArray((boolean[]) obj);
+                break;
+            default:
+                throw new XRE("Not supported primitive array type %s", type.getName());
         }
     }
 }

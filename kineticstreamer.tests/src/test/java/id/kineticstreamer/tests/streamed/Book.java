@@ -15,43 +15,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * Authors:
- * - lambdaprime <intid@protonmail.com>
- */
 package id.kineticstreamer.tests.streamed;
 
 import java.util.Arrays;
 import java.util.Objects;
 
+/** @author lambdaprime intid@protonmail.com */
 public class Book {
 
     public String name;
-    
+
     public float price;
 
     public Integer weight;
 
     public Double rating;
-    
+
     public Author author;
-    
+
     public transient String ignore = "ignore";
 
     public boolean hardcover;
-    
+
     public Integer[] illustratedPages;
-    
+
     public int[] emptyPages = new int[0];
-    
+
     public final int[] ignoreFinal = new int[0];
-    
-    public Book() {
 
-    }
+    public Book() {}
 
-    public Book(String name, float price, double rating, int weight, Author author, boolean hardcover,
-            Integer[] illustratedPages, int[] emptyPages) {
+    public Book(
+            String name,
+            float price,
+            double rating,
+            int weight,
+            Author author,
+            boolean hardcover,
+            Integer[] illustratedPages,
+            int[] emptyPages) {
         this.name = name;
         this.price = price;
         this.weight = weight;
@@ -61,7 +63,7 @@ public class Book {
         this.illustratedPages = illustratedPages;
         this.emptyPages = emptyPages;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         Book other = (Book) obj;
@@ -71,15 +73,18 @@ public class Book {
         System.out.format("%s == %s\n", rating, other.rating);
         System.out.format("%s == %s\n", author, other.author);
         System.out.format("%s == %s\n", hardcover, other.hardcover);
-        System.out.format("%s == %s\n", Arrays.toString(illustratedPages), Arrays.toString(other.illustratedPages));
-        System.out.format("%s == %s\n", Arrays.toString(emptyPages), Arrays.toString(other.emptyPages));
-        return Objects.equals(name, other.name) &&
-                Objects.equals(price, other.price) &&
-                Objects.equals(rating, other.rating) &&
-                Objects.equals(weight, other.weight) &&
-                Objects.equals(hardcover, other.hardcover) &&
-                Arrays.equals(illustratedPages, other.illustratedPages) &&
-                Arrays.equals(emptyPages, other.emptyPages) &&
-                Objects.equals(author, other.author);
+        System.out.format(
+                "%s == %s\n",
+                Arrays.toString(illustratedPages), Arrays.toString(other.illustratedPages));
+        System.out.format(
+                "%s == %s\n", Arrays.toString(emptyPages), Arrays.toString(other.emptyPages));
+        return Objects.equals(name, other.name)
+                && Objects.equals(price, other.price)
+                && Objects.equals(rating, other.rating)
+                && Objects.equals(weight, other.weight)
+                && Objects.equals(hardcover, other.hardcover)
+                && Arrays.equals(illustratedPages, other.illustratedPages)
+                && Arrays.equals(emptyPages, other.emptyPages)
+                && Objects.equals(author, other.author);
     }
 }
