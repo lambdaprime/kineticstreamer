@@ -20,7 +20,7 @@ package id.kineticstreamer;
 import static id.kineticstreamer.KineticStreamTypes.TYPE_NAME_MAP;
 
 import id.kineticstreamer.utils.KineticUtils;
-import id.xfunction.XAsserts;
+import id.xfunction.Preconditions;
 import id.xfunction.lang.XRE;
 import id.xfunction.logging.XLogger;
 
@@ -51,7 +51,7 @@ public class KineticStreamWriter {
      * @throws Exception
      */
     public void write(Object obj) throws Exception {
-        XAsserts.assertNotNull(obj, "Serialization of null values is not supported");
+        Preconditions.notNull(obj, "Serialization of null values is not supported");
         LOGGER.fine("Writing object type {0}", obj.getClass().getSimpleName());
         var type = obj.getClass();
         var ksPrimitiveType = TYPE_NAME_MAP.get(type.getName());
