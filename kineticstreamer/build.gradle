@@ -9,24 +9,14 @@ buildscript {
 }
 
 plugins {
-    id 'java'
     id 'com.diffplug.spotless'
 }
-
-apply plugin : 'eclipse'
 
 dependencies {
    implementation 'io.github.lambdaprime:id.xfunction:16.0-SNAPSHOT'
 
    // transitively export following dependency to tests project
    apiElements 'io.github.lambdaprime:id.xfunction:16.0-SNAPSHOT'
-}
-
-sourceCompatibility = '11'
-targetCompatibility = '11'
-
-java {
-    modularity.inferModulePath = true
 }
 
 jar {
