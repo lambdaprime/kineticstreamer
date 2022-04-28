@@ -111,6 +111,9 @@ public class KineticStreamWriter {
             return;
         }
         switch (ksPrimitiveType) {
+            case STRING:
+                out.writeStringArray((String[]) obj);
+                break;
             case INT:
                 out.writeIntArray((int[]) obj);
                 break;

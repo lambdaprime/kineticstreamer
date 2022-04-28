@@ -118,4 +118,9 @@ public class CsvOutputKineticStream implements OutputKineticStream {
     public void writeShortArray(short[] a) throws Exception {
         throw new RuntimeException("Not supported");
     }
+
+    @Override
+    public void writeStringArray(String[] obj) throws Exception {
+        throw new RuntimeException("Not supported");
+    }
 }

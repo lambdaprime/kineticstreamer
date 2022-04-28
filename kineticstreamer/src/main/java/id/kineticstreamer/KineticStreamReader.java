@@ -143,6 +143,14 @@ public class KineticStreamReader {
         }
         Object val = null;
         switch (ksPrimitiveType) {
+            case STRING:
+                {
+                    var a = (String[]) targetArray;
+                    if (a == null) a = new String[0];
+                    val = in.readStringArray(a);
+                    inPlace = a == val;
+                    break;
+                }
             case INT:
                 {
                     var a = (int[]) targetArray;

@@ -133,4 +133,12 @@ public class ByteOutputKineticStream implements OutputKineticStream {
             writeShort(item);
         }
     }
+
+    @Override
+    public void writeStringArray(String[] array) throws Exception {
+        out.writeInt(array.length);
+        for (var item : array) {
+            writeString(item);
+        }
+    }
 }
