@@ -117,11 +117,12 @@ public class KineticStreamReader {
     private void readComplexField(Object obj, Field field) throws Exception {
         var fieldType = field.getType();
         var objSetter = new ValueSetter(obj, field);
+        var fieldObj = field.get(obj);
         if (fieldType.isArray()) {
-            Object val = readArray(field.get(obj), fieldType.getComponentType());
+            Object val = readArray(fieldObj, fieldType.getComponentType());
             if (!inPlace) objSetter.set(val);
         } else {
-            var res = controller.onNextObject(in, obj, fieldType);
+            var res = controller.onNextObject(in, fieldObj, fieldType);
             if (res.skip) {
                 if (res.object.isPresent()) objSetter.set(res.object.get());
             } else {

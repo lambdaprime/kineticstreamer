@@ -58,9 +58,9 @@ public class KineticStreamReaderController {
      * needed to avoid possible recursion in case you try to call read(Data.class) from
      * onNextObject).
      *
-     * @param obj object which being currently deserialized and which field {@link
-     *     KineticStreamReader} is going to read next
-     * @param fieldType type of the field which {@link KineticStreamReader} is about to read
+     * @param obj object from the field which is about to be deserialized
+     * @param fieldType type of the field which {@link KineticStreamReader} is about to be
+     *     deserialized
      */
     public Result onNextObject(InputKineticStream in, Object obj, Class<?> fieldType)
             throws Exception {

@@ -42,8 +42,7 @@ public class KineticStreamWriterController {
      *
      * <p>By overriding this method users can write object manually.
      *
-     * @param obj object which being currently serialized and which field {@link
-     *     KineticStreamWriter} is going to write next
+     * @param obj object from the field which is about to be serialized
      */
     public Result onNextObject(OutputKineticStream out, Object obj) throws Exception {
         return Result.CONTINUE;
