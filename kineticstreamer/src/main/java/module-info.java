@@ -23,7 +23,7 @@
  * <p>It parses object tree and allows you to get control over how types are going to be
  * (de)serialized.
  *
- * <h1>Stream</h1>
+ * <h2>Stream</h2>
  *
  * <p>In terms of <b>kineticstreamer</b> 'stream' represents sequence of any sort (sequence of
  * bytes, words, numbers, etc). The type of elements in such sequence don't need to be the same.
@@ -31,7 +31,7 @@
  *
  * <p>Example of streams are flat byte formats, CSV files, etc.
  *
- * <h1>Kinetic stream</h1>
+ * <h2>Kinetic stream</h2>
  *
  * <p>Kinetic stream is an abstraction which is defined by two interfaces:
  *
@@ -53,13 +53,13 @@
  * id.kineticstreamer.streams}). To add support for custom types of streams you need to implement
  * kinetic stream interfaces for them.
  *
- * <h1>Streamed classes</h1>
+ * <h2>Streamed classes</h2>
  *
  * <p>Streamed classes are classes which objects can be (de)serialized.
  *
  * <p>Streamed fields - fields of a streamed classes which are going to be (de)serialized.
  *
- * <h2>Field types</h2>
+ * <h3>Field types</h3>
  *
  * <b>kineticstreamer</b> divides all types into two categories:
  *
@@ -86,7 +86,7 @@
  *       practice to initialize such fields with their default constructor.
  * </ul>
  *
- * <h1>Controllers</h1>
+ * <h2>Controllers</h2>
  *
  * <p>Controllers help in case of complex serialization logic of certain foreign field types. For
  * example:
@@ -103,7 +103,7 @@
  * and inject into {@link id.kineticstreamer.KineticStreamReader} and {@link
  * id.kineticstreamer.KineticStreamWriter} correspondingly.
  *
- * <h1>Examples</h1>
+ * <h2>Examples</h2>
  *
  * <p>Streamed class:
  *

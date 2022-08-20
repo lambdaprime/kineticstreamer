@@ -17,7 +17,9 @@
  */
 package id.kineticstreamer.tests.streamed;
 
-/** @author lambdaprime intid@protonmail.com */
+/**
+ * @author lambdaprime intid@protonmail.com
+ */
 public class Frame {
 
     public int width, height;

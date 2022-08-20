@@ -19,7 +19,9 @@ package id.kineticstreamer.tests.streamed;
 
 import java.util.Objects;
 
-/** @author lambdaprime intid@protonmail.com */
+/**
+ * @author lambdaprime intid@protonmail.com
+ */
 public class StringMessage {
 
     public String data;

@@ -26,7 +26,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/** @author lambdaprime intid@protonmail.com */
+/**
+ * @author lambdaprime intid@protonmail.com
+ */
 public class KineticUtils {
     private static final Map<Class<?>, List<Field>> cache = new ConcurrentHashMap<>();
 

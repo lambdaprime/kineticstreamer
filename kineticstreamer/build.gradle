@@ -9,14 +9,24 @@ buildscript {
 }
 
 plugins {
+    id 'java'
     id 'com.diffplug.spotless'
 }
 
+apply plugin : 'eclipse'
+
+eclipse.classpath.file {
+    // instruct eclipse plugin to put everything to module path
+    whenMerged {
+        entries.findAll { it.kind == 'lib' }.each { it.entryAttributes['module'] = 'true' }
+    }
+}
+
 dependencies {
-   implementation 'io.github.lambdaprime:id.xfunction:16.0-SNAPSHOT'
+   implementation 'io.github.lambdaprime:id.xfunction:18.0'
 
    // transitively export following dependency to tests project
-   apiElements 'io.github.lambdaprime:id.xfunction:16.0-SNAPSHOT'
+   apiElements 'io.github.lambdaprime:id.xfunction:18.0'
 }
 
 jar {
@@ -31,6 +41,8 @@ javadoc {
     options.noTree = true;
     options.noIndex = true;
     options.noNavBar = true;
+    // ignore missing @return, @param etc
+    options.addBooleanOption('Xdoclint:all,-missing', true)
 }
 
 def packageDir = "$buildDir/package/${projectName}"

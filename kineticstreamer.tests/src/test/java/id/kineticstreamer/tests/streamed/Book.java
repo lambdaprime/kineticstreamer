@@ -20,7 +20,9 @@ package id.kineticstreamer.tests.streamed;
 import java.util.Arrays;
 import java.util.Objects;
 
-/** @author lambdaprime intid@protonmail.com */
+/**
+ * @author lambdaprime intid@protonmail.com
+ */
 public class Book {
 
     public String name;

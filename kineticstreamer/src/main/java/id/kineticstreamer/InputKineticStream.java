@@ -29,7 +29,9 @@ package id.kineticstreamer;
  * arrays directly and then return reference back so that <b>kineticstreamer</b> don't have to
  * allocate new arrays for them.
  */
-/** @author lambdaprime intid@protonmail.com */
+/**
+ * @author lambdaprime intid@protonmail.com
+ */
 public interface InputKineticStream extends AutoCloseable {
 
     String readString() throws Exception;

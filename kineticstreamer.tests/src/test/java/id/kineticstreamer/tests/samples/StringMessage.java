@@ -17,7 +17,9 @@
  */
 package id.kineticstreamer.tests.samples;
 
-/** @author lambdaprime intid@protonmail.com */
+/**
+ * @author lambdaprime intid@protonmail.com
+ */
 public class StringMessage {
 
     public String data;

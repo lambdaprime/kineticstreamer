@@ -19,7 +19,9 @@ package id.kineticstreamer.tests.streamed;
 
 import java.util.Arrays;
 
-/** @author lambdaprime intid@protonmail.com */
+/**
+ * @author lambdaprime intid@protonmail.com
+ */
 public class DepthFrame extends Frame {
 
     public double[] data = new double[0];

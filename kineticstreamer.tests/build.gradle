@@ -1,5 +1,15 @@
 plugins {
+    id 'java'
     id 'com.diffplug.spotless'
+}
+
+apply plugin : 'eclipse'
+
+eclipse.classpath.file {
+    // instruct eclipse plugin to put everything to module path
+    whenMerged {
+        entries.findAll { it.kind == 'lib' }.each { it.entryAttributes['module'] = 'true' }
+    }
 }
 
 dependencies {
@@ -12,6 +22,9 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    testLogging {
+        events "started", "failed"
+    }    
 }
 
 // run spotless and format code before the build

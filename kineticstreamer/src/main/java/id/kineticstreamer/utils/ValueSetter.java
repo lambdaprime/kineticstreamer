@@ -19,7 +19,9 @@ package id.kineticstreamer.utils;
 
 import java.lang.reflect.Field;
 
-/** @author lambdaprime intid@protonmail.com */
+/**
+ * @author lambdaprime intid@protonmail.com
+ */
 public class ValueSetter {
 
     private Object obj;

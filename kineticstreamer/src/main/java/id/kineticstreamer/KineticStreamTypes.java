@@ -22,7 +22,9 @@ import java.util.EnumSet;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/** @author lambdaprime intid@protonmail.com */
+/**
+ * @author lambdaprime intid@protonmail.com
+ */
 enum KineticStreamTypes {
     STRING("java.lang.String"),
     INT("int"),
