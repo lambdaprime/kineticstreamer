@@ -14,7 +14,7 @@ Gradle:
 
 ```
 dependencies {
-    implementation 'io.github.lambdaprime:kineticstreamer:3.0'
+    implementation 'io.github.lambdaprime:kineticstreamer:4.0'
 }
 ```
 

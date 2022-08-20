@@ -59,8 +59,7 @@ public class KineticStreamReaderController {
      * onNextObject).
      *
      * @param obj object from the field which is about to be deserialized
-     * @param fieldType type of the field which {@link KineticStreamReader} is about to be
-     *     deserialized
+     * @param fieldType type of the field which {@link KineticStreamReader} is about to deserialize
      */
     public Result onNextObject(InputKineticStream in, Object obj, Class<?> fieldType)
             throws Exception {

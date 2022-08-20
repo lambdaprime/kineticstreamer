@@ -67,7 +67,8 @@
  *   <li>kinetic stream types - these are all Java primitive types plus any other types for which
  *       there are separate method definition in {@link id.kineticstreamer.InputKineticStream} and
  *       {@link id.kineticstreamer.OutputKineticStream}
- *   <li>foreign types - all non kinetic stream types
+ *   <li>foreign types - all others types (mostly these are classes which are composed from fields
+ *       of kineticstream types or other foreign types).
  * </ul>
  *
  * <p>Understanding this separation is important for creating streamed classes and controllers.
@@ -107,21 +108,20 @@
  *
  * <p>Streamed class:
  *
- * <pre><code>
+ * <pre>{@code
  * public class StringMessage {
  *
- * // will be initialized later with one of StringMessage constructors
- * public String data;
+ *     public String data;
  *
- * // streamed classes require default ctor
- * public StringMessage() {
- * }
+ *     // streamed classes require default ctor
+ *     public StringMessage() {
+ *     }
  *
- * public StringMessage(String data) {
- * this.data = data;
+ *     public StringMessage(String data) {
+ *         this.data = data;
+ *     }
  * }
- * }
- * </code></pre>
+ * }</pre>
  *
  * Streaming StringMessage object to stream of bytes and back:
  *
