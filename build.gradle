@@ -1,17 +1,10 @@
 /*************************************************
-Requires gradle 7.2
-
 gradle clean build
 
 gradle publishToMavenLocal \
  -Ppublish=true \
  -PossrhUsername=XXX \
  -PossrhPassword=XXX
-
-For signing add:
- -Psigning.secretKeyRingFile=XXX \
- -Psigning.password=XXX \
- -Psigning.keyId=XXX \
 
 **************************************************/
 

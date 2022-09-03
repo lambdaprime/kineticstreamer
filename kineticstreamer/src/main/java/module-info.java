@@ -23,6 +23,32 @@
  * <p>It parses object tree and allows you to get control over how types are going to be
  * (de)serialized.
  *
+ * <h2>Why not Java standard ObjectOutputStream</h2>
+ *
+ * <p>By default {@link ObjectOutputStream} adds to stream {@link
+ * ObjectStreamConstants.TC_BLOCKDATA}:
+ *
+ * <pre>{@code
+ * var fos = new FileOutputStream("t.tmp");
+ * var oos = new ObjectOutputStream(fos) {
+ *     @Override
+ *     protected void writeStreamHeader() throws java.io.IOException {
+ *         // ignore header
+ *     }
+ * };
+ *
+ * oos.writeInt(0xffff);
+ * oos.close();
+ * }</pre>
+ *
+ * <p>Will put to stream:
+ *
+ * <pre>TC_BLOCKDATA|0x0000ffff</pre>
+ *
+ * <p>It is possible to use ObjectOutputStream default constructor to a avoid this but it requires
+ * to reimplement writeObject which does all work with class tree serialization (behind private
+ * method writeObject0 which you cannot access from writeObject because it is final).
+ *
  * <h2>Stream</h2>
  *
  * <p>In terms of <b>kineticstreamer</b> 'stream' represents sequence of any sort (sequence of

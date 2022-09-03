@@ -1,4 +1,4 @@
-Intended for **kineticstreamer** developers and not users.
+Intended for developers and not users.
 
 # Use Eclipse
 
