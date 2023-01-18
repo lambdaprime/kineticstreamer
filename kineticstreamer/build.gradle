@@ -23,10 +23,10 @@ eclipse.classpath.file {
 }
 
 dependencies {
-   implementation 'io.github.lambdaprime:id.xfunction:18.0'
+   implementation 'io.github.lambdaprime:id.xfunction:20.0-SNAPSHOT'
 
    // transitively export following dependency to tests project
-   apiElements 'io.github.lambdaprime:id.xfunction:18.0'
+   apiElements 'io.github.lambdaprime:id.xfunction:20.0-SNAPSHOT'
 }
 
 jar {
