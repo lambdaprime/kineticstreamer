@@ -25,8 +25,8 @@
  *
  * <h2>Why not Java standard ObjectOutputStream</h2>
  *
- * <p>By default {@link ObjectOutputStream} adds to stream {@link
- * ObjectStreamConstants.TC_BLOCKDATA}:
+ * <p>By default {@link java.io.ObjectOutputStream} adds to stream {@link
+ * java.io.ObjectStreamConstants#TC_BLOCKDATA}:
  *
  * <pre>{@code
  * var fos = new FileOutputStream("t.tmp");

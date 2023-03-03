@@ -65,7 +65,7 @@ task createPackage(type: Copy, dependsOn: copyLibs) {
 
 task cleanRelease(type: Delete) {
   delete "$packageDir"
-  delete "$projectDir/release"
+  delete "$projectDir/release/*-SNAPSHOT.zip"
 }
 
 createRelease.dependsOn createPackage
