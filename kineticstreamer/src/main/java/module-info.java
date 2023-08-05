@@ -81,7 +81,8 @@
  *
  * <h2>Streamed classes</h2>
  *
- * <p>Streamed classes are classes which objects can be (de)serialized.
+ * <p>Streamed classes are classes which objects can be (de)serialized. These are also know as <a
+ * href="https://en.wikipedia.org/wiki/Data_transfer_object">data transfer objects (DTO)</a>
  *
  * <p>Streamed fields - fields of a streamed classes which are going to be (de)serialized.
  *
@@ -166,6 +167,59 @@
  * StringMessage actual = (StringMessage) ksr.read(StringMessage.class);
  * System.out.println(actual.data);
  * }</pre>
+ *
+ * <h2>Java records support</h2>
+ *
+ * <p>Currently <b>kineticstreamer</b> does not support records (de)serialization.
+ *
+ * <p>The reason behind it is based on observation that users are not using records as streamed
+ * classes (DTO).
+ *
+ * <p>Here is an example of a streamed class definition <a
+ * href="https://github.com/lambdaprime/jros1messages/blob/ade80d91e724dfd97d7a4e0c7b46365abdeb298c/jros1messages/src/main/java/id/jros1messages/visualization_msgs/MarkerMessage.java">MarkerMessage</a>
+ * which is used to communicate with <a href="https://www.ros.org/">Robot Operating System</a>.
+ *
+ * <p>This class has certain fields which need to be set only in certain cases, otherwise they
+ * should contain default values:
+ *
+ * <ul>
+ *   <li>text - Only used for text markers
+ *   <li>mesh_resource - Only used for MESH_RESOURCE markers
+ * </ul>
+ *
+ * <p>Additionally some fields are assigned default values, so they don't need to be populated by
+ * the user each time.
+ *
+ * <ul>
+ *   <li>lifetime - default is forever
+ * </ul>
+ *
+ * <p>To convert MarkerMessage to record and not loose all the specifics given above there are two
+ * ways:
+ *
+ * <ul>
+ *   <li>define multiple overloaded constructors for all possible ways MarkerMessage can be created,
+ *       like:
+ *       <ul>
+ *         <li>MarkerMessage(..., Duration lifetime) - user provided duration
+ *         <li>MarkerMessage(...) - default duration
+ *         <li>...
+ *       </ul>
+ *       Which is time consuming and error prone.
+ *   <li>define a separate builder which will look like current MarkerMessage except at the end it
+ *       will produce record version of MarkerMessage. This is again time consuming and error prone.
+ * </ul>
+ *
+ * <p>To summarize: possibly one reason for records not being widely used as DTO is because they
+ * lack any builders support.
+ *
+ * <p>Useful links:
+ *
+ * <ul>
+ *   <li><a href"https://mail.openjdk.org/pipermail/amber-spec-experts/2022-June/003461.html">"With"
+ *       for records openjdk mail list</a>
+ *   <li><a href="https://github.com/Randgalt/record-builder">record-builder thirdparty project</a>
+ * </ul>
  *
  * @see <a href="https://github.com/lambdaprime/kineticstreamer/releases">Download
  *     kineticstreamer</a>

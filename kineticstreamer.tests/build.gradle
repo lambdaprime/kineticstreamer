@@ -1,5 +1,6 @@
 plugins {
   id 'com.diffplug.spotless'
+  id 'jacoco'
 }
 
 eclipse.classpath.file {
@@ -19,11 +20,52 @@ dependencies {
   testRuntimeOnly "org.junit.platform:junit-platform-commons:1.7.0"
 }
 
+jacoco {
+  // Java 17 support
+  toolVersion = "0.8.7"
+}
+
 test {
   useJUnitPlatform()
+  finalizedBy jacocoTestReport, jacocoTestCoverageVerification
+
   testLogging {
     events "started", "failed"
-  }    
+  }
+}
+
+jacocoTestReport {
+  // generate only HTML report
+  reports {
+    xml.required = false
+    csv.required = false
+    html.required = true
+  }
+  sourceDirectories.from = project(':kineticstreamer').sourceSets.main.java.srcDirs
+  classDirectories.from = project(':kineticstreamer').sourceSets.main.java.classesDirectory
+}
+
+jacocoTestCoverageVerification {
+  sourceDirectories.from = project(':kineticstreamer').sourceSets.main.java.srcDirs
+  classDirectories.from = project(':kineticstreamer').sourceSets.main.java.classesDirectory
+  afterEvaluate {
+    classDirectories.setFrom(files(classDirectories.files.collect {
+      fileTree(dir: it, exclude:  [
+        // none
+      ])
+    }))
+  }
+  violationRules {
+    rule {
+      enabled = true
+      element = 'PACKAGE'
+      limit {
+        counter = 'LINE'
+        value = 'COVEREDRATIO'
+        minimum = 0.4
+      }
+    }
+  }
 }
 
 // run spotless and format code before the build

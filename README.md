@@ -6,7 +6,7 @@ Java 17+
 
 # Download
 
-[Release versions](https://github.com/lambdaprime/kineticstreamer/releases)
+[Release versions](kineticstreamer/release/CHANGELOG.md)
 
 Or you can add dependency to it as follows:
 
@@ -14,7 +14,7 @@ Gradle:
 
 ```
 dependencies {
-    implementation 'io.github.lambdaprime:kineticstreamer:5.0'
+  implementation 'io.github.lambdaprime:kineticstreamer:5.0'
 }
 ```
 
