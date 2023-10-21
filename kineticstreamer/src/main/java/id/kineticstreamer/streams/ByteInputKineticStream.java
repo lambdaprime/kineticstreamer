@@ -66,6 +66,11 @@ public class ByteInputKineticStream implements InputKineticStream {
     }
 
     @Override
+    public char readChar() throws Exception {
+        return in.readChar();
+    }
+
+    @Override
     public Object[] readArray(Object[] a, Class<?> type) throws Exception {
         var array = (Object[]) Array.newInstance(type, in.readInt());
         for (int i = 0; i < array.length; i++) {
@@ -151,6 +156,15 @@ public class ByteInputKineticStream implements InputKineticStream {
         var array = new String[in.readInt()];
         for (int i = 0; i < array.length; i++) {
             array[i] = readString();
+        }
+        return array;
+    }
+
+    @Override
+    public char[] readCharArray(char[] a) throws Exception {
+        var array = new char[in.readInt()];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = readChar();
         }
         return array;
     }

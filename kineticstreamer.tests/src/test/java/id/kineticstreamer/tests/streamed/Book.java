@@ -45,6 +45,10 @@ public class Book {
 
     public final int[] ignoreFinal = new int[0];
 
+    public char ch;
+
+    public char[] md5 = new char[0];
+
     public Book() {}
 
     public Book(
@@ -55,7 +59,9 @@ public class Book {
             Author author,
             boolean hardcover,
             Integer[] illustratedPages,
-            int[] emptyPages) {
+            int[] emptyPages,
+            char ch,
+            char[] md5) {
         this.name = name;
         this.price = price;
         this.weight = weight;
@@ -64,6 +70,8 @@ public class Book {
         this.hardcover = hardcover;
         this.illustratedPages = illustratedPages;
         this.emptyPages = emptyPages;
+        this.ch = ch;
+        this.md5 = md5;
     }
 
     @Override
@@ -73,6 +81,7 @@ public class Book {
         System.out.format("%s == %s\n", price, other.price);
         System.out.format("%s == %s\n", weight, other.weight);
         System.out.format("%s == %s\n", rating, other.rating);
+        System.out.format("%s == %s\n", ch, other.ch);
         System.out.format("%s == %s\n", author, other.author);
         System.out.format("%s == %s\n", hardcover, other.hardcover);
         System.out.format(
@@ -80,13 +89,16 @@ public class Book {
                 Arrays.toString(illustratedPages), Arrays.toString(other.illustratedPages));
         System.out.format(
                 "%s == %s\n", Arrays.toString(emptyPages), Arrays.toString(other.emptyPages));
+        System.out.format("%s == %s\n", Arrays.toString(md5), Arrays.toString(other.md5));
         return Objects.equals(name, other.name)
                 && Objects.equals(price, other.price)
                 && Objects.equals(rating, other.rating)
                 && Objects.equals(weight, other.weight)
+                && Objects.equals(ch, other.ch)
                 && Objects.equals(hardcover, other.hardcover)
                 && Arrays.equals(illustratedPages, other.illustratedPages)
                 && Arrays.equals(emptyPages, other.emptyPages)
+                && Arrays.equals(md5, other.md5)
                 && Objects.equals(author, other.author);
     }
 }

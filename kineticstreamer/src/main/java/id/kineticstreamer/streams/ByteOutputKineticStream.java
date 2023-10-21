@@ -85,6 +85,11 @@ public class ByteOutputKineticStream implements OutputKineticStream {
     }
 
     @Override
+    public void writeChar(Character ch) throws Exception {
+        out.writeChar(ch);
+    }
+
+    @Override
     public void writeIntArray(int[] array) throws Exception {
         out.writeInt(array.length);
         for (var item : array) {
@@ -139,6 +144,14 @@ public class ByteOutputKineticStream implements OutputKineticStream {
         out.writeInt(array.length);
         for (var item : array) {
             writeString(item);
+        }
+    }
+
+    @Override
+    public void writeCharArray(char[] array) throws Exception {
+        out.writeInt(array.length);
+        for (var item : array) {
+            writeChar(item);
         }
     }
 }

@@ -39,6 +39,8 @@ public interface OutputKineticStream extends AutoCloseable {
 
     void writeByte(Byte fieldValue) throws Exception;
 
+    void writeChar(Character ch) throws Exception;
+
     void writeArray(Object[] array) throws Exception;
 
     void writeIntArray(int[] array) throws Exception;
@@ -53,7 +55,9 @@ public interface OutputKineticStream extends AutoCloseable {
 
     void writeShort(Short s) throws Exception;
 
-    void writeShortArray(short[] a) throws Exception;
+    void writeShortArray(short[] array) throws Exception;
 
-    void writeStringArray(String[] obj) throws Exception;
+    void writeStringArray(String[] array) throws Exception;
+
+    void writeCharArray(char[] array) throws Exception;
 }

@@ -46,6 +46,8 @@ public interface InputKineticStream extends AutoCloseable {
 
     byte readByte() throws Exception;
 
+    char readChar() throws Exception;
+
     Object[] readArray(Object[] a, Class<?> type) throws Exception;
 
     int[] readIntArray(int[] a) throws Exception;
@@ -65,4 +67,6 @@ public interface InputKineticStream extends AutoCloseable {
     short readShort() throws Exception;
 
     short[] readShortArray(short[] a) throws Exception;
+
+    char[] readCharArray(char[] a) throws Exception;
 }

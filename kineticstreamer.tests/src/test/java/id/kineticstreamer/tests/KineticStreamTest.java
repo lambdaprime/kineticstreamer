@@ -58,7 +58,9 @@ public class KineticStreamTest {
                                 new Author("bbbbb", 123),
                                 true,
                                 new Integer[] {9, 9, 9},
-                                new int[] {2, 3})),
+                                new int[] {2, 3},
+                                'L',
+                                new char[] {'a', 'a', 'b'})),
                 List.of("00, 00, 00, 03, 61, 61, 61", "aaa"),
                 List.of("00, 00, 00, 0a", 10),
                 List.of(

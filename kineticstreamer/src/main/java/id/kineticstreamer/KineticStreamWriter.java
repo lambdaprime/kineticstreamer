@@ -99,6 +99,10 @@ public class KineticStreamWriter {
             case BOOL_WRAPPER:
                 out.writeBoolean((Boolean) obj);
                 break;
+            case CHAR:
+            case CHAR_WRAPPER:
+                out.writeChar((Character) obj);
+                break;
             default:
                 throw new XRE("Not supported primitive type %s", type.getName());
         }
@@ -128,6 +132,9 @@ public class KineticStreamWriter {
                 break;
             case BOOL:
                 out.writeBooleanArray((boolean[]) obj);
+                break;
+            case CHAR:
+                out.writeCharArray((char[]) obj);
                 break;
             default:
                 throw new XRE("Not supported primitive array type %s", type.getName());

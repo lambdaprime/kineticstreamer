@@ -39,6 +39,8 @@ enum KineticStreamTypes {
     DOUBLE_WRAPPER("java.lang.Double"),
     BYTE("byte"),
     BYTE_WRAPPER("java.lang.Byte"),
+    CHAR("char"),
+    CHAR_WRAPPER("java.lang.Character"),
     BOOL("boolean"),
     BOOL_WRAPPER("java.lang.Boolean");
 
@@ -52,6 +54,7 @@ enum KineticStreamTypes {
                     FLOAT_WRAPPER,
                     DOUBLE_WRAPPER,
                     BYTE_WRAPPER,
+                    CHAR_WRAPPER,
                     BOOL_WRAPPER);
     private String type;
 

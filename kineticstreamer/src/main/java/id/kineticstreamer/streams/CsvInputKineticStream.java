@@ -157,4 +157,14 @@ public class CsvInputKineticStream implements InputKineticStream {
     public String[] readStringArray(String[] a) throws Exception {
         throw new RuntimeException("Not supported");
     }
+
+    @Override
+    public char readChar() throws Exception {
+        throw new RuntimeException("Not supported");
+    }
+
+    @Override
+    public char[] readCharArray(char[] a) throws Exception {
+        throw new RuntimeException("Not supported");
+    }
 }

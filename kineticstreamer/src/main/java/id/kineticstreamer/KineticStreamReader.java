@@ -109,6 +109,10 @@ public class KineticStreamReader {
             case BOOL_WRAPPER:
                 setter.accept(in.readBool());
                 break;
+            case CHAR:
+            case CHAR_WRAPPER:
+                setter.accept(in.readChar());
+                break;
             default:
                 throw new XRE("Not supported primitive type %s", type.getName());
         }
@@ -197,6 +201,14 @@ public class KineticStreamReader {
                     var a = (boolean[]) targetArray;
                     if (a == null) a = new boolean[0];
                     val = in.readBooleanArray(a);
+                    inPlace = a == val;
+                    break;
+                }
+            case CHAR:
+                {
+                    var a = (char[]) targetArray;
+                    if (a == null) a = new char[0];
+                    val = in.readCharArray(a);
                     inPlace = a == val;
                     break;
                 }
