@@ -60,7 +60,8 @@ public class KineticStreamTest {
                                 new Integer[] {9, 9, 9},
                                 new int[] {2, 3},
                                 'L',
-                                new char[] {'a', 'a', 'b'})),
+                                new char[] {'a', 'a', 'b'},
+                                new float[] {12.21F, 3.14F, 5.43F, 56.788F})),
                 List.of("00, 00, 00, 03, 61, 61, 61", "aaa"),
                 List.of("00, 00, 00, 0a", 10),
                 List.of(

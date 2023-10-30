@@ -49,6 +49,8 @@ public class Book {
 
     public char[] md5 = new char[0];
 
+    public float[] floatArray = new float[0];
+
     public Book() {}
 
     public Book(
@@ -61,7 +63,8 @@ public class Book {
             Integer[] illustratedPages,
             int[] emptyPages,
             char ch,
-            char[] md5) {
+            char[] md5,
+            float[] floatArray) {
         this.name = name;
         this.price = price;
         this.weight = weight;
@@ -72,6 +75,7 @@ public class Book {
         this.emptyPages = emptyPages;
         this.ch = ch;
         this.md5 = md5;
+        this.floatArray = floatArray;
     }
 
     @Override
@@ -90,6 +94,8 @@ public class Book {
         System.out.format(
                 "%s == %s\n", Arrays.toString(emptyPages), Arrays.toString(other.emptyPages));
         System.out.format("%s == %s\n", Arrays.toString(md5), Arrays.toString(other.md5));
+        System.out.format(
+                "%s == %s\n", Arrays.toString(floatArray), Arrays.toString(other.floatArray));
         return Objects.equals(name, other.name)
                 && Objects.equals(price, other.price)
                 && Objects.equals(rating, other.rating)
@@ -99,6 +105,7 @@ public class Book {
                 && Arrays.equals(illustratedPages, other.illustratedPages)
                 && Arrays.equals(emptyPages, other.emptyPages)
                 && Arrays.equals(md5, other.md5)
+                && Arrays.equals(floatArray, other.floatArray)
                 && Objects.equals(author, other.author);
     }
 }

@@ -136,6 +136,9 @@ public class KineticStreamWriter {
             case CHAR:
                 out.writeCharArray((char[]) obj);
                 break;
+            case FLOAT:
+                out.writeFloatArray((float[]) obj);
+                break;
             default:
                 throw new XRE("Not supported primitive array type %s", type.getName());
         }

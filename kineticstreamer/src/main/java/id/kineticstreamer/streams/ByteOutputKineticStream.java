@@ -154,4 +154,12 @@ public class ByteOutputKineticStream implements OutputKineticStream {
             writeChar(item);
         }
     }
+
+    @Override
+    public void writeFloatArray(float[] array) throws Exception {
+        out.writeInt(array.length);
+        for (var item : array) {
+            writeFloat(item);
+        }
+    }
 }

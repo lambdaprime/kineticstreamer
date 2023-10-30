@@ -212,6 +212,14 @@ public class KineticStreamReader {
                     inPlace = a == val;
                     break;
                 }
+            case FLOAT:
+                {
+                    var a = (float[]) targetArray;
+                    if (a == null) a = new float[0];
+                    val = in.readFloatArray(a);
+                    inPlace = a == val;
+                    break;
+                }
             default:
                 throw new XRE("Not supported primitive array type %s", type.getName());
         }

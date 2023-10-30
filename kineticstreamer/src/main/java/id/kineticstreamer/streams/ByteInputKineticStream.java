@@ -168,4 +168,13 @@ public class ByteInputKineticStream implements InputKineticStream {
         }
         return array;
     }
+
+    @Override
+    public float[] readFloatArray(float[] a) throws Exception {
+        var array = new float[in.readInt()];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = readFloat();
+        }
+        return array;
+    }
 }
