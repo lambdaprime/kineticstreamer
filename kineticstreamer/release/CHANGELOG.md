@@ -1,3 +1,13 @@
+# Version 6
+
+- Android build support
+- Updating to xfunction v24.0-SNAPSHOT
+- Adding float[] support
+- Adding char and char[] support
+- Update to gradle 8.1.1, adding records information
+
+[kineticstreamer-v6.0.zip](https://github.com/lambdaprime/kineticstreamer/raw/master/kineticstreamer/release/kineticstreamer-v6.0.zip)
+
 # Version 5
 
 - Updating to xfunction v20 and formatting gradle files

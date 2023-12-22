@@ -216,7 +216,8 @@
  * <p>Useful links:
  *
  * <ul>
- *   <li><a href"https://mail.openjdk.org/pipermail/amber-spec-experts/2022-June/003461.html">"With"
+ *   <li><a
+ *       href="https://mail.openjdk.org/pipermail/amber-spec-experts/2022-June/003461.html">"With"
  *       for records openjdk mail list</a>
  *   <li><a href="https://github.com/Randgalt/record-builder">record-builder thirdparty project</a>
  * </ul>
