@@ -23,6 +23,7 @@ import id.kineticstreamer.utils.KineticUtils;
 import id.xfunction.Preconditions;
 import id.xfunction.lang.XRE;
 import id.xfunction.logging.XLogger;
+import java.lang.annotation.Annotation;
 
 /**
  * Writes Java objects into kinetic streams
@@ -50,94 +51,94 @@ public class KineticStreamWriter {
      *
      * @throws Exception
      */
-    public void write(Object obj) throws Exception {
+    public void write(Object obj, Annotation... annotations) throws Exception {
         Preconditions.notNull(obj, "Serialization of null values is not supported");
         LOGGER.fine("Writing object type {0}", obj.getClass().getSimpleName());
         var type = obj.getClass();
         var ksPrimitiveType = TYPE_NAME_MAP.get(type.getName());
         if (ksPrimitiveType == null) {
             if (type.isArray()) {
-                writeArray(obj, type.getComponentType());
+                writeArray(obj, type.getComponentType(), annotations);
             } else {
                 for (var field : utils.findStreamedFields(type)) {
                     var fieldObj = field.get(obj);
                     if (controller.onNextObject(out, fieldObj).skip) continue;
-                    write(fieldObj);
+                    write(fieldObj, field.getAnnotations());
                 }
             }
             return;
         }
         switch (ksPrimitiveType) {
             case STRING:
-                out.writeString((String) obj);
+                out.writeString((String) obj, annotations);
                 break;
             case INT:
             case INT_WRAPPER:
-                out.writeInt((Integer) obj);
+                out.writeInt((Integer) obj, annotations);
                 break;
             case LONG:
             case LONG_WRAPPER:
-                out.writeLong((Long) obj);
+                out.writeLong((Long) obj, annotations);
                 break;
             case SHORT:
             case SHORT_WRAPPER:
-                out.writeShort((Short) obj);
+                out.writeShort((Short) obj, annotations);
                 break;
             case FLOAT:
             case FLOAT_WRAPPER:
-                out.writeFloat((Float) obj);
+                out.writeFloat((Float) obj, annotations);
                 break;
             case DOUBLE:
             case DOUBLE_WRAPPER:
-                out.writeDouble((Double) obj);
+                out.writeDouble((Double) obj, annotations);
                 break;
             case BYTE:
             case BYTE_WRAPPER:
-                out.writeByte((Byte) obj);
+                out.writeByte((Byte) obj, annotations);
                 break;
             case BOOL:
             case BOOL_WRAPPER:
-                out.writeBoolean((Boolean) obj);
+                out.writeBoolean((Boolean) obj, annotations);
                 break;
             case CHAR:
             case CHAR_WRAPPER:
-                out.writeChar((Character) obj);
+                out.writeChar((Character) obj, annotations);
                 break;
             default:
                 throw new XRE("Not supported primitive type %s", type.getName());
         }
     }
 
-    private void writeArray(Object obj, Class<?> type) throws Exception {
+    private void writeArray(Object obj, Class<?> type, Annotation[] annotations) throws Exception {
         var ksPrimitiveType = TYPE_NAME_MAP.get(type.getName());
         if (ksPrimitiveType == null || ksPrimitiveType.isWrapper()) {
-            out.writeArray((Object[]) obj);
+            out.writeArray((Object[]) obj, annotations);
             return;
         }
         switch (ksPrimitiveType) {
             case STRING:
-                out.writeStringArray((String[]) obj);
+                out.writeStringArray((String[]) obj, annotations);
                 break;
             case INT:
-                out.writeIntArray((int[]) obj);
+                out.writeIntArray((int[]) obj, annotations);
                 break;
             case BYTE:
-                out.writeByteArray((byte[]) obj);
+                out.writeByteArray((byte[]) obj, annotations);
                 break;
             case SHORT:
-                out.writeShortArray((short[]) obj);
+                out.writeShortArray((short[]) obj, annotations);
                 break;
             case DOUBLE:
-                out.writeDoubleArray((double[]) obj);
+                out.writeDoubleArray((double[]) obj, annotations);
                 break;
             case BOOL:
-                out.writeBooleanArray((boolean[]) obj);
+                out.writeBooleanArray((boolean[]) obj, annotations);
                 break;
             case CHAR:
-                out.writeCharArray((char[]) obj);
+                out.writeCharArray((char[]) obj, annotations);
                 break;
             case FLOAT:
-                out.writeFloatArray((float[]) obj);
+                out.writeFloatArray((float[]) obj, annotations);
                 break;
             default:
                 throw new XRE("Not supported primitive array type %s", type.getName());

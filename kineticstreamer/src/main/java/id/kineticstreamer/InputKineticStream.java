@@ -17,6 +17,8 @@
  */
 package id.kineticstreamer;
 
+import java.lang.annotation.Annotation;
+
 /**
  * Interface which needs to be implemented to support deserialization of new types of kinetic
  * streams.
@@ -28,47 +30,49 @@ package id.kineticstreamer;
  * being deserialized. This helps to populate fixed size array fields. Users can populate such
  * arrays directly and then return reference back so that <b>kineticstreamer</b> don't have to
  * allocate new arrays for them.
- */
-/**
+ *
+ * <p>Each method additionally accepts all field annotations associated with the field, value for
+ * which is currently read.
+ *
  * @author lambdaprime intid@protonmail.com
  */
 public interface InputKineticStream extends AutoCloseable {
 
-    String readString() throws Exception;
+    String readString(Annotation[] fieldAnnotations) throws Exception;
 
-    int readInt() throws Exception;
+    int readInt(Annotation[] fieldAnnotations) throws Exception;
 
-    float readFloat() throws Exception;
+    float readFloat(Annotation[] fieldAnnotations) throws Exception;
 
-    double readDouble() throws Exception;
+    double readDouble(Annotation[] fieldAnnotations) throws Exception;
 
-    boolean readBool() throws Exception;
+    boolean readBool(Annotation[] fieldAnnotations) throws Exception;
 
-    byte readByte() throws Exception;
+    byte readByte(Annotation[] fieldAnnotations) throws Exception;
 
-    char readChar() throws Exception;
+    char readChar(Annotation[] fieldAnnotations) throws Exception;
 
-    Object[] readArray(Object[] a, Class<?> type) throws Exception;
+    Object[] readArray(Object[] a, Class<?> type, Annotation[] fieldAnnotations) throws Exception;
 
-    int[] readIntArray(int[] a) throws Exception;
+    int[] readIntArray(int[] a, Annotation[] fieldAnnotations) throws Exception;
 
-    byte[] readByteArray(byte[] a) throws Exception;
+    byte[] readByteArray(byte[] a, Annotation[] fieldAnnotations) throws Exception;
 
-    double[] readDoubleArray(double[] a) throws Exception;
+    double[] readDoubleArray(double[] a, Annotation[] fieldAnnotations) throws Exception;
 
-    boolean[] readBooleanArray(boolean[] a) throws Exception;
+    boolean[] readBooleanArray(boolean[] a, Annotation[] fieldAnnotations) throws Exception;
 
-    String[] readStringArray(String[] a) throws Exception;
+    String[] readStringArray(String[] a, Annotation[] fieldAnnotations) throws Exception;
 
-    long readLong() throws Exception;
+    long readLong(Annotation[] fieldAnnotations) throws Exception;
 
-    long[] readLongArray(long[] a) throws Exception;
+    long[] readLongArray(long[] a, Annotation[] fieldAnnotations) throws Exception;
 
-    short readShort() throws Exception;
+    short readShort(Annotation[] fieldAnnotations) throws Exception;
 
-    short[] readShortArray(short[] a) throws Exception;
+    short[] readShortArray(short[] a, Annotation[] fieldAnnotations) throws Exception;
 
-    char[] readCharArray(char[] a) throws Exception;
+    char[] readCharArray(char[] a, Annotation[] fieldAnnotations) throws Exception;
 
-    float[] readFloatArray(float[] a) throws Exception;
+    float[] readFloatArray(float[] a, Annotation[] fieldAnnotations) throws Exception;
 }

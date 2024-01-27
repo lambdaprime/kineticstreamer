@@ -21,6 +21,7 @@ import id.kineticstreamer.InputKineticStream;
 import id.kineticstreamer.KineticStreamReader;
 import java.io.DataInput;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 
 /**
@@ -38,40 +39,41 @@ public class ByteInputKineticStream implements InputKineticStream {
     }
 
     @Override
-    public String readString() throws IOException {
-        int len = readInt();
+    public String readString(Annotation[] fieldAnnotations) throws IOException {
+        int len = in.readInt();
         byte[] b = new byte[len];
         in.readFully(b);
         return new String(b);
     }
 
     @Override
-    public int readInt() throws IOException {
+    public int readInt(Annotation[] fieldAnnotations) throws IOException {
         return in.readInt();
     }
 
     @Override
-    public float readFloat() throws IOException {
+    public float readFloat(Annotation[] fieldAnnotations) throws IOException {
         return in.readFloat();
     }
 
     @Override
-    public double readDouble() throws IOException {
+    public double readDouble(Annotation[] fieldAnnotations) throws IOException {
         return in.readDouble();
     }
 
     @Override
-    public boolean readBool() throws IOException {
+    public boolean readBool(Annotation[] fieldAnnotations) throws IOException {
         return in.readBoolean();
     }
 
     @Override
-    public char readChar() throws Exception {
+    public char readChar(Annotation[] fieldAnnotations) throws Exception {
         return in.readChar();
     }
 
     @Override
-    public Object[] readArray(Object[] a, Class<?> type) throws Exception {
+    public Object[] readArray(Object[] a, Class<?> type, Annotation[] fieldAnnotations)
+            throws Exception {
         var array = (Object[]) Array.newInstance(type, in.readInt());
         for (int i = 0; i < array.length; i++) {
             array[i] = new KineticStreamReader(this).read(type);
@@ -83,97 +85,97 @@ public class ByteInputKineticStream implements InputKineticStream {
     public void close() throws Exception {}
 
     @Override
-    public byte readByte() throws Exception {
+    public byte readByte(Annotation[] fieldAnnotations) throws Exception {
         return in.readByte();
     }
 
     @Override
-    public int[] readIntArray(int[] a) throws Exception {
+    public int[] readIntArray(int[] a, Annotation[] fieldAnnotations) throws Exception {
         var array = new int[in.readInt()];
         for (int i = 0; i < array.length; i++) {
-            array[i] = readInt();
+            array[i] = readInt(fieldAnnotations);
         }
         return array;
     }
 
     @Override
-    public byte[] readByteArray(byte[] a) throws Exception {
+    public byte[] readByteArray(byte[] a, Annotation[] fieldAnnotations) throws Exception {
         var array = new byte[in.readInt()];
         for (int i = 0; i < array.length; i++) {
-            array[i] = readByte();
+            array[i] = readByte(fieldAnnotations);
         }
         return array;
     }
 
     @Override
-    public double[] readDoubleArray(double[] a) throws Exception {
+    public double[] readDoubleArray(double[] a, Annotation[] fieldAnnotations) throws Exception {
         var array = new double[in.readInt()];
         for (int i = 0; i < array.length; i++) {
-            array[i] = readDouble();
+            array[i] = readDouble(fieldAnnotations);
         }
         return array;
     }
 
     @Override
-    public boolean[] readBooleanArray(boolean[] a) throws Exception {
+    public boolean[] readBooleanArray(boolean[] a, Annotation[] fieldAnnotations) throws Exception {
         var array = new boolean[in.readInt()];
         for (int i = 0; i < array.length; i++) {
-            array[i] = readBool();
+            array[i] = readBool(fieldAnnotations);
         }
         return array;
     }
 
     @Override
-    public long readLong() throws Exception {
+    public long readLong(Annotation[] fieldAnnotations) throws Exception {
         return in.readLong();
     }
 
     @Override
-    public long[] readLongArray(long[] a) throws Exception {
+    public long[] readLongArray(long[] a, Annotation[] fieldAnnotations) throws Exception {
         var array = new long[in.readInt()];
         for (int i = 0; i < array.length; i++) {
-            array[i] = readLong();
+            array[i] = readLong(fieldAnnotations);
         }
         return array;
     }
 
     @Override
-    public short readShort() throws Exception {
+    public short readShort(Annotation[] fieldAnnotations) throws Exception {
         return in.readShort();
     }
 
     @Override
-    public short[] readShortArray(short[] a) throws Exception {
+    public short[] readShortArray(short[] a, Annotation[] fieldAnnotations) throws Exception {
         var array = new short[in.readInt()];
         for (int i = 0; i < array.length; i++) {
-            array[i] = readShort();
+            array[i] = readShort(fieldAnnotations);
         }
         return array;
     }
 
     @Override
-    public String[] readStringArray(String[] a) throws Exception {
+    public String[] readStringArray(String[] a, Annotation[] fieldAnnotations) throws Exception {
         var array = new String[in.readInt()];
         for (int i = 0; i < array.length; i++) {
-            array[i] = readString();
+            array[i] = readString(fieldAnnotations);
         }
         return array;
     }
 
     @Override
-    public char[] readCharArray(char[] a) throws Exception {
+    public char[] readCharArray(char[] a, Annotation[] fieldAnnotations) throws Exception {
         var array = new char[in.readInt()];
         for (int i = 0; i < array.length; i++) {
-            array[i] = readChar();
+            array[i] = readChar(fieldAnnotations);
         }
         return array;
     }
 
     @Override
-    public float[] readFloatArray(float[] a) throws Exception {
+    public float[] readFloatArray(float[] a, Annotation[] fieldAnnotations) throws Exception {
         var array = new float[in.readInt()];
         for (int i = 0; i < array.length; i++) {
-            array[i] = readFloat();
+            array[i] = readFloat(fieldAnnotations);
         }
         return array;
     }

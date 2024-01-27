@@ -24,6 +24,7 @@ import id.kineticstreamer.utils.ValueSetter;
 import id.xfunction.function.ThrowingConsumer;
 import id.xfunction.lang.XRE;
 import id.xfunction.logging.XLogger;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 /**
@@ -59,14 +60,18 @@ public class KineticStreamReader {
 
     private Object readInternal(Class<?> type) throws Exception {
         if (type.isArray()) {
-            return readArray(null, type.getComponentType());
+            return readArray(null, type.getComponentType(), new Annotation[0]);
         }
         Object[] holder = new Object[1];
-        read(type, obj -> holder[0] = obj);
+        read(type, obj -> holder[0] = obj, new Annotation[0]);
         return holder[0];
     }
 
-    private void read(Class<?> type, ThrowingConsumer<Object, Exception> setter) throws Exception {
+    private void read(
+            Class<?> type,
+            ThrowingConsumer<Object, Exception> setter,
+            Annotation[] fieldAnnotations)
+            throws Exception {
         LOGGER.fine("Reading object type {0}", type.getSimpleName());
         var ksPrimitiveType = TYPE_NAME_MAP.get(type.getName());
         if (ksPrimitiveType == null) {
@@ -79,39 +84,39 @@ public class KineticStreamReader {
         }
         switch (ksPrimitiveType) {
             case STRING:
-                setter.accept(in.readString());
+                setter.accept(in.readString(fieldAnnotations));
                 break;
             case INT:
             case INT_WRAPPER:
-                setter.accept(in.readInt());
+                setter.accept(in.readInt(fieldAnnotations));
                 break;
             case LONG:
             case LONG_WRAPPER:
-                setter.accept(in.readLong());
+                setter.accept(in.readLong(fieldAnnotations));
                 break;
             case SHORT:
             case SHORT_WRAPPER:
-                setter.accept(in.readShort());
+                setter.accept(in.readShort(fieldAnnotations));
                 break;
             case FLOAT:
             case FLOAT_WRAPPER:
-                setter.accept(in.readFloat());
+                setter.accept(in.readFloat(fieldAnnotations));
                 break;
             case DOUBLE:
             case DOUBLE_WRAPPER:
-                setter.accept(in.readDouble());
+                setter.accept(in.readDouble(fieldAnnotations));
                 break;
             case BYTE:
             case BYTE_WRAPPER:
-                setter.accept(in.readByte());
+                setter.accept(in.readByte(fieldAnnotations));
                 break;
             case BOOL:
             case BOOL_WRAPPER:
-                setter.accept(in.readBool());
+                setter.accept(in.readBool(fieldAnnotations));
                 break;
             case CHAR:
             case CHAR_WRAPPER:
-                setter.accept(in.readChar());
+                setter.accept(in.readChar(fieldAnnotations));
                 break;
             default:
                 throw new XRE("Not supported primitive type %s", type.getName());
@@ -123,26 +128,27 @@ public class KineticStreamReader {
         var objSetter = new ValueSetter(obj, field);
         var fieldObj = field.get(obj);
         if (fieldType.isArray()) {
-            Object val = readArray(fieldObj, fieldType.getComponentType());
+            Object val = readArray(fieldObj, fieldType.getComponentType(), field.getAnnotations());
             if (!inPlace) objSetter.set(val);
         } else {
             var res = controller.onNextObject(in, fieldObj, fieldType);
             if (res.skip) {
                 if (res.object.isPresent()) objSetter.set(res.object.get());
             } else {
-                read(fieldType, objSetter::set);
+                read(fieldType, objSetter::set, field.getAnnotations());
             }
         }
     }
 
-    private Object readArray(Object targetArray, Class<?> type) throws Exception {
+    private Object readArray(Object targetArray, Class<?> type, Annotation[] annotations)
+            throws Exception {
         inPlace = false;
         var ksPrimitiveType = TYPE_NAME_MAP.get(type.getName());
         if (ksPrimitiveType == null || ksPrimitiveType.isWrapper()) {
             Object val = null;
             var a = (Object[]) targetArray;
             if (a == null) a = new Object[0];
-            val = in.readArray(a, type);
+            val = in.readArray(a, type, annotations);
             inPlace = a == val;
             return val;
         }
@@ -152,7 +158,7 @@ public class KineticStreamReader {
                 {
                     var a = (String[]) targetArray;
                     if (a == null) a = new String[0];
-                    val = in.readStringArray(a);
+                    val = in.readStringArray(a, annotations);
                     inPlace = a == val;
                     break;
                 }
@@ -160,7 +166,7 @@ public class KineticStreamReader {
                 {
                     var a = (int[]) targetArray;
                     if (a == null) a = new int[0];
-                    val = in.readIntArray(a);
+                    val = in.readIntArray(a, annotations);
                     inPlace = a == val;
                     break;
                 }
@@ -168,7 +174,7 @@ public class KineticStreamReader {
                 {
                     var a = (long[]) targetArray;
                     if (a == null) a = new long[0];
-                    val = in.readLongArray(a);
+                    val = in.readLongArray(a, annotations);
                     inPlace = a == val;
                     break;
                 }
@@ -176,7 +182,7 @@ public class KineticStreamReader {
                 {
                     var a = (short[]) targetArray;
                     if (a == null) a = new short[0];
-                    val = in.readShortArray(a);
+                    val = in.readShortArray(a, annotations);
                     inPlace = a == val;
                     break;
                 }
@@ -184,7 +190,7 @@ public class KineticStreamReader {
                 {
                     var a = (byte[]) targetArray;
                     if (a == null) a = new byte[0];
-                    val = in.readByteArray(a);
+                    val = in.readByteArray(a, annotations);
                     inPlace = a == val;
                     break;
                 }
@@ -192,7 +198,7 @@ public class KineticStreamReader {
                 {
                     var a = (double[]) targetArray;
                     if (a == null) a = new double[0];
-                    val = in.readDoubleArray(a);
+                    val = in.readDoubleArray(a, annotations);
                     inPlace = a == val;
                     break;
                 }
@@ -200,7 +206,7 @@ public class KineticStreamReader {
                 {
                     var a = (boolean[]) targetArray;
                     if (a == null) a = new boolean[0];
-                    val = in.readBooleanArray(a);
+                    val = in.readBooleanArray(a, annotations);
                     inPlace = a == val;
                     break;
                 }
@@ -208,7 +214,7 @@ public class KineticStreamReader {
                 {
                     var a = (char[]) targetArray;
                     if (a == null) a = new char[0];
-                    val = in.readCharArray(a);
+                    val = in.readCharArray(a, annotations);
                     inPlace = a == val;
                     break;
                 }
@@ -216,7 +222,7 @@ public class KineticStreamReader {
                 {
                     var a = (float[]) targetArray;
                     if (a == null) a = new float[0];
-                    val = in.readFloatArray(a);
+                    val = in.readFloatArray(a, annotations);
                     inPlace = a == val;
                     break;
                 }

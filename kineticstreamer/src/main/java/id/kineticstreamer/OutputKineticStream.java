@@ -17,49 +17,54 @@
  */
 package id.kineticstreamer;
 
+import java.lang.annotation.Annotation;
+
 /**
  * Interface which needs to be implemented to support serialization of new types of kinetic streams.
  *
- * <p>All of its methods write values of certain data types into stream which later can be read back
- * by {@link InputKineticStream}.
+ * <p>All of its methods write values of certain data types into the stream which later can be read
+ * back by {@link InputKineticStream}.
+ *
+ * <p>Each method additionally accepts all field annotations associated with the field which value
+ * is written.
  *
  * @author lambdaprime intid@protonmail.com
  */
 public interface OutputKineticStream extends AutoCloseable {
 
-    void writeString(String str) throws Exception;
+    void writeString(String fieldValue, Annotation[] fieldAnnotations) throws Exception;
 
-    void writeInt(Integer i) throws Exception;
+    void writeInt(Integer fieldValue, Annotation[] fieldAnnotations) throws Exception;
 
-    void writeDouble(Double f) throws Exception;
+    void writeDouble(Double fieldValue, Annotation[] fieldAnnotations) throws Exception;
 
-    void writeFloat(Float f) throws Exception;
+    void writeFloat(Float fieldValue, Annotation[] fieldAnnotations) throws Exception;
 
-    void writeBoolean(Boolean fieldValue) throws Exception;
+    void writeBoolean(Boolean fieldValue, Annotation[] fieldAnnotations) throws Exception;
 
-    void writeByte(Byte fieldValue) throws Exception;
+    void writeByte(Byte fieldValue, Annotation[] fieldAnnotations) throws Exception;
 
-    void writeChar(Character ch) throws Exception;
+    void writeChar(Character fieldValue, Annotation[] fieldAnnotations) throws Exception;
 
-    void writeArray(Object[] array) throws Exception;
+    void writeArray(Object[] fieldValue, Annotation[] fieldAnnotations) throws Exception;
 
-    void writeIntArray(int[] array) throws Exception;
+    void writeIntArray(int[] fieldValue, Annotation[] fieldAnnotations) throws Exception;
 
-    void writeByteArray(byte[] array) throws Exception;
+    void writeByteArray(byte[] fieldValue, Annotation[] fieldAnnotations) throws Exception;
 
-    void writeDoubleArray(double[] array) throws Exception;
+    void writeDoubleArray(double[] fieldValue, Annotation[] fieldAnnotations) throws Exception;
 
-    void writeBooleanArray(boolean[] array) throws Exception;
+    void writeBooleanArray(boolean[] fieldValue, Annotation[] fieldAnnotations) throws Exception;
 
-    void writeLong(Long l) throws Exception;
+    void writeLong(Long fieldValue, Annotation[] fieldAnnotations) throws Exception;
 
-    void writeShort(Short s) throws Exception;
+    void writeShort(Short fieldValue, Annotation[] fieldAnnotations) throws Exception;
 
-    void writeShortArray(short[] array) throws Exception;
+    void writeShortArray(short[] fieldValue, Annotation[] fieldAnnotations) throws Exception;
 
-    void writeStringArray(String[] array) throws Exception;
+    void writeStringArray(String[] fieldValue, Annotation[] fieldAnnotations) throws Exception;
 
-    void writeCharArray(char[] array) throws Exception;
+    void writeCharArray(char[] fieldValue, Annotation[] fieldAnnotations) throws Exception;
 
-    void writeFloatArray(float[] array) throws Exception;
+    void writeFloatArray(float[] fieldValue, Annotation[] fieldAnnotations) throws Exception;
 }

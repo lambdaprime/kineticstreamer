@@ -24,6 +24,7 @@ import id.kineticstreamer.KineticStreamReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,7 @@ public class CsvInputKineticStream implements InputKineticStream {
     }
 
     @Override
-    public String readString() throws IOException {
+    public String readString(Annotation[] fieldAnnotations) throws IOException {
         advance();
         return tokens.remove(0);
     }
@@ -64,31 +65,32 @@ public class CsvInputKineticStream implements InputKineticStream {
     }
 
     @Override
-    public int readInt() throws IOException {
+    public int readInt(Annotation[] fieldAnnotations) throws IOException {
         advance();
         return Integer.parseInt(tokens.remove(0));
     }
 
     @Override
-    public float readFloat() throws IOException {
+    public float readFloat(Annotation[] fieldAnnotations) throws IOException {
         advance();
         return Float.parseFloat(tokens.remove(0));
     }
 
     @Override
-    public double readDouble() throws IOException {
+    public double readDouble(Annotation[] fieldAnnotations) throws IOException {
         advance();
         return Double.parseDouble(tokens.remove(0));
     }
 
     @Override
-    public boolean readBool() throws IOException {
+    public boolean readBool(Annotation[] fieldAnnotations) throws IOException {
         advance();
         return Boolean.parseBoolean(tokens.remove(0));
     }
 
     @Override
-    public Object[] readArray(Object[] a, Class<?> type) throws Exception {
+    public Object[] readArray(Object[] a, Class<?> type, Annotation[] fieldAnnotations)
+            throws Exception {
         List<Object> l = new ArrayList<>();
         String line = null;
         while ((line = in.readLine()) != null) {
@@ -107,69 +109,69 @@ public class CsvInputKineticStream implements InputKineticStream {
     }
 
     @Override
-    public byte readByte() throws Exception {
+    public byte readByte(Annotation[] fieldAnnotations) throws Exception {
         advance();
         return Byte.parseByte(tokens.remove(0));
     }
 
     @Override
-    public int[] readIntArray(int[] a) throws Exception {
+    public int[] readIntArray(int[] a, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public byte[] readByteArray(byte[] a) throws Exception {
+    public byte[] readByteArray(byte[] a, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public double[] readDoubleArray(double[] a) throws Exception {
+    public double[] readDoubleArray(double[] a, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public boolean[] readBooleanArray(boolean[] a) throws Exception {
+    public boolean[] readBooleanArray(boolean[] a, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public long readLong() throws Exception {
+    public long readLong(Annotation[] fieldAnnotations) throws Exception {
         advance();
         return Long.parseLong(tokens.remove(0));
     }
 
     @Override
-    public long[] readLongArray(long[] a) throws Exception {
+    public long[] readLongArray(long[] a, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public short readShort() throws Exception {
+    public short readShort(Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public short[] readShortArray(short[] a) throws Exception {
+    public short[] readShortArray(short[] a, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public String[] readStringArray(String[] a) throws Exception {
+    public String[] readStringArray(String[] a, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public char readChar() throws Exception {
+    public char readChar(Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public char[] readCharArray(char[] a) throws Exception {
+    public char[] readCharArray(char[] a, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public float[] readFloatArray(float[] a) throws Exception {
+    public float[] readFloatArray(float[] a, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 }

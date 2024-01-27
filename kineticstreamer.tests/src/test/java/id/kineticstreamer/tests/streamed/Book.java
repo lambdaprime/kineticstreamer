@@ -25,7 +25,7 @@ import java.util.Objects;
  */
 public class Book {
 
-    public String name;
+    @Secret public String name;
 
     public float price;
 

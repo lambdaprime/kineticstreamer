@@ -21,6 +21,7 @@ import id.kineticstreamer.KineticStreamWriter;
 import id.kineticstreamer.OutputKineticStream;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 
 /**
  * Kinetic stream implementation for serialization of Java objects into CSV files.
@@ -36,37 +37,37 @@ public class CsvOutputKineticStream implements OutputKineticStream {
     }
 
     @Override
-    public void writeString(String str) throws IOException {
+    public void writeString(String str, Annotation[] fieldAnnotations) throws IOException {
         out.write(str);
         out.write(';');
     }
 
     @Override
-    public void writeInt(Integer i) throws IOException {
+    public void writeInt(Integer i, Annotation[] fieldAnnotations) throws IOException {
         out.write(i.toString());
         out.write(';');
     }
 
     @Override
-    public void writeDouble(Double f) throws IOException {
+    public void writeDouble(Double f, Annotation[] fieldAnnotations) throws IOException {
         out.write(f.toString());
         out.write(';');
     }
 
     @Override
-    public void writeFloat(Float f) throws IOException {
+    public void writeFloat(Float f, Annotation[] fieldAnnotations) throws IOException {
         out.write(f.toString());
         out.write(';');
     }
 
     @Override
-    public void writeBoolean(Boolean b) throws IOException {
+    public void writeBoolean(Boolean b, Annotation[] fieldAnnotations) throws IOException {
         out.write(b.toString());
         out.write(';');
     }
 
     @Override
-    public void writeArray(Object[] array) throws Exception {
+    public void writeArray(Object[] array, Annotation[] fieldAnnotations) throws Exception {
         for (int i = 0; i < array.length; i++) {
             new KineticStreamWriter(new CsvOutputKineticStream(out)).write(array[i]);
             out.write('\n');
@@ -79,63 +80,63 @@ public class CsvOutputKineticStream implements OutputKineticStream {
     }
 
     @Override
-    public void writeByte(Byte b) throws Exception {
+    public void writeByte(Byte b, Annotation[] fieldAnnotations) throws Exception {
         out.write(b.toString());
         out.write(';');
     }
 
     @Override
-    public void writeIntArray(int[] array) throws Exception {
+    public void writeIntArray(int[] array, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public void writeByteArray(byte[] array) throws Exception {
+    public void writeByteArray(byte[] array, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public void writeDoubleArray(double[] array) throws Exception {
+    public void writeDoubleArray(double[] array, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public void writeBooleanArray(boolean[] array) throws Exception {
+    public void writeBooleanArray(boolean[] array, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public void writeLong(Long l) throws Exception {
+    public void writeLong(Long l, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public void writeShort(Short s) throws Exception {
+    public void writeShort(Short s, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public void writeShortArray(short[] a) throws Exception {
+    public void writeShortArray(short[] a, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public void writeStringArray(String[] obj) throws Exception {
+    public void writeStringArray(String[] obj, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public void writeChar(Character ch) throws Exception {
+    public void writeChar(Character ch, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public void writeCharArray(char[] array) throws Exception {
+    public void writeCharArray(char[] array, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 
     @Override
-    public void writeFloatArray(float[] array) throws Exception {
+    public void writeFloatArray(float[] array, Annotation[] fieldAnnotations) throws Exception {
         throw new RuntimeException("Not supported");
     }
 }

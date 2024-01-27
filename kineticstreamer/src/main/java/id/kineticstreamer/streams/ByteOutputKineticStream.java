@@ -21,6 +21,7 @@ import id.kineticstreamer.KineticStreamWriter;
 import id.kineticstreamer.OutputKineticStream;
 import java.io.DataOutput;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 
 /**
  * Kinetic stream implementation for serialization of Java objects into sequence of bytes.
@@ -43,33 +44,33 @@ public class ByteOutputKineticStream implements OutputKineticStream {
     }
 
     @Override
-    public void writeString(String str) throws IOException {
-        writeInt(str.length());
+    public void writeString(String str, Annotation[] fieldAnnotations) throws IOException {
+        out.writeInt(str.length());
         out.write(str.getBytes());
     }
 
     @Override
-    public void writeInt(Integer i) throws IOException {
+    public void writeInt(Integer i, Annotation[] fieldAnnotations) throws IOException {
         out.writeInt(i);
     }
 
     @Override
-    public void writeDouble(Double f) throws IOException {
+    public void writeDouble(Double f, Annotation[] fieldAnnotations) throws IOException {
         out.writeDouble(f);
     }
 
     @Override
-    public void writeFloat(Float f) throws IOException {
+    public void writeFloat(Float f, Annotation[] fieldAnnotations) throws IOException {
         out.writeFloat(f);
     }
 
     @Override
-    public void writeBoolean(Boolean b) throws IOException {
+    public void writeBoolean(Boolean b, Annotation[] fieldAnnotations) throws IOException {
         out.writeBoolean(b);
     }
 
     @Override
-    public void writeArray(Object[] array) throws Exception {
+    public void writeArray(Object[] array, Annotation[] fieldAnnotations) throws Exception {
         out.writeInt(array.length);
         for (var item : array) {
             new KineticStreamWriter(this).write(item);
@@ -80,86 +81,86 @@ public class ByteOutputKineticStream implements OutputKineticStream {
     public void close() throws Exception {}
 
     @Override
-    public void writeByte(Byte b) throws Exception {
+    public void writeByte(Byte b, Annotation[] fieldAnnotations) throws Exception {
         out.writeByte(b);
     }
 
     @Override
-    public void writeChar(Character ch) throws Exception {
+    public void writeChar(Character ch, Annotation[] fieldAnnotations) throws Exception {
         out.writeChar(ch);
     }
 
     @Override
-    public void writeIntArray(int[] array) throws Exception {
+    public void writeIntArray(int[] array, Annotation[] fieldAnnotations) throws Exception {
         out.writeInt(array.length);
         for (var item : array) {
-            writeInt(item);
+            writeInt(item, fieldAnnotations);
         }
     }
 
     @Override
-    public void writeByteArray(byte[] array) throws Exception {
+    public void writeByteArray(byte[] array, Annotation[] fieldAnnotations) throws Exception {
         out.writeInt(array.length);
         for (var item : array) {
-            writeByte(item);
+            writeByte(item, fieldAnnotations);
         }
     }
 
     @Override
-    public void writeDoubleArray(double[] array) throws Exception {
+    public void writeDoubleArray(double[] array, Annotation[] fieldAnnotations) throws Exception {
         out.writeInt(array.length);
         for (var item : array) {
-            writeDouble(item);
+            writeDouble(item, fieldAnnotations);
         }
     }
 
     @Override
-    public void writeBooleanArray(boolean[] array) throws Exception {
+    public void writeBooleanArray(boolean[] array, Annotation[] fieldAnnotations) throws Exception {
         out.writeInt(array.length);
         for (var item : array) {
-            writeBoolean(item);
+            writeBoolean(item, fieldAnnotations);
         }
     }
 
     @Override
-    public void writeLong(Long l) throws Exception {
+    public void writeLong(Long l, Annotation[] fieldAnnotations) throws Exception {
         out.writeLong(l);
     }
 
     @Override
-    public void writeShort(Short s) throws Exception {
+    public void writeShort(Short s, Annotation[] fieldAnnotations) throws Exception {
         out.writeShort(s);
     }
 
     @Override
-    public void writeShortArray(short[] a) throws Exception {
+    public void writeShortArray(short[] a, Annotation[] fieldAnnotations) throws Exception {
         out.writeInt(a.length);
         for (var item : a) {
-            writeShort(item);
+            writeShort(item, fieldAnnotations);
         }
     }
 
     @Override
-    public void writeStringArray(String[] array) throws Exception {
+    public void writeStringArray(String[] array, Annotation[] fieldAnnotations) throws Exception {
         out.writeInt(array.length);
         for (var item : array) {
-            writeString(item);
+            writeString(item, fieldAnnotations);
         }
     }
 
     @Override
-    public void writeCharArray(char[] array) throws Exception {
+    public void writeCharArray(char[] array, Annotation[] fieldAnnotations) throws Exception {
         out.writeInt(array.length);
         for (var item : array) {
-            writeChar(item);
+            writeChar(item, fieldAnnotations);
         }
     }
 
     @Override
-    public void writeFloatArray(float[] array) throws Exception {
+    public void writeFloatArray(float[] array, Annotation[] fieldAnnotations) throws Exception {
         out.writeInt(array.length);
         for (var item : array) {
-            writeFloat(item);
+            writeFloat(item, fieldAnnotations);
         }
     }
 }

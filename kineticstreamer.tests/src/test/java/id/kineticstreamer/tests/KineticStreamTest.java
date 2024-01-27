@@ -35,6 +35,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.util.List;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -43,6 +44,19 @@ import org.junit.jupiter.params.provider.MethodSource;
  */
 public class KineticStreamTest {
 
+    private static final Book TEST_SAMPLE_1 =
+            new Book(
+                    "a",
+                    15.5F,
+                    31.4,
+                    11,
+                    new Author("b", 123),
+                    true,
+                    new Integer[0],
+                    new int[] {5},
+                    'L',
+                    new char[] {'c'},
+                    new float[] {22});
     private static final ResourceUtils resourceUtils = new ResourceUtils();
 
     static Stream<List> dataProvider() {
@@ -95,5 +109,27 @@ public class KineticStreamTest {
         if (expected.getClass().isArray())
             assertArrayEquals((Object[]) expected, (Object[]) actual);
         else assertEquals(expected, actual);
+    }
+
+    @Test
+    public void test_write_annotation() throws Exception {
+        XOutputStream collector = new XOutputStream();
+        var dos = new TestByteOutputKineticStream(new DataOutputStream(collector));
+        var ks = new KineticStreamWriter(dos);
+        ks.write(TEST_SAMPLE_1);
+        assertEquals(resourceUtils.readResource("test_annotation"), collector.asHexString());
+        assertEquals("[a=Secret, b=Secret, 123=Secret]", dos.annotations.toString());
+    }
+
+    @Test
+    public void test_read_annotation() throws Exception {
+        var collector = new XInputStream(resourceUtils.readResource("test_annotation"));
+        var dis = new TestByteInputKineticStream(new DataInputStream(collector));
+        var ks = new KineticStreamReader(dis);
+        Object expected = TEST_SAMPLE_1;
+        Object actual = ks.read(expected.getClass());
+        System.out.println(actual);
+        assertEquals(expected, actual);
+        assertEquals("[a=Secret, b=Secret, 123=Secret]", dis.annotations.toString());
     }
 }

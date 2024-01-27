@@ -24,9 +24,9 @@ import java.util.Objects;
  */
 public class Author {
 
-    public String name;
+    @Secret public String name;
 
-    public int booksNum;
+    @Secret public int booksNum;
 
     private int ignoredField = 10;
 
