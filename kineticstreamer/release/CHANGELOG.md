@@ -1,3 +1,9 @@
+# Version 7
+
+- Include field annotations to input/output kinetic streams
+
+[kineticstreamer-v7.0.zip](https://github.com/lambdaprime/kineticstreamer/raw/master/kineticstreamer/release/kineticstreamer-v7.0.zip)
+
 # Version 6
 
 - Android build support
