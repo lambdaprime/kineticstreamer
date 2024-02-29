@@ -37,14 +37,14 @@ public class KineticStreamReader {
 
     private InputKineticStream in;
     private KineticUtils utils = new KineticUtils();
-    private KineticStreamReaderController controller = new KineticStreamReaderController();
+    private KineticStreamController controller = new KineticStreamController();
     private boolean inPlace;
 
     public KineticStreamReader(InputKineticStream in) {
         this.in = in;
     }
 
-    public KineticStreamReader withController(KineticStreamReaderController controller) {
+    public KineticStreamReader withController(KineticStreamController controller) {
         this.controller = controller;
         return this;
     }

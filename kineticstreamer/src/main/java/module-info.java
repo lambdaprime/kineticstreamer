@@ -18,10 +18,9 @@
 /**
  * <b>kineticstreamer</b> - Java module to do (de)serialization of Java objects into any type of
  * streams. It provides default implementations for object conversion to stream of bytes and CSV
- * files. But you can add support for any other format as well.
+ * files. Users can add support for any other format as well.
  *
- * <p>It parses object tree and allows you to get control over how types are going to be
- * (de)serialized.
+ * <p>It parses object tree and allows to get control over how types are going to be (de)serialized.
  *
  * <h2>Why not Java standard ObjectOutputStream</h2>
  *
@@ -95,7 +94,7 @@
  *       there are separate method definition in {@link id.kineticstreamer.InputKineticStream} and
  *       {@link id.kineticstreamer.OutputKineticStream}
  *   <li>foreign types - all others types (mostly these are classes which are composed from fields
- *       of kineticstream types or other foreign types).
+ *       of kinetic stream types or other foreign types).
  * </ul>
  *
  * <p>Understanding this separation is important for creating streamed classes and controllers.
@@ -114,22 +113,21 @@
  *       practice to initialize such fields with their default constructor.
  * </ul>
  *
- * <h2>Controllers</h2>
+ * <h2>KineticStreamController</h2>
  *
- * <p>Controllers help in case of complex serialization logic of certain foreign field types. For
+ * <p>Controller helps in case of complex serialization logic of certain foreign field types. For
  * example:
  *
  * <ul>
- *   <li>they allow to support polymorphic fields which type is undefined until certain flags are
+ *   <li>it allows to support polymorphic fields which type is undefined until certain flags are
  *       read from the stream
  *   <li>when certain fields may be present in the stream or not based on data which was previously
  *       read from it
  * </ul>
  *
- * <p>Controllers are defined in {@link id.kineticstreamer.KineticStreamReaderController} and {@link
- * id.kineticstreamer.KineticStreamWriterController}. Users can extend them to provide custom logic
- * and inject into {@link id.kineticstreamer.KineticStreamReader} and {@link
- * id.kineticstreamer.KineticStreamWriter} correspondingly.
+ * <p>Users can extend {@link KineticStreamController} to provide custom logic and inject into
+ * {@link id.kineticstreamer.KineticStreamReader} and {@link id.kineticstreamer.KineticStreamWriter}
+ * correspondingly.
  *
  * <h2>Examples</h2>
  *

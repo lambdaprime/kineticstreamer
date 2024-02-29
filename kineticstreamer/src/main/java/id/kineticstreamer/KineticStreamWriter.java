@@ -35,13 +35,13 @@ public class KineticStreamWriter {
 
     private OutputKineticStream out;
     private KineticUtils utils = new KineticUtils();
-    private KineticStreamWriterController controller = new KineticStreamWriterController();
+    private KineticStreamController controller = new KineticStreamController();
 
     public KineticStreamWriter(OutputKineticStream out) {
         this.out = out;
     }
 
-    public KineticStreamWriter withController(KineticStreamWriterController controller) {
+    public KineticStreamWriter withController(KineticStreamController controller) {
         this.controller = controller;
         return this;
     }
