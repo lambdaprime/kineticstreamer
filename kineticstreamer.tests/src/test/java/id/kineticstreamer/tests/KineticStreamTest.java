@@ -61,7 +61,9 @@ public class KineticStreamTest {
 
     static Stream<List> dataProvider() {
         return Stream.of(
+                // 1
                 List.of("00, 00, 00, 05, 68, 65, 6c, 6c, 6f", new StringMessage("hello")),
+                // 2
                 List.of(
                         resourceUtils.readResource("test1"),
                         new Book(
@@ -76,15 +78,19 @@ public class KineticStreamTest {
                                 'L',
                                 new char[] {'a', 'a', 'b'},
                                 new float[] {12.21F, 3.14F, 5.43F, 56.788F})),
+                // 3
                 List.of("00, 00, 00, 03, 61, 61, 61", "aaa"),
+                // 4
                 List.of("00, 00, 00, 0a", 10),
+                // 5
                 List.of(
                         "00, 00, 00, 03, 00, 00, 00, 01, 00, 00, 00, 01, 00, 00, 00, 01",
                         new Integer[] {1, 1, 1}),
+                // 6
                 List.of(
                         resourceUtils.readResource("test2"),
                         new DepthFrame(1024, 680, 1., 2., 3., 4.)));
-    } //
+    }
 
     @ParameterizedTest
     @MethodSource("dataProvider")
@@ -118,7 +124,7 @@ public class KineticStreamTest {
         var ks = new KineticStreamWriter(dos);
         ks.write(TEST_SAMPLE_1);
         assertEquals(resourceUtils.readResource("test_annotation"), collector.asHexString());
-        assertEquals("[a=Secret, b=Secret, 123=Secret]", dos.annotations.toString());
+        assertEquals("[123=Secret, b=Secret, a=Secret]", dos.annotations.toString());
     }
 
     @Test
@@ -130,6 +136,6 @@ public class KineticStreamTest {
         Object actual = ks.read(expected.getClass());
         System.out.println(actual);
         assertEquals(expected, actual);
-        assertEquals("[a=Secret, b=Secret, 123=Secret]", dis.annotations.toString());
+        assertEquals("[123=Secret, b=Secret, a=Secret]", dis.annotations.toString());
     }
 }

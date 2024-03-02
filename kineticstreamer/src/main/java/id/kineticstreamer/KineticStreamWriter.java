@@ -60,7 +60,7 @@ public class KineticStreamWriter {
             if (type.isArray()) {
                 writeArray(obj, type.getComponentType(), annotations);
             } else {
-                for (var field : utils.findStreamedFields(type)) {
+                for (var field : utils.findStreamedFields(type, controller.getFieldsProvider())) {
                     var fieldObj = field.get(obj);
                     if (controller.onNextObject(out, fieldObj).skip) continue;
                     write(fieldObj, field.getAnnotations());

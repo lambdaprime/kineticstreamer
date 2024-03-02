@@ -24,7 +24,7 @@ eclipse.classpath.file {
 }
 
 dependencies {
-  api "io.github.lambdaprime:id.xfunction:24.0"
+  api "io.github.lambdaprime:id.xfunction:25.0-SNAPSHOT"
 }
 
 configurations {

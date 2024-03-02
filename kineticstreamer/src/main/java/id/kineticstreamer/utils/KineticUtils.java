@@ -17,11 +17,10 @@
  */
 package id.kineticstreamer.utils;
 
+import id.kineticstreamer.StreamedFieldsProvider;
 import id.xfunction.lang.XRE;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -43,21 +42,15 @@ public class KineticUtils {
         }
     }
 
-    /** Searches for all fields annotated as Streamed in the clazz. */
-    // TODO this method must return fields in same order as they declared in the class.
-    // Unfortunately Class.getDeclaredFields() may return them in any order which can
-    // cause issues on certain JVMs
-    public List<Field> findStreamedFields(Class<?> clazz) {
+    /** Searches for all streamed fields in the clazz and not only declared. */
+    public List<Field> findStreamedFields(
+            Class<?> clazz, StreamedFieldsProvider streamedFieldsProvider) {
         if (clazz == Object.class) return List.of();
         if (clazz.isInterface()) return List.of();
         if (cache.containsKey(clazz)) return cache.get(clazz);
-        List<Field> out = new ArrayList<>(findStreamedFields(clazz.getSuperclass()));
-        Arrays.stream(clazz.getDeclaredFields())
-                .filter(f -> Modifier.isPublic(f.getModifiers()))
-                .filter(f -> !Modifier.isTransient(f.getModifiers()))
-                .filter(f -> !Modifier.isFinal(f.getModifiers()))
-                //            .peek(f -> System.out.println(f.getName()))
-                .forEach(out::add);
+        List<Field> out =
+                new ArrayList<>(findStreamedFields(clazz.getSuperclass(), streamedFieldsProvider));
+        streamedFieldsProvider.getDeclaredStreamedFields(clazz).forEach(out::add);
         out = List.copyOf(out);
         cache.put(clazz, out);
         return out;

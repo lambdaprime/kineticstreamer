@@ -105,7 +105,6 @@
  *
  * <ul>
  *   <li>Streamed class must have default constructor
- *   <li>Streamed fields must be public. Any static, private, final, transient fields are ignored.
  *   <li>Streamed fields of foreign types must not be null (unless you implement controllers and
  *       handle (de)serialization of such types manually). This is required for deserialization
  *       purposes. By default during deserialization {@link id.kineticstreamer.KineticStreamReader}
@@ -115,8 +114,14 @@
  *
  * <h2>KineticStreamController</h2>
  *
- * <p>Controller helps in case of complex serialization logic of certain foreign field types. For
- * example:
+ * <p>Controller is responsible for finding all streamed fields of a class and deciding in which
+ * order they must be (de)serialized (see {@link StreamedFieldsProvider}). By default {@link
+ * KineticStreamController} is using {@link PublicStreamedFieldsProvider} which considers all public
+ * fields of a class as streamed fields. Any static, private, final, transient fields are ignored.
+ * Users can change this behavior by implementing their own {@link StreamedFieldsProvider}.
+ *
+ * <p>Additionally controller helps in case of complex serialization logic of certain foreign field
+ * types. For example:
  *
  * <ul>
  *   <li>it allows to support polymorphic fields which type is undefined until certain flags are
@@ -223,7 +228,9 @@
  * @see <a href="https://github.com/lambdaprime/kineticstreamer/releases">Download
  *     kineticstreamer</a>
  * @see <a href="https://github.com/lambdaprime/kineticstreamer">Github</a>
- * @author lambdaprime intid@protonmail.com
+ * @author lambdaprime intid@protonmail
+ *     <p>mController;
+ *     <p>.com
  */
 module id.kineticstreamer {
     exports id.kineticstreamer;

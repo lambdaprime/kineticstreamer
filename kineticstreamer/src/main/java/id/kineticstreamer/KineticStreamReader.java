@@ -76,7 +76,7 @@ public class KineticStreamReader {
         var ksPrimitiveType = TYPE_NAME_MAP.get(type.getName());
         if (ksPrimitiveType == null) {
             var obj = utils.createObject(type);
-            for (var field : utils.findStreamedFields(type)) {
+            for (var field : utils.findStreamedFields(type, controller.getFieldsProvider())) {
                 readComplexField(obj, field);
             }
             setter.accept(obj);

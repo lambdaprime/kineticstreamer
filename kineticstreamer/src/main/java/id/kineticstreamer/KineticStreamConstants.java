@@ -19,6 +19,9 @@ package id.kineticstreamer;
 
 import java.lang.annotation.Annotation;
 
+/**
+ * @author lambdaprime intid@protonmail.com
+ */
 public interface KineticStreamConstants {
     Annotation[] EMPTY_ANNOTATIONS = new Annotation[0];
 }

@@ -20,12 +20,22 @@ package id.kineticstreamer;
 import java.util.Optional;
 
 /**
- * Allows user to intercept and change behavior of {@link KineticStreamReader} and {@link
- * KineticStreamWriter}.
+ * Allows user to control behavior of {@link KineticStreamReader} and {@link KineticStreamWriter}.
  *
  * @author lambdaprime intid@protonmail.com
  */
 public class KineticStreamController {
+
+    private StreamedFieldsProvider fieldsProvider = new PublicStreamedFieldsProvider();
+
+    public KineticStreamController withFieldsProvider(StreamedFieldsProvider fieldsProvider) {
+        this.fieldsProvider = fieldsProvider;
+        return this;
+    }
+
+    public StreamedFieldsProvider getFieldsProvider() {
+        return fieldsProvider;
+    }
 
     public static class WriterResult {
         boolean skip;
