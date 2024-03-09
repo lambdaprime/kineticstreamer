@@ -1,3 +1,11 @@
+# Version 8
+
+- Adding logging for cache
+- Allow users to define the order in which streamed fields must be (de)serialized
+- Consolidate controllers into single KineticStreamController class
+
+[kineticstreamer-v8.0.zip](https://github.com/lambdaprime/kineticstreamer/raw/master/kineticstreamer/release/kineticstreamer-v8.0.zip)
+
 # Version 7
 
 - Include field annotations to input/output kinetic streams

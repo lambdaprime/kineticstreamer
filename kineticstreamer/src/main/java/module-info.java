@@ -115,10 +115,11 @@
  * <h2>KineticStreamController</h2>
  *
  * <p>Controller is responsible for finding all streamed fields of a class and deciding in which
- * order they must be (de)serialized (see {@link StreamedFieldsProvider}). By default {@link
- * KineticStreamController} is using {@link PublicStreamedFieldsProvider} which considers all public
- * fields of a class as streamed fields. Any static, private, final, transient fields are ignored.
- * Users can change this behavior by implementing their own {@link StreamedFieldsProvider}.
+ * order they must be (de)serialized (see {@link id.kineticstreamer.StreamedFieldsProvider}). By
+ * default {@link id.kineticstreamer.KineticStreamController} is using {@link
+ * id.kineticstreamer.PublicStreamedFieldsProvider} which considers all public fields of a class as
+ * streamed fields. Any static, private, final, transient fields are ignored. Users can change this
+ * behavior by implementing their own {@link id.kineticstreamer.StreamedFieldsProvider}.
  *
  * <p>Additionally controller helps in case of complex serialization logic of certain foreign field
  * types. For example:
@@ -130,9 +131,9 @@
  *       read from it
  * </ul>
  *
- * <p>Users can extend {@link KineticStreamController} to provide custom logic and inject into
- * {@link id.kineticstreamer.KineticStreamReader} and {@link id.kineticstreamer.KineticStreamWriter}
- * correspondingly.
+ * <p>Users can extend {@link id.kineticstreamer.KineticStreamController} to provide custom logic
+ * and inject into {@link id.kineticstreamer.KineticStreamReader} and {@link
+ * id.kineticstreamer.KineticStreamWriter} correspondingly.
  *
  * <h2>Examples</h2>
  *

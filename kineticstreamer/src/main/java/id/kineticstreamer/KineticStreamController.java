@@ -87,11 +87,10 @@ public class KineticStreamController {
      * KineticStreamReader} which will store it as a field of the deserialized object.
      *
      * <p>Please note that when {@link KineticStreamReader#read(Class)} is called then {@link
-     * KineticStreamReaderController#onNextObject(InputKineticStream, Object, Class)} is issued for
-     * that Class fields and not for the Class itself. For example read(Data.class) will not result
-     * to onNextObject call with Data.class as a fieldType but to Data fields instead (this is
-     * needed to avoid possible recursion in case users try to call read(Data.class) from
-     * onNextObject).
+     * KineticStreamController#onNextObject(InputKineticStream, Object, Class)} is issued for that
+     * Class fields and not for the Class itself. For example read(Data.class) will not result to
+     * onNextObject call with Data.class as a fieldType but to Data fields instead (this is needed
+     * to avoid possible recursion in case users try to call read(Data.class) from onNextObject).
      *
      * @param obj object from the field which is about to be deserialized
      * @param fieldType type of the field which {@link KineticStreamReader} is about to deserialize
