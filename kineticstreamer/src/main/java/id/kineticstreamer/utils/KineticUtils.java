@@ -19,6 +19,7 @@ package id.kineticstreamer.utils;
 
 import id.kineticstreamer.StreamedFieldsProvider;
 import id.xfunction.lang.XRE;
+import id.xfunction.logging.XLogger;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author lambdaprime intid@protonmail.com
  */
 public class KineticUtils {
+    private static final XLogger LOGGER = XLogger.getLogger(KineticUtils.class);
     private static final Map<Class<?>, List<Field>> cache = new ConcurrentHashMap<>();
 
     /** Creates an object of give type using its default ctor */
@@ -47,7 +49,13 @@ public class KineticUtils {
             Class<?> clazz, StreamedFieldsProvider streamedFieldsProvider) {
         if (clazz == Object.class) return List.of();
         if (clazz.isInterface()) return List.of();
-        if (cache.containsKey(clazz)) return cache.get(clazz);
+        if (cache.containsKey(clazz)) {
+            LOGGER.fine(
+                    "Streamed fields for class {0} are available in the cache, returning them",
+                    clazz.getSimpleName());
+            return cache.get(clazz);
+        }
+        LOGGER.fine("Finding streamed fields for class {0}", clazz.getSimpleName());
         List<Field> out =
                 new ArrayList<>(findStreamedFields(clazz.getSuperclass(), streamedFieldsProvider));
         streamedFieldsProvider.getDeclaredStreamedFields(clazz).forEach(out::add);
