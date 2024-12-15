@@ -106,7 +106,7 @@ public class KineticStreamTest {
     @ParameterizedTest
     @MethodSource("dataProvider")
     public void testRead(List testData) throws Exception {
-        var collector = new XInputStream((String) testData.get(0));
+        var collector = XInputStream.ofHexString((String) testData.get(0));
         var dis = new ByteInputKineticStream(new DataInputStream(collector));
         var ks = new KineticStreamReader(dis);
         Object expected = testData.get(1);
@@ -129,7 +129,7 @@ public class KineticStreamTest {
 
     @Test
     public void test_read_annotation() throws Exception {
-        var collector = new XInputStream(resourceUtils.readResource("test_annotation"));
+        var collector = XInputStream.ofHexString(resourceUtils.readResource("test_annotation"));
         var dis = new TestByteInputKineticStream(new DataInputStream(collector));
         var ks = new KineticStreamReader(dis);
         Object expected = TEST_SAMPLE_1;
