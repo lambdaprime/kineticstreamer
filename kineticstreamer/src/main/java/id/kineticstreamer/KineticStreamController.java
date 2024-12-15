@@ -25,6 +25,9 @@ import java.util.Optional;
  * <p>Thread-safety of this class depends on {@link StreamedFieldsProvider} being used. If {@link
  * StreamedFieldsProvider} implementation is thread-safe then this class is thread-safe too.
  *
+ * <p>Thread-safety of this class depends on {@link StreamedFieldsProvider} being used. If {@link
+ * StreamedFieldsProvider} implementation is thread-safe then this class is thread-safe too.
+ *
  * @author lambdaprime intid@protonmail.com
  */
 public class KineticStreamController {

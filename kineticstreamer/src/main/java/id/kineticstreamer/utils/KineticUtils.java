@@ -49,18 +49,20 @@ public class KineticUtils {
             Class<?> clazz, StreamedFieldsProvider streamedFieldsProvider) {
         if (clazz == Object.class) return List.of();
         if (clazz.isInterface()) return List.of();
-        if (cache.containsKey(clazz)) {
+        var out = cache.get(clazz);
+        if (out == null) {
+            LOGGER.fine("Finding streamed fields for class {0}", clazz.getSimpleName());
+            out =
+                    new ArrayList<>(
+                            findStreamedFields(clazz.getSuperclass(), streamedFieldsProvider));
+            streamedFieldsProvider.getDeclaredStreamedFields(clazz).forEach(out::add);
+            out = List.copyOf(out);
+            cache.put(clazz, out);
+        } else {
             LOGGER.fine(
                     "Streamed fields for class {0} are available in the cache, returning them",
                     clazz.getSimpleName());
-            return cache.get(clazz);
         }
-        LOGGER.fine("Finding streamed fields for class {0}", clazz.getSimpleName());
-        List<Field> out =
-                new ArrayList<>(findStreamedFields(clazz.getSuperclass(), streamedFieldsProvider));
-        streamedFieldsProvider.getDeclaredStreamedFields(clazz).forEach(out::add);
-        out = List.copyOf(out);
-        cache.put(clazz, out);
         return out;
     }
 }
