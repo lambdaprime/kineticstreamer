@@ -43,16 +43,13 @@ public class KineticStreamController {
         return fieldsProvider;
     }
 
-    public static class WriterResult {
-        boolean skip;
+    public record WriterResult(boolean skip) {
 
         /** Tell {@link KineticStreamWriter} to continue writing the field */
         public static final WriterResult CONTINUE = new WriterResult();
 
-        public WriterResult() {}
-
-        public WriterResult(boolean skip) {
-            this.skip = skip;
+        public WriterResult() {
+            this(false);
         }
     }
 
@@ -67,22 +64,21 @@ public class KineticStreamController {
         return WriterResult.CONTINUE;
     }
 
-    public static class ReaderResult {
-        boolean skip;
-        Optional<Object> object = Optional.empty();
+    public record ReaderResult(boolean skip, Optional<Object> object) {
 
         /** Tell {@link KineticStreamReader} to continue reading the field */
         public static final ReaderResult CONTINUE = new ReaderResult();
 
-        public ReaderResult() {}
-
-        public ReaderResult(boolean skip) {
-            this.skip = skip;
+        public ReaderResult() {
+            this(false, Optional.empty());
         }
 
-        public ReaderResult(boolean skip, Object object) {
-            this.skip = skip;
-            this.object = Optional.of(object);
+        public ReaderResult(boolean skip) {
+            this(skip, Optional.empty());
+        }
+
+        public ReaderResult(boolean skip, Object obj) {
+            this(skip, Optional.ofNullable(obj));
         }
     }
 
@@ -96,7 +92,8 @@ public class KineticStreamController {
      * KineticStreamController#onNextObject(InputKineticStream, Object, Class)} is issued for that
      * Class fields and not for the Class itself. For example read(Data.class) will not result to
      * onNextObject call with Data.class as a fieldType but to Data fields instead (this is needed
-     * to avoid possible recursion in case users try to call read(Data.class) from onNextObject).
+     * to avoid possible recursion in case users try to call read(Data.class) from onNextObject,
+     * especially this is relevant when trying to read Data[]).
      *
      * @param obj object from the field which is about to be deserialized
      * @param fieldType type of the field which {@link KineticStreamReader} is about to deserialize

@@ -66,7 +66,7 @@ public class KineticStreamWriter {
                 path.add(className);
                 for (var field : utils.findStreamedFields(type, controller.getFieldsProvider())) {
                     var fieldObj = field.get(obj);
-                    if (controller.onNextObject(out, fieldObj).skip) continue;
+                    if (controller.onNextObject(out, fieldObj).skip()) continue;
                     write(fieldObj, field.getAnnotations());
                 }
                 path.pop();

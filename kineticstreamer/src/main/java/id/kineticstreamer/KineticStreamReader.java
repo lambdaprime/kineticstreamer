@@ -136,8 +136,8 @@ public class KineticStreamReader {
             if (!inPlace) objSetter.set(val);
         } else {
             var res = controller.onNextObject(in, fieldObj, fieldType);
-            if (res.skip) {
-                if (res.object.isPresent()) objSetter.set(res.object.get());
+            if (res.skip()) {
+                if (res.object().isPresent()) objSetter.set(res.object().get());
             } else {
                 read(fieldType, objSetter::set, field.getAnnotations());
             }
