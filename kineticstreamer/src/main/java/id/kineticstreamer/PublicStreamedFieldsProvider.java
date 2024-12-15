@@ -38,6 +38,10 @@ import java.util.stream.IntStream;
  * Users can change the ordering of the streamed fields with {@link
  * #PublicStreamedFieldsProvider(Function)}
  *
+ * <p>Thread-safety of this class depends on provided mapping function {@link
+ * #PublicStreamedFieldsProvider(Function)}. If provided function is thread-safe then this class is
+ * thread-safe too.
+ *
  * @author lambdaprime intid@protonmail.com
  */
 public class PublicStreamedFieldsProvider implements StreamedFieldsProvider {

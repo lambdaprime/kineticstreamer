@@ -24,6 +24,7 @@ import id.xfunction.Preconditions;
 import id.xfunction.lang.XRE;
 import id.xfunction.logging.XLogger;
 import java.lang.annotation.Annotation;
+import java.util.Stack;
 
 /**
  * Writes Java objects into kinetic streams
@@ -35,6 +36,7 @@ public class KineticStreamWriter {
 
     private OutputKineticStream out;
     private KineticUtils utils = new KineticUtils();
+    private Stack<String> path = new Stack<>();
     private KineticStreamController controller = new KineticStreamController();
 
     public KineticStreamWriter(OutputKineticStream out) {
@@ -53,18 +55,21 @@ public class KineticStreamWriter {
      */
     public void write(Object obj, Annotation... annotations) throws Exception {
         Preconditions.notNull(obj, "Serialization of null values is not supported");
-        LOGGER.fine("Writing object type {0}", obj.getClass().getSimpleName());
+        var className = obj.getClass().getSimpleName();
+        LOGGER.fine("Writing object path={0}, type={1}", path, className);
         var type = obj.getClass();
         var ksPrimitiveType = TYPE_NAME_MAP.get(type.getName());
         if (ksPrimitiveType == null) {
             if (type.isArray()) {
                 writeArray(obj, type.getComponentType(), annotations);
             } else {
+                path.add(className);
                 for (var field : utils.findStreamedFields(type, controller.getFieldsProvider())) {
                     var fieldObj = field.get(obj);
                     if (controller.onNextObject(out, fieldObj).skip) continue;
                     write(fieldObj, field.getAnnotations());
                 }
+                path.pop();
             }
             return;
         }

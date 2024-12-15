@@ -26,6 +26,7 @@ import id.xfunction.lang.XRE;
 import id.xfunction.logging.XLogger;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.Stack;
 
 /**
  * Reads Java objects from kinetic streams
@@ -38,6 +39,7 @@ public class KineticStreamReader {
     private InputKineticStream in;
     private KineticUtils utils = new KineticUtils();
     private KineticStreamController controller = new KineticStreamController();
+    private Stack<String> path = new Stack<>();
     private boolean inPlace;
 
     public KineticStreamReader(InputKineticStream in) {
@@ -72,7 +74,7 @@ public class KineticStreamReader {
             ThrowingConsumer<Object, Exception> setter,
             Annotation[] fieldAnnotations)
             throws Exception {
-        LOGGER.fine("Reading object type {0}", type.getSimpleName());
+        LOGGER.fine("Reading object path={0}, type={1}", path, type.getSimpleName());
         var ksPrimitiveType = TYPE_NAME_MAP.get(type.getName());
         if (ksPrimitiveType == null) {
             var obj = utils.createObject(type);
@@ -124,10 +126,12 @@ public class KineticStreamReader {
     }
 
     private void readComplexField(Object obj, Field field) throws Exception {
+        path.add(obj.getClass().getSimpleName());
         var fieldType = field.getType();
         var objSetter = new ValueSetter(obj, field);
         var fieldObj = field.get(obj);
         if (fieldType.isArray()) {
+            LOGGER.fine("Reading object path={0}, type={1}", path, fieldType.getSimpleName());
             Object val = readArray(fieldObj, fieldType.getComponentType(), field.getAnnotations());
             if (!inPlace) objSetter.set(val);
         } else {
@@ -138,6 +142,7 @@ public class KineticStreamReader {
                 read(fieldType, objSetter::set, field.getAnnotations());
             }
         }
+        path.pop();
     }
 
     private Object readArray(Object targetArray, Class<?> type, Annotation[] annotations)
